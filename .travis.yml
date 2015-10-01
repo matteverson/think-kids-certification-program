@@ -7,4 +7,5 @@ before_script:
   - bower install
 services: mongodb
 after_success:
+  - rvm use 2.2.0
   - bash ./travis/after_success.sh
