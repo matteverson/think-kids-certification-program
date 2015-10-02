@@ -408,12 +408,6 @@ module.exports = function (grunt) {
           branch: 'master'
         }
       },
-      heroku_ci: {
-        options: {
-          remote: 'git@heroku.com:think-kids-certification.git',
-          branch: 'master'
-        }
-      },
       openshift: {
         options: {
           remote: 'openshift',
