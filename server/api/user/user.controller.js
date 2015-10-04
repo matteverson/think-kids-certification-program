@@ -3,6 +3,7 @@
 var User = require('./user.model');
 var passport = require('passport');
 var config = require('../../config/environment');
+var emailSender = require('../../components/emails');
 var jwt = require('jsonwebtoken');
 
 var validationError = function(res, err) {
@@ -76,6 +77,51 @@ exports.changePassword = function(req, res, next) {
     } else {
       res.status(403).send('Forbidden');
     }
+  });
+};
+
+/**
+ * Request a password reset
+ */
+exports.requestPasswordReset = function(req, res, next) {
+  var email = String(req.body.email);
+  var sender = emailSender('http://' + req.headers.host + '/api/users/reset_token/');
+  User.findOne({email: email}).exec()
+  .then(function (user) {
+    if (!user) throw Error("No user found");
+    return user.setToken();
+  })
+  .then(function (user) {
+    return sender.passwordReset(user);
+  })
+  .then(function (user) {
+      res.status(200).send('OK');
+      // res.status(500).send('Email not sent: ' + err);
+  },
+  function (err) {
+    res.status(404).send('Not found');
+  });
+};
+
+/**
+ * Reset the password with a token rather than the old password
+ */
+exports.resetPassword = function(req, res, next) {
+  var token = String(req.body.token);
+  var email = String(req.body.email);
+  var newPassword = String(req.body.newPassword);
+
+  User.getByToken(token, {email: email})
+  .then(function (user) {
+    if (!user) throw Error("No user found");
+    user.password = newPassword;
+    return user.resetToken();
+  })
+  .then(function (user) {
+    res.json(user);
+  },
+  function (err) {
+    res.status(401).send('Unauthorized');
   });
 };
 
