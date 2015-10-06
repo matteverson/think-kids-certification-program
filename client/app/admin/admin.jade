@@ -9,3 +9,7 @@ div(ng-include='"components/navbar/navbar.html"')
       span.text-muted {{user.email}}
       a.trash(ng-click='delete(user)')
         span.glyphicon.glyphicon-trash.pull-right
+
+  div
+    a.btn.btn-default.btn-lg.btn-register(href='/signup', ng-show='isAdmin()')
+      | New User

@@ -15,8 +15,8 @@ angular.module('thinkKidsCertificationProgramApp')
           password: $scope.user.password
         })
         .then( function() {
-          // Account created, redirect to home
-          $location.path('/');
+          // Account created, redirect to admin list of all users
+          $location.path('/admin');
         })
         .catch( function(err) {
           err = err.data;
