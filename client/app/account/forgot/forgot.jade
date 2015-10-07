@@ -1,0 +1,41 @@
+div(ng-include='"components/navbar/navbar.html"')
+.container
+  .row
+    .col-sm-12
+      h1 Forgot password
+
+    .col-sm-12
+      form.form(name='requestForm', ng-submit='forgot(requestForm)', novalidate='')
+        .form-group
+          label Email
+          input.form-control(type='text', name='email', ng-model='user.email')
+        .form-group.has-error
+          p.help-block(ng-show='requestForm.email.$error.required && forgotSubmitted')
+            | Please enter your email.
+          p.help-block {{ errors.requestForm }}
+
+        div
+          button.btn.btn-inverse.btn-lg.btn-login(type='submit')
+            | Request reset
+
+  hr
+  .row
+    .col-sm-12
+      form.form(name='resetForm', ng-submit='resetPassword(resetForm)', novalidate='')
+        .form-group
+          label Token
+          input.form-control(type='text', name='token', ng-model='reset.token')
+        .form-group
+          label Email
+          input.form-control(type='text', name='email', ng-model='reset.email')
+        .form-group
+          label New password
+          input.form-control(type='password', name='password', ng-model='reset.newPassword')
+        .form-group.has-error
+          p.help-block(ng-show='(resetForm.email.$error.required || resetForm.password.$error.required) && resetSubmitted')
+            | Please enter your email and a new password.
+          p.help-block {{ errors.resetForm }}
+
+        div
+          button.btn.btn-inverse.btn-lg.btn-primary(type='submit')
+            | Reset password

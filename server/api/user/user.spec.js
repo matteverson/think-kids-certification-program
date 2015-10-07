@@ -59,4 +59,71 @@ describe('API: /api/users', function() {
       done();
     });
   });
-})
+});
+
+describe('API: /api/users/:id/password_reset', function() {
+  it('POST: should respond with Not found for a missing user', function(done) {
+    request(app)
+    .post('/api/users/1/password_reset')
+    .send({email: 'foo@baduser.com'})
+    .expect(404)
+    .end(function(err, res) {
+      if (err) return done(err);
+      done();
+    });
+  });
+  it('POST: should respond with an OK for an existing user', function(done) {
+    request(app)
+    .post('/api/users/1/password_reset')
+    .send({email: '1@testuser.com'})
+    .expect(200)
+    .end(function(err, res) {
+      if (err) return done(err);
+      done();
+    });
+  });
+});
+
+describe('API: /api/users/reset_token', function() {
+  var token;
+  var oldPasswordHash;
+  before(function(done) {
+    user
+    .getData()
+    .then(function (data) { return data.setToken();})
+    .then(function (data) {
+      token = data.token;
+      oldPasswordHash = data.hashedPassword;
+      done();
+    });
+  });
+
+  it('POST: should respond with Unauthorized for a missing token', function(done) {
+    request(app)
+    .post('/api/users/reset_token')
+    .send({
+      token: 'mytoken',
+      email: 'foo@baduser.com',
+      newPassword: 'password2'})
+    .expect(401)
+    .end(function(err, res) {
+      if (err) return done(err);
+      done();
+    });
+  });
+  it('POST: should respond with a user with a new password for a good token and email', function(done) {
+    request(app)
+    .post('/api/users/reset_token')
+    .send({
+      token: token,
+      email: '1@testuser.com',
+      newPassword: 'password2'})
+    .expect(200)
+    .end(function(err, res) {
+      if (err) return done(err);
+      res.body.should.have.property('hashedPassword');
+      res.body.hashedPassword.should.not.equal(oldPasswordHash);
+      done();
+    });
+  });
+});

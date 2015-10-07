@@ -1,6 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var token = require('mongoose-token');
 var Schema = mongoose.Schema;
 var crypto = require('crypto');
 
@@ -138,5 +139,8 @@ UserSchema.methods = {
     return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');
   }
 };
+
+// Default options are a 20 character token with a 1 hour expiration
+UserSchema.plugin(token);
 
 module.exports = mongoose.model('User', UserSchema);

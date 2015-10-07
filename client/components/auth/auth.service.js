@@ -92,6 +92,20 @@ angular.module('thinkKidsCertificationProgramApp')
         }).$promise;
       },
 
+      requestPasswordReset: function(email) {
+          return $http.post('/api/users/1/password_reset', {
+            email: email
+          });
+      },
+
+      resetPasswordWithToken: function(token, email, newPassword) {
+          return $http.post('/api/users/reset_token', {
+            token: token,
+            email: email,
+            newPassword: newPassword
+          });
+      },
+
       /**
        * Gets all available info on authenticated user
        *
