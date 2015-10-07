@@ -6,7 +6,7 @@ var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
 
 // Send email with token
 module.exports = function(uri) {
-  if (process.env.NODE_ENV === 'production' && (api_key === null || domain === null)) {
+  if (process.env.NODE_ENV !== 'test' && (api_key === null || domain === null)) {
     console.log('Missing MAILGUN_API_KEY or MAILGUN_DOMAIN');
   }
 
@@ -21,7 +21,7 @@ module.exports = function(uri) {
         };
 
         // Skip sending emails from unit test runs
-        if (process.env.NODE_ENV === 'production') {
+        if (process.env.NODE_ENV !== 'test') {
           mailgun.messages().send(data)
           .then(function (body) {
             resolve(true);
