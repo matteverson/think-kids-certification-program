@@ -7,6 +7,7 @@
 
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
+var Role = require('../api/role/role.model');
 
 Thing.find({}).remove(function() {
   Thing.create({
@@ -35,10 +36,12 @@ User.find({}).remove(function() {
     provider: 'local',
     name: 'Test User',
     email: 'test@test.com',
-    password: 'test'
+    password: 'test',
+    roles: ['user']
   }, {
     provider: 'local',
     role: 'admin',
+    roles: ['admin'],
     name: 'Admin',
     email: 'admin@admin.com',
     password: 'admin'
@@ -46,4 +49,11 @@ User.find({}).remove(function() {
       console.log('finished populating users');
     }
   );
+});
+
+Role.find({}).remove(function() {
+  Role.create({
+    name : 'admin',
+    activities : ['view_users', 'delete_users', 'create_users']
+  });
 });

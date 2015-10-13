@@ -7,6 +7,7 @@ var jwt = require('jsonwebtoken');
 var expressJwt = require('express-jwt');
 var compose = require('composable-middleware');
 var User = require('../api/user/user.model');
+var Role = require('../api/role/role.model');
 var validateJwt = expressJwt({ secret: config.secrets.session });
 
 /**
@@ -53,6 +54,27 @@ function hasRole(roleRequired) {
     });
 }
 
+function can(activity) {
+  if (!activity) throw new Error('Required activity has to be set');
+
+  return compose()
+    .use(isAuthenticated())
+    .use(function meetsRequirements(req, res, next) {
+      Role.find({activities:activity}, function (err, role) {
+          if(err) return next(err);
+          
+          for(var i=0; i< role.length; i++) {
+            if(req.user.roles.indexOf(role[i].name) !== -1) {
+              next();
+              return;
+            }
+          }
+
+          res.status(403).send("Forbidden");
+      });
+    });
+}
+
 /**
  * Returns a jwt token signed by the app secret
  */
@@ -74,3 +96,4 @@ exports.isAuthenticated = isAuthenticated;
 exports.hasRole = hasRole;
 exports.signToken = signToken;
 exports.setTokenCookie = setTokenCookie;
+exports.can = can;
