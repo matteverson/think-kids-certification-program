@@ -3,6 +3,14 @@
 var should = require('should');
 var app = require('../../app');
 var request = require('supertest');
+var Role = require('../role/role.model');
+
+Role.find({}).remove(function() {
+  Role.create({
+    name : 'admin',
+    activities : ['view_users', 'delete_users', 'create_users']
+  });
+});
 
 // create two users with different permissions
 var admin = require('../../auth/authed-agent')('admin');
@@ -46,7 +54,7 @@ describe('API: /api/users', function() {
   });
 
   it('POST: should respond with token', function(done) {
-    request(app)
+    admin
     .post('/api/users')
     .send({
       email: 'newUser@example.com',
