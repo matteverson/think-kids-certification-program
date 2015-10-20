@@ -51,6 +51,12 @@ User.find({}).remove(function() {
     email: "inst@inst.com",
     password: "inst",
     roles: ['inst', 'user']
+  }, {
+    provider: 'local',
+    name: "Trainee",
+    email: "trainee@trainee.com",
+    password: "trainee",
+    roles: ['Certified Trainer Trainee (New)']
   }, function() {
       console.log('finished populating users');
     }
@@ -67,5 +73,32 @@ Role.find({}).remove(function() {
   }, {
     name: 'inst',
     activities: ['grade_sub', 'view_forms']
+  }, {
+    name: 'Certified Trainer (Old)',
+    activities: []
+  }, {
+    name: 'Certified Trainer (New)',
+    activities: []
+  }, {
+    name: 'Certified Trainer Trainee (Old)',
+    activities: []
+  }, {
+    name: 'Certified Trainer Trainee (New)',
+    activities: []
+  }, {
+    name: 'Certified Practitioner (Old)',
+    activities: []
+  }, {
+    name: 'Certified Practitioner (New)',
+    activities: []
+  }, {
+    name: 'Certified Practitioner Trainee (New)',
+    activities: []
+  }, {
+    name: 'Certified Mentors (Old)',
+    activities: []
+  }, {
+    name: 'Certified Mentors (New)',
+    activities: []
   });
 });

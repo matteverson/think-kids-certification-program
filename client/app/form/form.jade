@@ -1,4 +1,10 @@
 div(ng-include='"components/navbar/navbar.html"')
 .container
+  md-list(ng-controller="FormCtrl" ng-hide="form" ng-cloak)
+     md-subheader(class="md-no-sticky")
+       | Choose which users are allowed to fill the form
+     md-list-item(ng-repeat="role in roles")
+       p {{role.name}} ({{role.permitted}})
+       md-checkbox(class="md-secondary", ng-model="role.permitted")
   eda-step-way-easy-form-gen(ng-hide="form", eda-easy-form-generator-model="edaEasyFormGeneratorModel", eda-save-form-event="saveForm(edaEasyFormGeneratorModel)")
   eda-easy-form-viewer(ng-show="form", eda-easy-form-viewer-data-model="form.dataModel", eda-easy-form-viewer-easy-form-generator-fields-model="form.fieldsModel", eda-easy-form-viewer-submit-button-text="form.fieldsModel.btnSubmitText", eda-easy-form-viewer-cancel-button-text="form.fielsdModel.btnCancelText", eda-easy-form-viewer-submit-form-event="form.submitFormEvent(dataSubmitted)", eda-easy-form-viewer-cancel-form-event="form.cancelFormEvent()")

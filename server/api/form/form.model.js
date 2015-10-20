@@ -5,7 +5,8 @@ var mongoose = require('mongoose'),
 
 var FormSchema = new Schema({
   name: String,
-  data: Array
+  data: Array,
+  roles: Array
 });
 
 module.exports = mongoose.model('Form', FormSchema);

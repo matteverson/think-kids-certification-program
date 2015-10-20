@@ -9,7 +9,8 @@ angular.module('thinkKidsCertificationProgramApp', [
   'formly',
   'formlyBootstrap',
   'eda.easyformGen.stepway',
-  'eda.easyFormViewer'
+  'eda.easyFormViewer',
+  'ngMaterial'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
