@@ -6,8 +6,8 @@ var auth = require('../../auth/auth.service');
 
 var router = express.Router();
 
-router.get('/', auth.can("view_forms"), controller.index);
-router.get('/:id', auth.can("view_forms"), controller.show);
+router.get('/', controller.index);
+router.get('/:id', controller.show);
 router.post('/', auth.can("create_forms"), controller.create);
 router.put('/:id', controller.update);
 router.patch('/:id', controller.update);
