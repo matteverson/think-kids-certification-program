@@ -77,7 +77,7 @@ module.exports = function (grunt) {
           '<%= yeoman.client %>/{app,components}/**/*.spec.js',
           '<%= yeoman.client %>/{app,components}/**/*.mock.js'
         ],
-        tasks: ['newer:jshint:all', 'karma']
+        tasks: ['newer:jshint:all', 'wiredep:test', 'karma']
       },
       injectSass: {
         files: [
@@ -234,12 +234,26 @@ module.exports = function (grunt) {
 
     // Automatically inject Bower components into the app
     wiredep: {
-      target: {
-        src: '<%= yeoman.client %>/index.html',
-        ignorePath: '<%= yeoman.client %>/',
-        exclude: [/bootstrap-sass-official/, /bootstrap.js/, '/json3/', '/es5-shim/', /bootstrap.css/, /font-awesome.css/ ]
-      }
-    },
+      options: {
+        exclude: [
+          /angular-scenario/,
+          /bootstrap-sass-official/,
+          /bootstrap.js/,
+          '/json3/',
+          '/es5-shim/',
+          /bootstrap.css/,
+          /font-awesome.css/
+          ]
+        },
+        client: {
+          src: '<%= yeoman.client %>/index.html',
+          ignorePath: '<%= yeoman.client %>/',
+        },
+        test: {
+          src: './karma.conf.js',
+          devDependencies: true
+        }
+      },
 
     // Renames files for browser caching purposes
     rev: {
@@ -248,6 +262,8 @@ module.exports = function (grunt) {
           src: [
             '<%= yeoman.dist %>/public/{,*/}*.js',
             '<%= yeoman.dist %>/public/{,*/}*.css',
+            '!<%= yeoman.dist %>/public/bower_components/animate.css',
+            '<%= yeoman.dist %>/public/bower_components/animate.css/animate.css',
             '<%= yeoman.dist %>/public/assets/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
             '<%= yeoman.dist %>/public/assets/fonts/*'
           ]
@@ -268,7 +284,11 @@ module.exports = function (grunt) {
     // Performs rewrites based on rev and the useminPrepare configuration
     usemin: {
       html: ['<%= yeoman.dist %>/public/{,*/}*.html'],
-      css: ['<%= yeoman.dist %>/public/{,*/}*.css'],
+      css: [
+        '<%= yeoman.dist %>/public/{,*/}*.css',
+        '!<%= yeoman.dist %>/public/bower_components/animate.css',
+        '<%= yeoman.dist %>/public/bower_components/animate.css/animate.css'
+      ],
       js: ['<%= yeoman.dist %>/public/{,*/}*.js'],
       options: {
         assetsDirs: [
@@ -635,7 +655,7 @@ module.exports = function (grunt) {
         'injector:sass',
         'concurrent:server',
         'injector',
-        'wiredep',
+        'wiredep:client',
         'autoprefixer',
         'concurrent:debug'
       ]);
@@ -647,7 +667,7 @@ module.exports = function (grunt) {
       'injector:sass',
       'concurrent:server',
       'injector',
-      'wiredep',
+      'wiredep:client',
       'autoprefixer',
       'express:dev',
       'wait',
@@ -678,6 +698,7 @@ module.exports = function (grunt) {
         'concurrent:test',
         'injector',
         'autoprefixer',
+        'wiredep:test',
         'karma'
       ]);
     }
@@ -690,7 +711,7 @@ module.exports = function (grunt) {
         'injector:sass',
         'concurrent:test',
         'injector',
-        'wiredep',
+        'wiredep:client',
         'autoprefixer',
         'express:dev',
         'protractor'
@@ -698,8 +719,8 @@ module.exports = function (grunt) {
     }
 
     else grunt.task.run([
-      'test:server',
-      'test:client'
+      'test:server'
+      // 'test:client'
     ]);
   });
 
@@ -708,7 +729,7 @@ module.exports = function (grunt) {
     'injector:sass',
     'concurrent:dist',
     'injector',
-    'wiredep',
+    'wiredep:client',
     'useminPrepare',
     'autoprefixer',
     'ngtemplates',
