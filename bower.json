@@ -23,10 +23,10 @@
     "angular-scenario": ">=1.2.*"
   },
   "resolutions": {
-    "lodash": "~3.9.3",
-    "bootstrap": "~3.3.5",
     "angular-bootstrap": "~0.13.3",
-    "angular-formly": "~7.2.3",
-    "angular-formly-templates-bootstrap": "~6.1.5"
+    "angular-formly-templates-bootstrap": "~6.1.5",
+    "angular-formly": ">=4.0.5",
+    "lodash": "~3.9.3",
+    "bootstrap": "~3.3.5"
   }
 }

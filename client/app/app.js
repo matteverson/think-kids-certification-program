@@ -5,7 +5,12 @@ angular.module('thinkKidsCertificationProgramApp', [
   'ngResource',
   'ngSanitize',
   'ui.router',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'formly',
+  'formlyBootstrap',
+  'eda.easyformGen.stepway',
+  'eda.easyFormViewer',
+  'ngMaterial'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
