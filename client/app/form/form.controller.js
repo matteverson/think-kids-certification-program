@@ -9,19 +9,20 @@ angular.module('thinkKidsCertificationProgramApp')
                 return role;
             });
         });
-    
+
     $scope.saveForm = function(data) {
         var roles = $scope.$$childHead.roles.filter(function(role) {
             return role.permitted === true;
         }).map(function(role) {
             return role.name;
         });
-    	
+
         $http.post('/api/forms', { name: data.formName, data: [data], roles: roles });
     	$location.path('/admin');
     };
 
     if($stateParams.id) {
+      $scope.hasForm = true;
     	$http.get('/api/forms/'+$stateParams.id)
     		.success(function(form) {
 
@@ -33,6 +34,8 @@ angular.module('thinkKidsCertificationProgramApp')
                     $location.path("/");
                 } else {
                     $scope.form = {};
+                    $scope.form.btnSubmitText = form.data[0].btnSubmitText;
+                    $scope.form.btnCancelText = form.data[0].btnCancelText;
                     $scope.form.fieldsModel = form.data[0].edaFieldsModel;
                     $scope.form.dataModel = {};
 
