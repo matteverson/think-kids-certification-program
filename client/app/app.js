@@ -10,7 +10,8 @@ angular.module('thinkKidsCertificationProgramApp', [
   'formlyBootstrap',
   'eda.easyformGen.stepway',
   'eda.easyFormViewer',
-  'ngMaterial'
+  'ngMaterial',
+  'ngFileUpload'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
