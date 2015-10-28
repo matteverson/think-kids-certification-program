@@ -15,9 +15,9 @@
     "lodash": "~2.4.1",
     "angular-ui-router": "~0.2.15",
     "angular-formly": "~7.2.3",
-    "angular-formly-templates-bootstrap": "~6.1.5",
-    "easy-form-generator": "~1.0.32",
-    "ng-file-upload": "~9.1.1"
+    "ng-file-upload": "~9.1.1",
+    "angular-formly-templates-bootstrap": "~4.3.2",
+    "easy-form-generator": "~1.0.32"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",
@@ -25,7 +25,7 @@
   },
   "resolutions": {
     "angular-bootstrap": "~0.13.3",
-    "angular-formly-templates-bootstrap": "~6.1.5",
+    "angular-formly-templates-bootstrap": "~4.3.2",
     "angular-formly": ">=4.0.5",
     "lodash": "~3.9.3",
     "bootstrap": "~3.3.5"
