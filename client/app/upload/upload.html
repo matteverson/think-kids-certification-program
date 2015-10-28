@@ -1,0 +1,13 @@
+Upload on form submit or button click
+<form name="form">
+  Single File with validations
+  <div class="button" ngf-select ng-model="file" name="file">Select</div>
+  <button type="submit" ng-click="submit(form)">submit</button>
+</form>
+
+Upload right away after file selection:
+<div class="button" ngf-select="upload($file)">Upload on file select</div>
+
+Image thumbnail: <img ngf-thumbnail="file">
+Audio preview: <audio controls ngf-src="file"></audio>
+Video preview: <video controls ngf-src="file"></video>
