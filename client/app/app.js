@@ -11,7 +11,8 @@ angular.module('thinkKidsCertificationProgramApp', [
   'eda.easyformGen.stepway',
   'eda.easyFormViewer',
   'ngMaterial',
-  'ngFileUpload'
+  'ngFileUpload',
+  'angular-loading-bar'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
