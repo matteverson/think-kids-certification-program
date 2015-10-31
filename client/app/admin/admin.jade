@@ -18,6 +18,9 @@ div(ng-include='"components/navbar/navbar.html"')
     li.list-group-item(ng-repeat='form in forms')
       a(href='/form/{{form._id}}')
         strong {{form.name}}
+        br
+        a(href="form/{{form._id}}/roles")
+          span.text-muted Edit Roles
       a.trash(ng-click='deleteForm(form)')
         span.glyphicon.glyphicon-trash.pull-right
 
