@@ -53,10 +53,58 @@ User.find({}).remove(function() {
     roles: ['inst', 'user']
   }, {
     provider: 'local',
-    name: "Trainee",
-    email: "trainee@trainee.com",
+    name: "Certified Trainer (Old)",
+    email: "trainer@old.com",
+    password: "trainer",
+    roles: ['Certified Trainer (Old)', 'user']
+  }, {
+    provider: 'local',
+    name: "Certified Trainer (New)",
+    email: "trainer@new.com",
+    password: "trainer",
+    roles: ['Certified Trainer (New)', 'user']
+  }, {
+    provider: 'local',
+    name: "Certified Trainer Trainee (Old)",
+    email: "trainee@old.com",
     password: "trainee",
-    roles: ['Certified Trainer Trainee (New)']
+    roles: ['Certified Trainer Trainee (Old)', 'user']
+  }, {
+    provider: 'local',
+    name: "Certified Trainer Trainee (New)",
+    email: "trainee@new.com",
+    password: "trainee",
+    roles: ['Certified Trainer Trainee (new)', 'user']
+  },  {
+    provider: 'local',
+    name: "Certified Practitioner (Old)",
+    email: "practitioner@old.com",
+    password: "practitioner",
+    roles: ['Certified Practitioner (Old)', 'user']
+  }, {
+    provider: 'local',
+    name: "Certified Practitioner (New)",
+    email: "practitioner@new.com",
+    password: "practitioner",
+    roles: ['Certified Practitioner (New)', 'user']
+  }, {
+    provider: 'local',
+    name: "Certified Practitioner Trainee (New)",
+    email: "prac_trainee@old.com",
+    password: "tranee",
+    roles: ['Certified Pracitioner Trainee (New)', 'user']
+  },  {
+    provider: 'local',
+    name: "Certified Mentor (Old)",
+    email: "mentor@old.com",
+    password: "mentor",
+    roles: ['Certified Mentor (Old)', 'user']
+  }, {
+    provider: 'local',
+    name: "Certified Mentor (New)",
+    email: "mentor@new.com",
+    password: "mentor",
+    roles: ['Certified Mentor (New)', 'user']
   }, function() {
       console.log('finished populating users');
     }
@@ -95,10 +143,10 @@ Role.find({}).remove(function() {
     name: 'Certified Practitioner Trainee (New)',
     activities: []
   }, {
-    name: 'Certified Mentors (Old)',
+    name: 'Certified Mentor (Old)',
     activities: []
   }, {
-    name: 'Certified Mentors (New)',
+    name: 'Certified Mentor (New)',
     activities: []
   });
 });
