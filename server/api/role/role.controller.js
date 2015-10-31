@@ -35,7 +35,7 @@ exports.update = function(req, res) {
     Role.findByID(req.params.id, function(err, role) {
         if(err) { return handleError(res, err); }
         if(!role) { return res.status(404).send('Not Found'); }
-        var updated = _.merge(role, req.body);
+        var updated = _.extend(role, req.body);
         updated.save(function (err) {
             if(err) { return handleError(res, err); }
             return res.status(200).json(role);
