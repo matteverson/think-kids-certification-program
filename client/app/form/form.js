@@ -8,6 +8,11 @@ angular.module('thinkKidsCertificationProgramApp')
         templateUrl: 'app/form/form.html',
         controller: 'FormCtrl'
       })
+      .state('formRoles', {
+        url: '/form/:formID/roles',
+        templateUrl: 'app/form/roles.html',
+        controller: 'FormCtrl'
+      })
       .state('formView', {
       	url: '/form/:id',
       	templateUrl: 'app/form/form.html',
