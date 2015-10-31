@@ -34,7 +34,7 @@ exports.update = function(req, res) {
   Form.findById(req.params.id, function (err, form) {
     if (err) { return handleError(res, err); }
     if(!form) { return res.status(404).send('Not Found'); }
-    var updated = _.merge(form, req.body);
+    var updated = _.extend(form, req.body);
     updated.save(function (err) {
       if (err) { return handleError(res, err); }
       return res.status(200).json(form);
