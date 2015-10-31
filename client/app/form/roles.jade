@@ -1,0 +1,10 @@
+div(ng-include='"components/navbar/navbar.html"')
+.container
+  md-list(ng-controller="FormCtrl", ng-cloak)
+    md-subheader(class="md-no-sticky")
+      | Choose which users are allowed to fill the form
+    md-list-item(ng-repeat="role in roles")
+      p {{role.name}}
+      md-checkbox(class="md-secondary", ng-model="role.permitted")
+    md-button(class="md-raised md-primary", ng-click="saveRoles(roles)")
+      | Save
