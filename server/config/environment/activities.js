@@ -1,6 +1,7 @@
 module.exports = {
 	"view_users": "View users",
 	"create_users": "Create users",
+	"update_users": "Update users",
 	"delete_users": "Delete users",
 	'view_forms': 'View forms',
 	'create_forms': 'Create forms',
@@ -16,7 +17,6 @@ module.exports = {
 	"reset_passwords": "Reset passwords",
 	"reset_password": "Reset my password",
 	"edit_role": "Edit role",
-	"view_sub": "View submissions",
 	"add_notif": "Add notifications",
 	'view_profile': 'View profiles',
 	'add_class': 'Add class',

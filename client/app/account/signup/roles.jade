@@ -1,0 +1,10 @@
+div(ng-include='"components/navbar/navbar.html"')
+.container
+  md-list(ng-controller="SignupCtrl", ng-cloak)
+    md-subheader(class="md-no-sticky")
+      | Which role does the user belong to?
+    md-list-item(ng-repeat="role in roles")
+      p {{role.name}}
+      md-checkbox(class="md-secondary", ng-model="role.permitted")
+    md-button(class="md-raised md-primary", ng-click="saveRoles(roles)")
+      | Save

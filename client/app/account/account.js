@@ -14,6 +14,12 @@ angular.module('thinkKidsCertificationProgramApp')
         controller: 'SignupCtrl',
         authenticate: true
       })
+      .state('roles', {
+        url: '/signup/:userID/roles',
+        templateUrl: 'app/account/signup/roles.html',
+        controller: 'SignupCtrl',
+        authenticate: true
+      })
       .state('settings', {
         url: '/settings',
         templateUrl: 'app/account/settings/settings.html',
