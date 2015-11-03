@@ -5,6 +5,7 @@ var passport = require('passport');
 var config = require('../../config/environment');
 var emailSender = require('../../components/emails');
 var jwt = require('jsonwebtoken');
+var _ = require('lodash');
 
 var validationError = function(res, err) {
   return res.status(422).json(err);
@@ -34,7 +35,7 @@ exports.create = function (req, res, next) {
       newUser.save(function(err, user) {
       if (err) return validationError(res, err);
         var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
-        res.json({ token: token });
+        res.json({ token: token, id: user._id });
       });
     } else {
       res.status(401).send('User already exists');
@@ -51,7 +52,20 @@ exports.show = function (req, res, next) {
   User.findById(userId, function (err, user) {
     if (err) return next(err);
     if (!user) return res.status(401).send('Unauthorized');
-    res.json(user.profile);
+    res.json(user);
+  });
+};
+
+exports.update = function(req, res) {
+  if(req.body._id) { delete req.body._id; }
+  User.findById(req.params.id, function (err, user) {
+    if (err) { return handleError(res, err); }
+    if(!user) { return res.status(404).send('Not Found'); }
+    var updated = _.extend(user, req.body);
+    updated.save(function (err) {
+      if (err) { return handleError(res, err); }
+      return res.status(200).json(user);
+    });
   });
 };
 
