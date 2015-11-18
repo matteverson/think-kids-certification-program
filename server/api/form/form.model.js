@@ -6,6 +6,7 @@ var mongoose = require('mongoose'),
 var FormSchema = new Schema({
   name: String,
   data: Array,
+  submittedData: Array,
   roles: Array
 });
 
