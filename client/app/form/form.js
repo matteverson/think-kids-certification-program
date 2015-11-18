@@ -20,12 +20,12 @@ angular.module('thinkKidsCertificationProgramApp')
       })
       .state('formData', {
         url: '/form/:id/data',
-        templateUrl: '/app/form/data.html',
+        templateUrl: 'app/form/data.html',
         controller: 'FormCtrl'
       })
       .state('formUserData', {
         url: '/form/:id/data/:by',
-        templateUrl: '/app/form/data.html',
+        templateUrl: 'app/form/data.html',
         controller: 'FormCtrl'
       });
   });
