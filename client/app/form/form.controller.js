@@ -6,9 +6,12 @@ angular.module('thinkKidsCertificationProgramApp')
       if(window.location.pathname.indexOf("roles") > -1) {
         $http.get('/api/roles')
           .success(function(roles) {
+            console.log(roles);
             $http.get('/api/forms/' + $stateParams.id)
               .success(function(form) {
-                $scope.roles = roles.map(function(role) {
+                $scope.roles = roles.filter(function(role) {
+                  return role.name !== 'user' && role.name !== 'inst' && role.name !== 'admin';
+                }).map(function(role) {
                   if(form.roles.indexOf(role.name) !== -1) {
                     role.permitted = true;
                   } else {
@@ -16,8 +19,7 @@ angular.module('thinkKidsCertificationProgramApp')
                   }
                   return role;
                 });
-                $scope.roles = $scope.roles.splice(3, $scope.roles.length-3);
-              })
+              });
           });
         
         $scope.saveRoles = function(data) {
@@ -26,7 +28,8 @@ angular.module('thinkKidsCertificationProgramApp')
           }).map(function(role) {
             return role.name;
           });
-          
+          roles.push('admin');
+          roles.push('inst');
           $http.patch('/api/forms/'+$stateParams.id, {roles: roles})
             .success(function(form) {
               $location.path("/admin");
