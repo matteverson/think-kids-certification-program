@@ -3,12 +3,15 @@
 angular.module('thinkKidsCertificationProgramApp')
   .controller('FormCtrl', function ($scope, $http, $stateParams, $location, Auth) {
     if($stateParams.id) {
-      if(window.location.pathname.indexOf("roles") > -1) {
+      if(window.location.pathname.indexOf('roles') > -1) {
         $http.get('/api/roles')
           .success(function(roles) {
+            console.log(roles);
             $http.get('/api/forms/' + $stateParams.id)
               .success(function(form) {
-                $scope.roles = roles.map(function(role) {
+                $scope.roles = roles.filter(function(role) {
+                  return role.name !== 'user' && role.name !== 'inst' && role.name !== 'admin';
+                }).map(function(role) {
                   if(form.roles.indexOf(role.name) !== -1) {
                     role.permitted = true;
                   } else {
@@ -16,8 +19,7 @@ angular.module('thinkKidsCertificationProgramApp')
                   }
                   return role;
                 });
-                $scope.roles = $scope.roles.splice(3, $scope.roles.length-3);
-              })
+              });
           });
         
         $scope.saveRoles = function(data) {
@@ -26,14 +28,15 @@ angular.module('thinkKidsCertificationProgramApp')
           }).map(function(role) {
             return role.name;
           });
-          
+          roles.push('admin');
+          roles.push('inst');
           $http.patch('/api/forms/'+$stateParams.id, {roles: roles})
-            .success(function(form) {
-              $location.path("/admin");
+            .success(function() {
+              $location.path('/admin');
             });
          };
-      } else if (window.location.pathname.indexOf("data") > -1) {
-        $http.get("/api/forms/" + $stateParams.id)
+      } else if (window.location.pathname.indexOf('data') > -1) {
+        $http.get('/api/forms/' + $stateParams.id)
           .success(function(form) {
             $scope.form = form;
             
@@ -49,9 +52,9 @@ angular.module('thinkKidsCertificationProgramApp')
               var data = [];
               
               for(var i = 0; i < dataProps.length; i++) {
-                if(dataProps[i] === "byName") {
+                if(dataProps[i] === 'byName') {
                   continue;
-                } else if(dataProps[i] === "by") {
+                } else if(dataProps[i] === 'by') {
                   continue;
                 } else {
                   var tempData = {};
@@ -68,10 +71,10 @@ angular.module('thinkKidsCertificationProgramApp')
                 form.submittedData.splice(form.submittedData.indexOf(data), 1);
                 var submittedData = form.submittedData;
                 $http.patch('/api/forms/'+$stateParams.id, {submittedData: submittedData});
-              }
+              };
             }
           });
-      } else if (window.location.pathname.indexOf("data") === -1 && window.location.pathname.indexOf("roles") === -1) {
+      } else if (window.location.pathname.indexOf('data') === -1 && window.location.pathname.indexOf('roles') === -1) {
         $scope.viewForm = true;
         
         $http.get('/api/forms/'+$stateParams.id)
@@ -80,8 +83,8 @@ angular.module('thinkKidsCertificationProgramApp')
               return Auth.getCurrentUser().roles.indexOf(role) !== -1;
             }).length;
     
-            if(permitted == 0) {
-              $location.path("/");
+            if(permitted === 0) {
+              $location.path('/');
             } else {
               $scope.form = {};
               $scope.form.btnSubmitText = form.data[0].btnSubmitText;
@@ -89,7 +92,7 @@ angular.module('thinkKidsCertificationProgramApp')
               $scope.form.fieldsModel = form.data[0].edaFieldsModel;
               $scope.form.dataModel = {};
 
-              $scope.form.submitFormEvent = function(dataSubmitted) {
+              $scope.form.submitFormEvent = function() {
                 var formFieldsData = form.data[0].edaFieldsModel;
                 var formSubmittedDataProps = Object.getOwnPropertyNames($scope.form.dataModel);
                 var formSubmittedData = {};
@@ -104,8 +107,8 @@ angular.module('thinkKidsCertificationProgramApp')
                   }
                 }
                     
-                formSubmittedData["by"] = Auth.getCurrentUser()._id;
-                formSubmittedData["byName"] = Auth.getCurrentUser().name;
+                formSubmittedData.by = Auth.getCurrentUser()._id;
+                formSubmittedData.byName = Auth.getCurrentUser().name;
                 
                 form.submittedData.push(formSubmittedData);
                 formSubmittedData = form.submittedData;
@@ -113,7 +116,7 @@ angular.module('thinkKidsCertificationProgramApp')
               };
     
               $scope.form.cancelFormEvent = function() {
-                console.log("Form cancelled!");
+                console.log('Form cancelled!');
               };
             }
           });
@@ -123,7 +126,7 @@ angular.module('thinkKidsCertificationProgramApp')
 
       $scope.saveForm = function(data) {
         $http.post('/api/forms', { name: data.formName, submittedData: [], data: [data], roles: []}).success(function(form) {
-          $location.path("/form/" + form._id + "/roles");
+          $location.path('/form/' + form._id + '/roles');
         });
       };
     }

@@ -60,7 +60,7 @@ angular.module('thinkKidsCertificationProgramApp')
         var cb = callback || angular.noop;
 
         return User.save(user,
-          function(data) {
+          function() {
             return cb(user);
           },
           function(err) {
