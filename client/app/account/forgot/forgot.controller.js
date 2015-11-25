@@ -36,5 +36,5 @@ angular.module('thinkKidsCertificationProgramApp')
           $scope.errors.resetForm = err.message;
         });
       }
-    }
+    };
   });

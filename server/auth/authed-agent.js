@@ -37,7 +37,7 @@ function Authed(role) {
       if (err) return done(err);
       done();
     });
-  };
+  }
 
   function getToken(done) {
     agent

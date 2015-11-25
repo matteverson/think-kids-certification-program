@@ -33,7 +33,7 @@ module.exports = function(uri) {
         }
         else {
           resolve(true);
-        };
+        }
       });
 
       return promise;

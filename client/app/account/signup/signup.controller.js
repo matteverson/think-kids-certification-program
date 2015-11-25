@@ -49,16 +49,16 @@ angular.module('thinkKidsCertificationProgramApp')
                 return role;
               });
               
-              if(user.roles.indexOf("admin") !== -1) {
+              if(user.roles.indexOf('admin') !== -1) {
                 isAdmin = true;
               }
               
-              if(user.roles.indexOf("inst") !== -1) {
+              if(user.roles.indexOf('inst') !== -1) {
                 isInstructor = true;
               }
               
               $scope.roles = $scope.roles.splice(3, $scope.roles.length-3);
-            })
+            });
         });
   
       $scope.saveRoles = function(data) {
@@ -68,20 +68,20 @@ angular.module('thinkKidsCertificationProgramApp')
           return role.name;
         });
         
-        roles.push("user");
+        roles.push('user');
         
         if(isAdmin) {
-          roles.push("admin");
+          roles.push('admin');
         }
         
         if(isInstructor) {
-          roles.push("inst");
+          roles.push('inst');
         }
         
         $http.patch('/api/users/'+$stateParams.userID, {roles: roles})
-          .success(function(form) {
-            $location.path("/admin");
+          .success(function() {
+            $location.path('/admin');
           });
       };  
-    };
+    }
   });
