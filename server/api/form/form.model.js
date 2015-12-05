@@ -7,7 +7,8 @@ var FormSchema = new Schema({
   name: String,
   data: Array,
   submittedData: Array,
-  roles: Array
+  roles: Array,
+  isFeedback: Boolean
 });
 
 module.exports = mongoose.model('Form', FormSchema);

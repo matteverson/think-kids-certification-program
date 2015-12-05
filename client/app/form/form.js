@@ -24,7 +24,22 @@ angular.module('thinkKidsCertificationProgramApp')
         controller: 'FormCtrl'
       })
       .state('formUserData', {
-        url: '/form/:id/data/:by',
+        url: '/form/:id/data/:onTime',
+        templateUrl: 'app/form/data.html',
+        controller: 'FormCtrl'
+      })
+      .state('formUserDataFeedbackFormChoose', {
+        url: '/form/:id/data/:onTime/feedback',
+        templateUrl: 'app/form/feedback.html',
+        controller: 'FormCtrl'
+      })
+      .state('formUserDataFeedbackForm', {
+        url: '/form/:id/data/:onTime/feedback/new/:formId',
+        templateUrl: 'app/form/form.html',
+        controller: 'FormCtrl'
+      })
+      .state('formUserDataFeedbackView', {
+        url: '/form/:id/data/:onTime/feedback/view',
         templateUrl: 'app/form/data.html',
         controller: 'FormCtrl'
       });
