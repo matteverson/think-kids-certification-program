@@ -1,6 +1,6 @@
 div(ng-include='"components/navbar/navbar.html"')
 .container
-  md-list(ng-controller="FormCtrl", ng-cloak)
+  md-list(ng-controller="FormRolesCtrl", ng-cloak)
     md-subheader(class="md-no-sticky")
       | Choose which users are allowed to fill the form
     md-list-item(ng-repeat="role in roles")
@@ -9,10 +9,10 @@ div(ng-include='"components/navbar/navbar.html"')
     md-subheader(class="md-no-sticky")
       | Is this an instructor feedback form?
     md-list-item
-      md-radio-group(ng-model="isFeedback")
-        md-radio-button(value="Yes")
+      md-radio-group(ng-model="Feedback")
+        md-radio-button(value="Yes", class="md-primary")
           | Yes
-        md-radio-button(value="No", class="md-primary")
+        md-radio-button(value="No")
           | No
     md-button(class="md-raised md-primary", ng-click="saveRoles(roles)")
       | Save
