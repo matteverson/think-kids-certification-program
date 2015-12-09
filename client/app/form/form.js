@@ -16,16 +16,31 @@ angular.module('thinkKidsCertificationProgramApp')
       .state('formRoles', {
         url: '/form/:id/roles',
         templateUrl: 'app/form/roles.html',
-        controller: 'FormCtrl'
+        controller: 'FormRolesCtrl'
       })
       .state('formData', {
         url: '/form/:id/data',
         templateUrl: 'app/form/data.html',
-        controller: 'FormCtrl'
+        controller: 'FormDataCtrl'
       })
       .state('formUserData', {
-        url: '/form/:id/data/:by',
+        url: '/form/:id/data/:onTime',
         templateUrl: 'app/form/data.html',
-        controller: 'FormCtrl'
+        controller: 'FormDataCtrl'
+      })
+      .state('formUserDataFeedbackFormChoose', {
+        url: '/form/:id/data/:onTime/feedback',
+        templateUrl: 'app/form/feedback.html',
+        controller: 'FormDataCtrl'
+      })
+      .state('formUserDataFeedbackForm', {
+        url: '/form/:id/data/:onTime/feedback/new/:formId',
+        templateUrl: 'app/form/form.html',
+        controller: 'FormDataCtrl'
+      })
+      .state('formUserDataFeedbackView', {
+        url: '/form/:id/data/:onTime/feedback/view',
+        templateUrl: 'app/form/data.html',
+        controller: 'FormDataCtrl'
       });
   });

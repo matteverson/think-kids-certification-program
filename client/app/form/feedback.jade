@@ -1,0 +1,7 @@
+div(ng-include='"components/navbar/navbar.html"')
+.container
+  p Please choose a feedback form:
+  ul.list-group
+    li.list-group-item(ng-repeat='form in forms')
+      a(href='/form/{{formID}}/data/{{onTime}}/feedback/new/{{form._id}}')
+        strong {{form.name}}
