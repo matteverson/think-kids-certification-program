@@ -21,7 +21,8 @@ function Authed(role) {
     name: 'John Testuser',
     email: (userCounter++) +'@testuser.com',
     password: 'password',
-    roles: role
+    roles: role,
+    active: true
   };
 
   function createUser(done) {

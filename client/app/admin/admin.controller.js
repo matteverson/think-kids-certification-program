@@ -4,13 +4,32 @@ angular.module('thinkKidsCertificationProgramApp')
   .controller('AdminCtrl', function ($scope, $http, Auth, User) {
 
     // Use the User $resource to fetch all users
-    $scope.users = User.query();
+    $scope.users = User.query(function(users) {
+      users = users.map(function(user) {
+        if(user.active) {
+          user.activeString = 'Deactivate';
+        } else {
+          user.activeString = 'Activate';
+        }
+      });
+    });
     $scope.isAdmin = Auth.isAdmin;
 
     $http.get('/api/forms')
         .success(function(form) {
           $scope.forms = form;
         });
+
+    $scope.toggleActivation = function(user) {
+      user.active = !user.active;
+      if(user.active) {
+        user.activeString = 'Activate';
+      } else {
+        user.activeString = 'Deactivate';
+      }
+
+      $http.patch('/api/users/' + user._id, {active: user.active});
+    };
 
     $scope.deleteUser = function(user) {
       User.remove({ id: user._id });

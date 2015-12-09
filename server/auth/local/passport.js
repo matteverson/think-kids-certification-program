@@ -12,6 +12,10 @@ exports.setup = function (User, config) {
       }, function(err, user) {
         if (err) return done(err);
 
+        if(!user.active) {
+          return done(null, false, { message: 'This email is associated with a deactivated account.' });
+        }
+
         if (!user) {
           return done(null, false, { message: 'This email is not registered.' });
         }

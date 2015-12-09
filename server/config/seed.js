@@ -37,11 +37,13 @@ User.find({}).remove(function() {
     name: 'Test User',
     email: 'test@test.com',
     password: 'test',
-    roles: ['user']
+    roles: ['user'],
+    active: true
   }, {
     provider: 'local',
     role: 'admin',
     roles: ['admin', 'user'],
+    active: true,
     name: 'Admin',
     email: 'admin@admin.com',
     password: 'admin'
@@ -50,61 +52,71 @@ User.find({}).remove(function() {
     name: "Test instructor",
     email: "inst@inst.com",
     password: "inst",
-    roles: ['inst', 'user']
+    roles: ['inst', 'user'],
+    active: true
   }, {
     provider: 'local',
     name: "Certified Trainer (Old)",
     email: "trainer@old.com",
     password: "trainer",
-    roles: ['Certified Trainer (Old)', 'user']
+    roles: ['Certified Trainer (Old)', 'user'],
+    active: true
   }, {
     provider: 'local',
     name: "Certified Trainer (New)",
     email: "trainer@new.com",
     password: "trainer",
-    roles: ['Certified Trainer (New)', 'user']
+    roles: ['Certified Trainer (New)', 'user'],
+    active: true
   }, {
     provider: 'local',
     name: "Certified Trainer Trainee (Old)",
     email: "trainee@old.com",
     password: "trainee",
-    roles: ['Certified Trainer Trainee (Old)', 'user']
+    roles: ['Certified Trainer Trainee (Old)', 'user'],
+    active: true
   }, {
     provider: 'local',
     name: "Certified Trainer Trainee (New)",
     email: "trainee@new.com",
     password: "trainee",
-    roles: ['Certified Trainer Trainee (new)', 'user']
+    roles: ['Certified Trainer Trainee (new)', 'user'],
+    active: true
   },  {
     provider: 'local',
     name: "Certified Practitioner (Old)",
     email: "practitioner@old.com",
     password: "practitioner",
-    roles: ['Certified Practitioner (Old)', 'user']
+    roles: ['Certified Practitioner (Old)', 'user'],
+    active: true
   }, {
     provider: 'local',
     name: "Certified Practitioner (New)",
     email: "practitioner@new.com",
     password: "practitioner",
-    roles: ['Certified Practitioner (New)', 'user']
+    roles: ['Certified Practitioner (New)', 'user'],
+    active: true
   }, {
     provider: 'local',
     name: "Certified Practitioner Trainee (New)",
     email: "prac_trainee@old.com",
     password: "tranee",
-    roles: ['Certified Pracitioner Trainee (New)', 'user']
+    roles: ['Certified Pracitioner Trainee (New)', 'user'],
+    active: true
   },  {
     provider: 'local',
     name: "Certified Mentor (Old)",
     email: "mentor@old.com",
     password: "mentor",
-    roles: ['Certified Mentor (Old)', 'user']
+    roles: ['Certified Mentor (Old)', 'user'],
+    active: true
   }, {
     provider: 'local',
     name: "Certified Mentor (New)",
     email: "mentor@new.com",
     password: "mentor",
-    roles: ['Certified Mentor (New)', 'user']
+    roles: ['Certified Mentor (New)', 'user'],
+    active: true
   }, function() {
       console.log('finished populating users');
     }
