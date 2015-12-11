@@ -14,6 +14,11 @@ var UserSchema = new Schema({
   },
   roles: [String],
   hashedPassword: String,
+  prof: {
+    fullName: String,
+    gender: String,
+    location: String
+  },
   provider: String,
   salt: String
 });
@@ -38,6 +43,9 @@ UserSchema
   .get(function() {
     return {
       'name': this.name,
+      'fullName': this.prof.fullName,
+      'gender': this.prof.gender,
+      'location': this.prof.location,
       'role': this.role
     };
   });
