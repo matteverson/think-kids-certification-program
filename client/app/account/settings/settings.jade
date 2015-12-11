@@ -18,4 +18,21 @@ div(ng-include='"components/navbar/navbar.html"')
 
         p.help-block  {{ message }}
 
-        button.btn.btn-lg.btn-primary(type='submit') Save changes
+        button.btn.btn-lg.btn-primary(type='submit') Change Password
+
+  .row
+    .col-sm-12
+      h1 Edit Profile
+    .col-sm-12
+      form.form(name='form', ng-submit='editProfile()', novalidate='')
+        .form-group
+          label Full Name
+          input.form-control(type='text', name='fullName', ng-model='user.fullName')
+        .form-group
+          label Location
+          input.form-control(type='text', name='location', ng-model='user.location')
+        .form-group
+          label Gender
+          input.form-control(type='text', name='gender', ng-model='user.gender')
+
+        button.btn.btn-lg.btn-primary(type='submit') Save Profile
