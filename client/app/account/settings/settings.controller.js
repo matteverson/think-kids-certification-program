@@ -1,8 +1,10 @@
 'use strict';
 
 angular.module('thinkKidsCertificationProgramApp')
-  .controller('SettingsCtrl', function ($scope, User, Auth) {
+  .controller('SettingsCtrl', function ($scope, $http, User, Auth) {
     $scope.errors = {};
+
+    $scope.user = Auth.getCurrentUser().prof;
 
     $scope.changePassword = function(form) {
       $scope.submitted = true;
@@ -17,5 +19,10 @@ angular.module('thinkKidsCertificationProgramApp')
           $scope.message = '';
         });
       }
+		};
+
+    $scope.editProfile = function() {
+      $scope.submitted = true;
+      $http.patch('/api/users/'+Auth.getCurrentUser()._id, {prof: $scope.user});
 		};
   });
