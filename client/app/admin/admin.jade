@@ -5,11 +5,11 @@ div(ng-include='"components/navbar/navbar.html"')
   ul.list-group
     li.list-group-item(ng-repeat='user in users')
       strong {{user.name}}
+      a.text-muted(ng-click="toggleActivation(user)")  {{user.activeString}} account
       br
-      span.text-muted
-        em
-          a(href="signup/{{user._id}}/roles")
-            {{user.roles.join(', ')}}
+      em.text-muted
+        a(href="signup/{{user._id}}/roles")
+          {{user.roles.join(', ')}}
       br
       span.text-muted {{user.email}}
       a.trash(ng-click='deleteUser(user)')

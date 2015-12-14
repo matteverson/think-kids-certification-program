@@ -42,11 +42,13 @@ User.find({}).remove(function() {
       fullName: 'Brett Cota',
       gender: 'Male',
       location: 'Atlantis'
-    }
+    },
+    active: true
   }, {
     provider: 'local',
     role: 'admin',
     roles: ['admin', 'user'],
+    active: true,
     name: 'Admin',
     email: 'admin@admin.com',
     password: 'admin',
@@ -54,7 +56,7 @@ User.find({}).remove(function() {
       fullName: 'Lisa Allen',
       gender: 'Female',
       location: 'Atlantis'
-    }
+    },
   }, {
     provider: 'local',
     name: "Test instructor",
@@ -65,7 +67,8 @@ User.find({}).remove(function() {
       fullName: 'Harrison Wells',
       gender: 'Male',
       location: 'Atlantis'
-    }
+    },
+    active: true
   }, {
     provider: 'local',
     name: "Certified Trainer (Old)",
@@ -76,7 +79,8 @@ User.find({}).remove(function() {
       fullName: 'Felicity Smoak',
       gender: 'Female',
       location: 'Atlantis'
-    }
+    },
+    active: true
   }, {
     provider: 'local',
     name: "Certified Trainer (New)",
@@ -87,7 +91,8 @@ User.find({}).remove(function() {
       fullName: 'Oliver Queen',
       gender: 'Male',
       location: 'Atlantis'
-    }
+    },
+    active: true
   }, {
     provider: 'local',
     name: "Certified Trainer Trainee (Old)",
@@ -98,7 +103,8 @@ User.find({}).remove(function() {
       fullName: 'Iris West',
       gender: 'Female',
       location: 'Atlantis'
-    }
+    },
+    active: true
   }, {
     provider: 'local',
     name: "Certified Trainer Trainee (New)",
@@ -109,7 +115,8 @@ User.find({}).remove(function() {
       fullName: 'Cisco Ramon',
       gender: 'Male',
       location: 'Atlantis'
-    }
+    },
+    active: true
   },  {
     provider: 'local',
     name: "Certified Practitioner (Old)",
@@ -120,7 +127,8 @@ User.find({}).remove(function() {
       fullName: 'Caitlin Snow',
       gender: 'Female',
       location: 'Atlantis'
-    }
+    },
+    active: true
   }, {
     provider: 'local',
     name: "Certified Practitioner (New)",
@@ -131,7 +139,8 @@ User.find({}).remove(function() {
       fullName: 'Barry Allen',
       gender: 'Male',
       location: 'Atlantis'
-    }
+    },
+    active: true
   }, {
     provider: 'local',
     name: "Certified Practitioner Trainee (New)",
@@ -142,7 +151,8 @@ User.find({}).remove(function() {
       fullName: 'Patricia Schexnayder',
       gender: 'Female',
       location: 'Atlantis'
-    }
+    },
+    active: true
   },  {
     provider: 'local',
     name: "Certified Mentor (Old)",
@@ -153,7 +163,8 @@ User.find({}).remove(function() {
       fullName: 'John Smith',
       gender: 'Male',
       location: 'Atlantis'
-    }
+    },
+    active: true
   }, {
     provider: 'local',
     name: "Certified Mentor (New)",
@@ -164,7 +175,8 @@ User.find({}).remove(function() {
       fullName: 'Robert Allen',
       gender: 'Female',
       location: 'Atlantis'
-    }
+    },
+    active: true
   }, function() {
       console.log('finished populating users');
     }
