@@ -37,74 +37,134 @@ User.find({}).remove(function() {
     name: 'Test User',
     email: 'test@test.com',
     password: 'test',
-    roles: ['user']
+    roles: ['user'],
+    prof: {
+      fullName: 'Brett Cota',
+      gender: 'Male',
+      location: 'Atlantis'
+    }
   }, {
     provider: 'local',
     role: 'admin',
     roles: ['admin', 'user'],
     name: 'Admin',
     email: 'admin@admin.com',
-    password: 'admin'
+    password: 'admin',
+    prof: {
+      fullName: 'Lisa Allen',
+      gender: 'Female',
+      location: 'Atlantis'
+    }
   }, {
     provider: 'local',
     name: "Test instructor",
     email: "inst@inst.com",
     password: "inst",
-    roles: ['inst', 'user']
+    roles: ['inst', 'user'],
+    prof: {
+      fullName: 'Harrison Wells',
+      gender: 'Male',
+      location: 'Atlantis'
+    }
   }, {
     provider: 'local',
     name: "Certified Trainer (Old)",
     email: "trainer@old.com",
     password: "trainer",
-    roles: ['Certified Trainer (Old)', 'user']
+    roles: ['Certified Trainer (Old)', 'user'],
+    prof: {
+      fullName: 'Felicity Smoak',
+      gender: 'Female',
+      location: 'Atlantis'
+    }
   }, {
     provider: 'local',
     name: "Certified Trainer (New)",
     email: "trainer@new.com",
     password: "trainer",
-    roles: ['Certified Trainer (New)', 'user']
+    roles: ['Certified Trainer (New)', 'user'],
+    prof: {
+      fullName: 'Oliver Queen',
+      gender: 'Male',
+      location: 'Atlantis'
+    }
   }, {
     provider: 'local',
     name: "Certified Trainer Trainee (Old)",
     email: "trainee@old.com",
     password: "trainee",
-    roles: ['Certified Trainer Trainee (Old)', 'user']
+    roles: ['Certified Trainer Trainee (Old)', 'user'],
+    prof: {
+      fullName: 'Iris West',
+      gender: 'Female',
+      location: 'Atlantis'
+    }
   }, {
     provider: 'local',
     name: "Certified Trainer Trainee (New)",
     email: "trainee@new.com",
     password: "trainee",
-    roles: ['Certified Trainer Trainee (new)', 'user']
+    roles: ['Certified Trainer Trainee (new)', 'user'],
+    prof: {
+      fullName: 'Cisco Ramon',
+      gender: 'Male',
+      location: 'Atlantis'
+    }
   },  {
     provider: 'local',
     name: "Certified Practitioner (Old)",
     email: "practitioner@old.com",
     password: "practitioner",
-    roles: ['Certified Practitioner (Old)', 'user']
+    roles: ['Certified Practitioner (Old)', 'user'],
+    prof: {
+      fullName: 'Caitlin Snow',
+      gender: 'Female',
+      location: 'Atlantis'
+    }
   }, {
     provider: 'local',
     name: "Certified Practitioner (New)",
     email: "practitioner@new.com",
     password: "practitioner",
-    roles: ['Certified Practitioner (New)', 'user']
+    roles: ['Certified Practitioner (New)', 'user'],
+    prof: {
+      fullName: 'Barry Allen',
+      gender: 'Male',
+      location: 'Atlantis'
+    }
   }, {
     provider: 'local',
     name: "Certified Practitioner Trainee (New)",
     email: "prac_trainee@old.com",
     password: "tranee",
-    roles: ['Certified Pracitioner Trainee (New)', 'user']
+    roles: ['Certified Pracitioner Trainee (New)', 'user'],
+    prof: {
+      fullName: 'Patricia Schexnayder',
+      gender: 'Female',
+      location: 'Atlantis'
+    }
   },  {
     provider: 'local',
     name: "Certified Mentor (Old)",
     email: "mentor@old.com",
     password: "mentor",
-    roles: ['Certified Mentor (Old)', 'user']
+    roles: ['Certified Mentor (Old)', 'user'],
+    prof: {
+      fullName: 'John Smith',
+      gender: 'Male',
+      location: 'Atlantis'
+    }
   }, {
     provider: 'local',
     name: "Certified Mentor (New)",
     email: "mentor@new.com",
     password: "mentor",
-    roles: ['Certified Mentor (New)', 'user']
+    roles: ['Certified Mentor (New)', 'user'],
+    prof: {
+      fullName: 'Robert Allen',
+      gender: 'Female',
+      location: 'Atlantis'
+    }
   }, function() {
       console.log('finished populating users');
     }
