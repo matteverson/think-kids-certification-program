@@ -1,0 +1,9 @@
+div(ng-include='"components/navbar/navbar.html"')
+.container
+  .prof
+    img.profImg(src="{{user.prof.avatar}}")
+    h1.userName {{user.prof.fullName}}
+    i.fa.fa-location-arrow        {{user.prof.location}}
+    br
+    br
+    p.profBio {{user.prof.bio}}

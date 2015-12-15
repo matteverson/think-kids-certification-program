@@ -32,7 +32,10 @@ div(ng-include='"components/navbar/navbar.html"')
           label Location
           input.form-control(type='text', name='location', ng-model='user.location')
         .form-group
-          label Gender
-          input.form-control(type='text', name='gender', ng-model='user.gender')
+          label Avatar Link
+          input.form-control(type='url', name='avatar', ng-model='user.avatar')
+        .form-group
+          label Bio
+          textarea.form-control(type='text', name='bio', ng-model='user.bio')
 
         button.btn.btn-lg.btn-primary(type='submit') Save Profile

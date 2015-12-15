@@ -16,9 +16,10 @@ var UserSchema = new Schema({
   active: Boolean,
   hashedPassword: String,
   prof: {
+    avatar: String,
     fullName: String,
-    gender: String,
-    location: String
+    location: String,
+    bio: String
   },
   provider: String,
   salt: String

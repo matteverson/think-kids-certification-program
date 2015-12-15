@@ -23,6 +23,9 @@ angular.module('thinkKidsCertificationProgramApp')
 
     $scope.editProfile = function() {
       $scope.submitted = true;
-      $http.patch('/api/users/'+Auth.getCurrentUser()._id, {prof: $scope.user});
+      $http.patch('/api/users/'+Auth.getCurrentUser()._id, {prof: $scope.user})
+        .success(function(user) {
+          console.log(user);
+        });
 		};
   });
