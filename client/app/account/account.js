@@ -26,6 +26,11 @@ angular.module('thinkKidsCertificationProgramApp')
         controller: 'SettingsCtrl',
         authenticate: true
       })
+      .state('profile', {
+        url: '/:id/profile',
+        templateUrl: 'app/account/profile/profile.html',
+        controller: 'ProfileCtrl'
+      })
       .state('forgot', {
         url: '/forgot?t',
         templateUrl: 'app/account/forgot/forgot.html',

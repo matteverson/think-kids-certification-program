@@ -40,7 +40,8 @@ User.find({}).remove(function() {
     roles: ['user'],
     prof: {
       fullName: 'Brett Cota',
-      gender: 'Male',
+      avatar: '',
+      bio: 'I’m a marketing manager with 10 years of experience in both web and traditional advertising, promotions, events, and campaigns. I have worked on integrated campaigns for major clients such as Etrade, Bank of America, Sony Music, and Microsoft and have been recognized with several awards during my career.',
       location: 'Atlantis'
     },
     active: true
@@ -65,7 +66,8 @@ User.find({}).remove(function() {
     roles: ['inst', 'user'],
     prof: {
       fullName: 'Harrison Wells',
-      gender: 'Male',
+      avatar: '',
+      bio: 'I’m a marketing manager with 10 years of experience in both web and traditional advertising, promotions, events, and campaigns. I have worked on integrated campaigns for major clients such as Etrade, Bank of America, Sony Music, and Microsoft and have been recognized with several awards during my career.',
       location: 'Atlantis'
     },
     active: true
@@ -89,7 +91,8 @@ User.find({}).remove(function() {
     roles: ['Certified Trainer (New)', 'user'],
     prof: {
       fullName: 'Oliver Queen',
-      gender: 'Male',
+      avatar: '',
+      bio: 'I’m a marketing manager with 10 years of experience in both web and traditional advertising, promotions, events, and campaigns. I have worked on integrated campaigns for major clients such as Etrade, Bank of America, Sony Music, and Microsoft and have been recognized with several awards during my career.',
       location: 'Atlantis'
     },
     active: true
@@ -113,7 +116,8 @@ User.find({}).remove(function() {
     roles: ['Certified Trainer Trainee (new)', 'user'],
     prof: {
       fullName: 'Cisco Ramon',
-      gender: 'Male',
+      avatar: '',
+      bio: 'I’m a marketing manager with 10 years of experience in both web and traditional advertising, promotions, events, and campaigns. I have worked on integrated campaigns for major clients such as Etrade, Bank of America, Sony Music, and Microsoft and have been recognized with several awards during my career.',
       location: 'Atlantis'
     },
     active: true
@@ -137,7 +141,8 @@ User.find({}).remove(function() {
     roles: ['Certified Practitioner (New)', 'user'],
     prof: {
       fullName: 'Barry Allen',
-      gender: 'Male',
+      avatar: '',
+      bio: 'I’m a marketing manager with 10 years of experience in both web and traditional advertising, promotions, events, and campaigns. I have worked on integrated campaigns for major clients such as Etrade, Bank of America, Sony Music, and Microsoft and have been recognized with several awards during my career.',
       location: 'Atlantis'
     },
     active: true
@@ -161,7 +166,8 @@ User.find({}).remove(function() {
     roles: ['Certified Mentor (Old)', 'user'],
     prof: {
       fullName: 'John Smith',
-      gender: 'Male',
+      avatar: 'http://www.freevectors.net/files/large/FreeVectorBusinessManAvatarSilhouette.jpg',
+      bio: 'I’m a marketing manager with 10 years of experience in both web and traditional advertising, promotions, events, and campaigns. I have worked on integrated campaigns for major clients such as Etrade, Bank of America, Sony Music, and Microsoft and have been recognized with several awards during my career.',
       location: 'Atlantis'
     },
     active: true

@@ -1,0 +1,24 @@
+.prof {
+  margin-top: 50px;
+  //padding: 1%;
+  //border: 1px solid #eee;
+  text-align: center;
+  //background-color: pink;
+}
+
+.profImg {
+  width: 150px;
+  height: auto;
+  border-radius: 50%;
+}
+
+@media (max-width: 1000px) {
+  .profBio {
+    width: 90%;
+  }
+}
+
+.profBio {
+  width: 50%;
+  margin: auto;
+}
