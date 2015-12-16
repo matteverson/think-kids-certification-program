@@ -2,12 +2,24 @@
 
 var _ = require('lodash');
 var Form = require('./form.model');
+var User = require('../user/user.model');
 
 // Get list of forms
 exports.index = function(req, res) {
   Form.find(function (err, forms) {
     if(err) { return handleError(res, err); }
     return res.status(200).json(forms);
+  });
+};
+
+// Get list of forms for the authenticated user
+exports.show_mine = function(req, res) {
+  var userId = req.user._id;
+  User.findById(userId, function (err, user) {
+    Form.find({roles: {$in: user.roles}}, function (err, forms) {
+      if(err) { return handleError(res, err); }
+      return res.status(200).json(forms);
+    });
   });
 };
 
