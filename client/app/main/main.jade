@@ -6,10 +6,11 @@ div(ng-include='"components/navbar/navbar.html"')
       h2 Assignments
       ul(ng-repeat='form in forms')
         li
-          a(href='#', tooltip='{{form.roles}}')
+          a(href='', ng-click="viewForm(form)", tooltip='{{form.roles}}')
             | {{form.name}}
             
     .col-lg-9
+      eda-easy-form-viewer(eda-easy-form-viewer-data-model="form.dataModel", eda-easy-form-viewer-easy-form-generator-fields-model="form.fieldsModel", eda-easy-form-viewer-submit-button-text="{{ form.btnSubmitText }}", eda-easy-form-viewer-cancel-button-text="{{ form.btnCancelText }}", eda-easy-form-viewer-submit-form-event="form.submitFormEvent(dataSubmitted)", eda-easy-form-viewer-cancel-form-event="form.cancelFormEvent()")
       
 
 footer.footer
