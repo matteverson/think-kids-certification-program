@@ -17,7 +17,7 @@
     "angular-formly": "~7.2.3",
     "ng-file-upload": "~9.1.1",
     "angular-formly-templates-bootstrap": "~4.3.2",
-    "easy-form-generator": "~1.0.32",
+    "easy-form-generator": "https://github.com/matteverson/easyFormGenerator.git",
     "angular-loading-bar": "~0.8.0"
   },
   "devDependencies": {
