@@ -1,19 +1,16 @@
 div(ng-include='"components/navbar/navbar.html"')
 
-header#banner.hero-unit
-  .container
-    h1 'Allo, 'Allo!
-    p.lead Kick-start your next web app with Angular Fullstack
-    img(src='assets/images/yeoman.png', alt='I\'m Yeoman')
-
 .container
   .row
-    .col-lg-12
-      h1.page-header Features:
-      ul.nav.nav-tabs.nav-stacked.col-md-4.col-lg-4.col-sm-6(ng-repeat='thing in awesomeThings')
+    .col-lg-3
+      h2 Assignments
+      ul(ng-repeat='form in forms')
         li
-          a(href='#', tooltip='{{thing.info}}')
-            | {{thing.name}}
+          a(href='#', tooltip='{{form.roles}}')
+            | {{form.name}}
+            
+    .col-lg-9
+      
 
 footer.footer
   .container
