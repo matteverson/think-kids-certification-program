@@ -40,7 +40,7 @@ User.find({}).remove(function() {
     roles: ['user'],
     prof: {
       fullName: 'Brett Cota',
-      avatar: '',
+      avatar: 'http://www.lessuk.org/downloads/Photos/Staff-Photos/No_picture_icon_2.jpg',
       bio: 'I’m a marketing manager with 10 years of experience in both web and traditional advertising, promotions, events, and campaigns. I have worked on integrated campaigns for major clients such as Etrade, Bank of America, Sony Music, and Microsoft and have been recognized with several awards during my career.',
       location: 'Atlantis'
     },
@@ -55,6 +55,8 @@ User.find({}).remove(function() {
     password: 'admin',
     prof: {
       fullName: 'Lisa Allen',
+      avatar: 'http://www.lessuk.org/downloads/Photos/Staff-Photos/No_picture_icon_2.jpg',
+      bio: 'I’m a marketing manager with 10 years of experience in both web and traditional advertising, promotions, events, and campaigns. I have worked on integrated campaigns for major clients such as Etrade, Bank of America, Sony Music, and Microsoft and have been recognized with several awards during my career.',
       gender: 'Female',
       location: 'Atlantis'
     },
@@ -66,7 +68,7 @@ User.find({}).remove(function() {
     roles: ['inst', 'user'],
     prof: {
       fullName: 'Harrison Wells',
-      avatar: '',
+      avatar: 'http://www.lessuk.org/downloads/Photos/Staff-Photos/No_picture_icon_2.jpg',
       bio: 'I’m a marketing manager with 10 years of experience in both web and traditional advertising, promotions, events, and campaigns. I have worked on integrated campaigns for major clients such as Etrade, Bank of America, Sony Music, and Microsoft and have been recognized with several awards during my career.',
       location: 'Atlantis'
     },
@@ -79,6 +81,8 @@ User.find({}).remove(function() {
     roles: ['Certified Trainer (Old)', 'user'],
     prof: {
       fullName: 'Felicity Smoak',
+      avatar: 'http://www.lessuk.org/downloads/Photos/Staff-Photos/No_picture_icon_2.jpg',
+      bio: 'I’m a marketing manager with 10 years of experience in both web and traditional advertising, promotions, events, and campaigns. I have worked on integrated campaigns for major clients such as Etrade, Bank of America, Sony Music, and Microsoft and have been recognized with several awards during my career.',
       gender: 'Female',
       location: 'Atlantis'
     },
@@ -91,7 +95,7 @@ User.find({}).remove(function() {
     roles: ['Certified Trainer (New)', 'user'],
     prof: {
       fullName: 'Oliver Queen',
-      avatar: '',
+      avatar: 'http://www.lessuk.org/downloads/Photos/Staff-Photos/No_picture_icon_2.jpg',
       bio: 'I’m a marketing manager with 10 years of experience in both web and traditional advertising, promotions, events, and campaigns. I have worked on integrated campaigns for major clients such as Etrade, Bank of America, Sony Music, and Microsoft and have been recognized with several awards during my career.',
       location: 'Atlantis'
     },
@@ -104,6 +108,8 @@ User.find({}).remove(function() {
     roles: ['Certified Trainer Trainee (Old)', 'user'],
     prof: {
       fullName: 'Iris West',
+      avatar: 'http://www.lessuk.org/downloads/Photos/Staff-Photos/No_picture_icon_2.jpg',
+      bio: 'I’m a marketing manager with 10 years of experience in both web and traditional advertising, promotions, events, and campaigns. I have worked on integrated campaigns for major clients such as Etrade, Bank of America, Sony Music, and Microsoft and have been recognized with several awards during my career.',
       gender: 'Female',
       location: 'Atlantis'
     },
@@ -116,7 +122,7 @@ User.find({}).remove(function() {
     roles: ['Certified Trainer Trainee (new)', 'user'],
     prof: {
       fullName: 'Cisco Ramon',
-      avatar: '',
+      avatar: 'http://www.lessuk.org/downloads/Photos/Staff-Photos/No_picture_icon_2.jpg',
       bio: 'I’m a marketing manager with 10 years of experience in both web and traditional advertising, promotions, events, and campaigns. I have worked on integrated campaigns for major clients such as Etrade, Bank of America, Sony Music, and Microsoft and have been recognized with several awards during my career.',
       location: 'Atlantis'
     },
@@ -129,6 +135,8 @@ User.find({}).remove(function() {
     roles: ['Certified Practitioner (Old)', 'user'],
     prof: {
       fullName: 'Caitlin Snow',
+      avatar: 'http://www.lessuk.org/downloads/Photos/Staff-Photos/No_picture_icon_2.jpg',
+      bio: 'I’m a marketing manager with 10 years of experience in both web and traditional advertising, promotions, events, and campaigns. I have worked on integrated campaigns for major clients such as Etrade, Bank of America, Sony Music, and Microsoft and have been recognized with several awards during my career.',
       gender: 'Female',
       location: 'Atlantis'
     },
@@ -141,7 +149,7 @@ User.find({}).remove(function() {
     roles: ['Certified Practitioner (New)', 'user'],
     prof: {
       fullName: 'Barry Allen',
-      avatar: '',
+      avatar: 'http://www.lessuk.org/downloads/Photos/Staff-Photos/No_picture_icon_2.jpg',
       bio: 'I’m a marketing manager with 10 years of experience in both web and traditional advertising, promotions, events, and campaigns. I have worked on integrated campaigns for major clients such as Etrade, Bank of America, Sony Music, and Microsoft and have been recognized with several awards during my career.',
       location: 'Atlantis'
     },
@@ -154,6 +162,8 @@ User.find({}).remove(function() {
     roles: ['Certified Pracitioner Trainee (New)', 'user'],
     prof: {
       fullName: 'Patricia Schexnayder',
+      avatar: 'http://www.lessuk.org/downloads/Photos/Staff-Photos/No_picture_icon_2.jpg',
+      bio: 'I’m a marketing manager with 10 years of experience in both web and traditional advertising, promotions, events, and campaigns. I have worked on integrated campaigns for major clients such as Etrade, Bank of America, Sony Music, and Microsoft and have been recognized with several awards during my career.',
       gender: 'Female',
       location: 'Atlantis'
     },
@@ -166,7 +176,7 @@ User.find({}).remove(function() {
     roles: ['Certified Mentor (Old)', 'user'],
     prof: {
       fullName: 'John Smith',
-      avatar: 'http://www.freevectors.net/files/large/FreeVectorBusinessManAvatarSilhouette.jpg',
+      avatar: 'http://www.lessuk.org/downloads/Photos/Staff-Photos/No_picture_icon_2.jpg',
       bio: 'I’m a marketing manager with 10 years of experience in both web and traditional advertising, promotions, events, and campaigns. I have worked on integrated campaigns for major clients such as Etrade, Bank of America, Sony Music, and Microsoft and have been recognized with several awards during my career.',
       location: 'Atlantis'
     },
@@ -179,6 +189,8 @@ User.find({}).remove(function() {
     roles: ['Certified Mentor (New)', 'user'],
     prof: {
       fullName: 'Robert Allen',
+      avatar: 'http://www.lessuk.org/downloads/Photos/Staff-Photos/No_picture_icon_2.jpg',
+      bio: 'I’m a marketing manager with 10 years of experience in both web and traditional advertising, promotions, events, and campaigns. I have worked on integrated campaigns for major clients such as Etrade, Bank of America, Sony Music, and Microsoft and have been recognized with several awards during my career.',
       gender: 'Female',
       location: 'Atlantis'
     },
