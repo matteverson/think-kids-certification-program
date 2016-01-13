@@ -26,9 +26,11 @@ angular.module('thinkKidsCertificationProgramApp', [
     return {
       // Add authorization token to headers
       request: function (config) {
-        config.headers = config.headers || {};
-        if ($cookieStore.get('token')) {
-          config.headers.Authorization = 'Bearer ' + $cookieStore.get('token');
+        if (!config.skipAuthorization) {
+          config.headers = config.headers || {};
+          if ($cookieStore.get('token')) {
+            config.headers.Authorization = 'Bearer ' + $cookieStore.get('token');
+          }
         }
         return config;
       },
