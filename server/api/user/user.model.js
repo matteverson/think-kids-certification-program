@@ -13,6 +13,7 @@ var UserSchema = new Schema({
     default: 'user'
   },
   roles: [String],
+  classes: [String],
   active: Boolean,
   hashedPassword: String,
   prof: {

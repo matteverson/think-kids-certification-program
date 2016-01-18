@@ -7,10 +7,14 @@ div(ng-include='"components/navbar/navbar.html"')
       a(href="{{user._id}}/profile")
         strong {{user.name}}
       a.text-muted(ng-click="toggleActivation(user)")  {{user.activeString}} account
+      span.text-muted  /
+      a.text-muted(href="signup/{{user._id}}/roles")  Edit Roles
       br
       em.text-muted
-        a(href="signup/{{user._id}}/roles")
-          {{user.roles.join(', ')}}
+        {{user.roles.join(', ')}}
+      br
+      em.text-muted
+        {{user.classes.join(', ')}}
       br
       span.text-muted {{user.email}}
       a.trash(ng-click='deleteUser(user)')
@@ -19,6 +23,7 @@ div(ng-include='"components/navbar/navbar.html"')
   div
     a.btn.btn-default.btn-lg.btn-register(href='/signup', ng-show='isAdmin()')
       | New User
+  br
 
   ul.list-group
     li.list-group-item(ng-repeat='form in forms')
@@ -31,7 +36,17 @@ div(ng-include='"components/navbar/navbar.html"')
           span.text-muted Edit Roles
       a.trash(ng-click='deleteForm(form)')
         span.glyphicon.glyphicon-trash.pull-right
-
   div
     a.btn.btn-default.btn-lg.btn-register(href='/form', ng-show='isAdmin()')
       | New Form
+  br
+
+  ul.list-group
+    li.list-group-item(ng-repeat='class in classes')
+      a(href='/class/{{class._id}}')
+        strong {{class.name}}
+      a.trash(ng-click='deleteClass(class)')
+        span.glyphicon.glyphicon-trash.pull-right
+  div
+    a.btn.btn-default.btn-lg.btn-register(href='/class/new', ng-show='isAdmin()')
+      | New Class

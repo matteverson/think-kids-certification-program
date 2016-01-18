@@ -9,3 +9,5 @@ dist
 /server/config/local.env.js
 npm-debug.log
 client/.DS_Store
+client/app/.DS_Store
+.DS_Store

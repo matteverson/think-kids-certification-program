@@ -203,10 +203,10 @@ User.find({}).remove(function() {
 
 Role.find({}).remove(function() {
   Role.create({
-    name : 'admin',
+    name: 'admin',
     activities : ['view_users', 'update_users', 'view_forms', 'create_forms', 'delete_forms', 'delete_users', 'create_users', 'assign_users', 'track_payments','de_activate_users','reset_passwords', 'edit_role', 'add_notif', 'view_profile', 'add_class', 'edit_class']
   }, {
-    name : 'user',
+    name: 'user',
     activities : ['upload_doc', 'view_forms', 'fill_forms', 'make_payment','view_sub','edit_detail', 'message_user', 'view_feedback']
   }, {
     name: 'inst',

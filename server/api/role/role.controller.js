@@ -1,4 +1,4 @@
-/**
+  /**
  * Using Rails-like standard naming convention for endpoints.
  * GET     /api/roles              ->  index
  */
@@ -16,7 +16,7 @@ exports.index = function(req, res) {
 };
 
 exports.show = function(req, res) {
-    Role.findByID(req.params.id, function (err, role) {
+    Role.findById(req.params.id, function (err, role) {
         if(err) { return handleError(res, err); }
         if(!role) { return res.status(404).send("Not Found"); }
         return res.json(role);
@@ -32,7 +32,7 @@ exports.create = function(req, res) {
 
 exports.update = function(req, res) {
     if(req.body._id) { delete req.body._id; }
-    Role.findByID(req.params.id, function(err, role) {
+    Role.findById(req.params.id, function(err, role) {
         if(err) { return handleError(res, err); }
         if(!role) { return res.status(404).send('Not Found'); }
         var updated = _.extend(role, req.body);
@@ -44,7 +44,7 @@ exports.update = function(req, res) {
 };
 
 exports.destroy = function(req, res) {
-    Role.findByID(function (err, role) {
+    Role.findById(function (err, role) {
         if(err) { return handleError(res, err); }
         if(!role) { return res.status(404).send('Not Found'); }
         role.remove(function(err) {
