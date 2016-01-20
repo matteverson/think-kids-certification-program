@@ -1,0 +1,16 @@
+div(ng-include='"components/navbar/navbar.html"')
+.container
+  h1 My Messages
+  a(href="{{user._id}}/messages/new").text-muted New Message
+  br
+  br
+  ul.list-group
+    li.list-group-item(ng-repeat='message in user.messages')
+      a(href="{{user._id}}/messages/{{message._id}}")
+        strong {{message.subject}}
+      span.text-muted(ng-hide="message.read") &nbsp;unread
+      br
+      span.text-muted From 
+        a(href="{{message.sender._id}}/profile"){{message.sender.name}}
+      a.trash(ng-click='deleteMessage(message)')
+        span.glyphicon.glyphicon-trash.pull-right

@@ -7,6 +7,19 @@ angular.module('thinkKidsCertificationProgramApp')
       'link': '/'
     }];
 
+    if(Auth.isLoggedIn()) {
+      $scope.newMessage = false;
+
+      var user = Auth.getCurrentUser();
+      var messages = user.messages.filter(function(message) {
+        return !message.read;
+      });
+
+      if(messages.length > 0) {
+        $scope.newMessage = true;
+      }
+    }
+
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.isAdmin = Auth.isAdmin;

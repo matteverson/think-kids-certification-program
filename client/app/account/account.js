@@ -31,6 +31,21 @@ angular.module('thinkKidsCertificationProgramApp')
         templateUrl: 'app/account/profile/profile.html',
         controller: 'ProfileCtrl'
       })
+      .state('messages', {
+        url: '/:id/messages',
+        templateUrl: 'app/account/messages/messages.html',
+        controller: 'MessagesCtrl'
+      })
+      .state('newMessage', {
+        url: '/:id/messages/new',
+        templateUrl: 'app/account/messages/new.html',
+        controller: 'newMessageCtrl'
+      })
+      .state('viewMessage', {
+        url: '/:id/messages/:messageID',
+        templateUrl: 'app/account/messages/view.html',
+        controller: 'viewMessageCtrl'
+      })
       .state('forgot', {
         url: '/forgot?t',
         templateUrl: 'app/account/forgot/forgot.html',

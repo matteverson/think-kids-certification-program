@@ -13,6 +13,7 @@ var UserSchema = new Schema({
     default: 'user'
   },
   roles: [String],
+  messages: Array,
   classes: [String],
   active: Boolean,
   hashedPassword: String,

@@ -25,6 +25,14 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarCtrl')
             a(href="{{ getCurrentUser()._id }}/profile")
               {{ getCurrentUser().name }}
 
+        li(ng-show='newMessage && isLoggedIn()')
+          a(href='{{ getCurrentUser()._id }}/messages')
+            i.fa.fa-envelope(style="color: #3e8acc")
+        
+        li(ng-show='!newMessage && isLoggedIn()')
+          a(href='{{ getCurrentUser()._id }}/messages')
+            i.fa.fa-envelope-o
+        
         li(ng-show='isLoggedIn()', ng-class='{active: isActive("/settings")}')
           a(href='/settings')
             span.glyphicon.glyphicon-cog

@@ -16,5 +16,6 @@ router.post('/', auth.can('create_users'), controller.create);
 router.post('/:id/password_reset', controller.requestPasswordReset);
 router.post('/reset_token/', controller.resetPassword);
 router.patch('/:id', controller.update);
+router.patch('/newMessage/:id', controller.newMessage);
 
 module.exports = router;
