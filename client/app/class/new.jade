@@ -1,0 +1,29 @@
+div(ng-include='"components/navbar/navbar.html"')
+.container
+  .row
+    .col-sm-12
+      h1 Create class
+      br
+      .col-sm-12
+      form.form(name='form', ng-submit='register(form)')
+        .form-group
+          label Name
+          input.form-control(type='text', name='name', ng-model='class.name', required='')
+        br
+        .form-group
+          label Users
+          md-list(ng-cloak)
+            md-list-item(ng-repeat="user in users")
+              p {{user.name}}
+              md-checkbox(class="md-secondary", ng-model="user.inClass")
+                
+        .form-group
+          label Instructors
+          md-list(ng-cloak)
+            md-list-item(ng-repeat="instructor in instructors")
+              p {{instructor.name}}
+              md-checkbox(class="md-secondary", ng-model="instructor.inClass")
+
+        div
+          button.btn.btn-inverse.btn-lg.btn-login(type='submit', ng-click="saveClass()")
+            | Create

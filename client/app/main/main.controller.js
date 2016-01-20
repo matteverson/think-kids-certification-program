@@ -14,5 +14,5 @@ angular.module('thinkKidsCertificationProgramApp')
     $scope.form.btnCancelText = form.data[0].btnCancelText;
     $scope.form.fieldsModel = form.data[0].edaFieldsModel;
     $scope.form.dataModel = {};
-  }
+  };
 });

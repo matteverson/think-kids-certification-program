@@ -1,0 +1,17 @@
+div(ng-include='"components/navbar/navbar.html"')
+.container
+  h1 {{class.name}}
+  h5 Taught by {{class.instructors.join(', ')}}
+  section.col-md-4
+    h3 Students
+    p(ng-repeat="student in class.students") {{student}}
+  section.col-md-8
+    h3 Messages
+    ul.list-group
+      li.list-group-item(ng-repeat='message in class.messages')
+        strong {{message.author}}:&nbsp;
+        | {{message.text}}
+    form.form(name='messageForm', ng-submit='sendMessage()')
+      .form-group.col-md-11
+        input.form-control(type='text', name='messageText', ng-model='message.text', required)
+      button.col-md-1.btn.btn-primary(type="submit") Send
