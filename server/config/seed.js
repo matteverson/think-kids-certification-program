@@ -34,7 +34,7 @@ Thing.find({}).remove(function() {
 User.find({}).remove(function() {
   User.create({
     provider: 'local',
-    name: 'Test User',
+    name: 'Brett Cota',
     email: 'test@test.com',
     password: 'test',
     roles: ['user'],
@@ -50,7 +50,7 @@ User.find({}).remove(function() {
     role: 'admin',
     roles: ['admin', 'user'],
     active: true,
-    name: 'Admin',
+    name: 'Lisa Allen',
     email: 'admin@admin.com',
     password: 'admin',
     prof: {
@@ -62,7 +62,7 @@ User.find({}).remove(function() {
     },
   }, {
     provider: 'local',
-    name: "Test instructor",
+    name: "Harrison Wells",
     email: "inst@inst.com",
     password: "inst",
     roles: ['inst', 'user'],
@@ -75,12 +75,12 @@ User.find({}).remove(function() {
     active: true
   }, {
     provider: 'local',
-    name: "Certified Trainer (Old)",
+    name: "Cassie Hanna",
     email: "trainer@old.com",
     password: "trainer",
     roles: ['Certified Trainer (Old)', 'user'],
     prof: {
-      fullName: 'Felicity Smoak',
+      fullName: 'Cassie Hanna',
       avatar: 'http://www.lessuk.org/downloads/Photos/Staff-Photos/No_picture_icon_2.jpg',
       bio: 'I’m a marketing manager with 10 years of experience in both web and traditional advertising, promotions, events, and campaigns. I have worked on integrated campaigns for major clients such as Etrade, Bank of America, Sony Music, and Microsoft and have been recognized with several awards during my career.',
       gender: 'Female',
@@ -89,12 +89,12 @@ User.find({}).remove(function() {
     active: true
   }, {
     provider: 'local',
-    name: "Certified Trainer (New)",
+    name: "Raul Wilder",
     email: "trainer@new.com",
     password: "trainer",
     roles: ['Certified Trainer (New)', 'user'],
     prof: {
-      fullName: 'Oliver Queen',
+      fullName: 'Raul Wilder',
       avatar: 'http://www.lessuk.org/downloads/Photos/Staff-Photos/No_picture_icon_2.jpg',
       bio: 'I’m a marketing manager with 10 years of experience in both web and traditional advertising, promotions, events, and campaigns. I have worked on integrated campaigns for major clients such as Etrade, Bank of America, Sony Music, and Microsoft and have been recognized with several awards during my career.',
       location: 'Atlantis'
@@ -102,7 +102,7 @@ User.find({}).remove(function() {
     active: true
   }, {
     provider: 'local',
-    name: "Certified Trainer Trainee (Old)",
+    name: "Iris West",
     email: "trainee@old.com",
     password: "trainee",
     roles: ['Certified Trainer Trainee (Old)', 'user'],
@@ -116,7 +116,7 @@ User.find({}).remove(function() {
     active: true
   }, {
     provider: 'local',
-    name: "Certified Trainer Trainee (New)",
+    name: "Cisco Ramon",
     email: "trainee@new.com",
     password: "trainee",
     roles: ['Certified Trainer Trainee (new)', 'user'],
@@ -129,12 +129,12 @@ User.find({}).remove(function() {
     active: true
   },  {
     provider: 'local',
-    name: "Certified Practitioner (Old)",
+    name: "Miriam Bryant",
     email: "practitioner@old.com",
     password: "practitioner",
     roles: ['Certified Practitioner (Old)', 'user'],
     prof: {
-      fullName: 'Caitlin Snow',
+      fullName: 'Miriam Bryant',
       avatar: 'http://www.lessuk.org/downloads/Photos/Staff-Photos/No_picture_icon_2.jpg',
       bio: 'I’m a marketing manager with 10 years of experience in both web and traditional advertising, promotions, events, and campaigns. I have worked on integrated campaigns for major clients such as Etrade, Bank of America, Sony Music, and Microsoft and have been recognized with several awards during my career.',
       gender: 'Female',
@@ -143,7 +143,7 @@ User.find({}).remove(function() {
     active: true
   }, {
     provider: 'local',
-    name: "Certified Practitioner (New)",
+    name: "Barry Allen",
     email: "practitioner@new.com",
     password: "practitioner",
     roles: ['Certified Practitioner (New)', 'user'],
@@ -156,7 +156,7 @@ User.find({}).remove(function() {
     active: true
   }, {
     provider: 'local',
-    name: "Certified Practitioner Trainee (New)",
+    name: "Patricia Schexnayder",
     email: "prac_trainee@old.com",
     password: "tranee",
     roles: ['Certified Pracitioner Trainee (New)', 'user'],
@@ -170,7 +170,7 @@ User.find({}).remove(function() {
     active: true
   },  {
     provider: 'local',
-    name: "Certified Mentor (Old)",
+    name: "John Smith",
     email: "mentor@old.com",
     password: "mentor",
     roles: ['Certified Mentor (Old)', 'user'],
@@ -183,7 +183,7 @@ User.find({}).remove(function() {
     active: true
   }, {
     provider: 'local',
-    name: "Certified Mentor (New)",
+    name: "Robert Allen",
     email: "mentor@new.com",
     password: "mentor",
     roles: ['Certified Mentor (New)', 'user'],
