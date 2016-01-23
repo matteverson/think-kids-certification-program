@@ -1,0 +1,14 @@
+div(ng-include='"components/navbar/navbar.html"')
+.container
+  h1 {{message.subject}}
+  {{message.body}}
+  br
+  br
+  hr
+  h4 Reply
+  form.form(name='messageForm', ng-submit='sendMessage()')
+    .form-group
+      textarea.form-control(name='body', ng-model='message.reply', required)
+    div
+      button.btn.btn-inverse.btn-lg.btn-login(type='submit')
+        | Reply

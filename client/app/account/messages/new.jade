@@ -1,0 +1,18 @@
+div(ng-include='"components/navbar/navbar.html"')
+.container
+  h1 New Message
+  form.form(name='messageForm', ng-submit='sendMessage()')
+    .form-group
+      label Recipient
+      select.form-control(id="recipient", name='recipient', ng-model='recipient', required)
+        option(ng-repeat="name in userNames")
+          | {{name}}
+    .form-group
+      label Subject
+      input.form-control(type='text', name='subject', ng-model='message.subject', required)
+    .form-group
+      label Body
+      textarea.form-control(name='body', ng-model='message.body', required)
+    div
+      button.btn.btn-inverse.btn-lg.btn-login(type='submit')
+        | Send Message
