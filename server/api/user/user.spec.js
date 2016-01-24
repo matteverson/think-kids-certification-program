@@ -32,12 +32,13 @@ describe('API: /api/users', function() {
     });
   });
 
-  it('GET: should respond with a forbidden error for an unauthorized user', function(done) {
+  it('GET: should respond with JSON array for an authorized user', function(done) {
     user
     .get('/api/users')
-    .expect(403)
+    .expect(200)
     .end(function(err, res) {
       if (err) return done(err);
+      res.body.should.be.instanceof(Array);
       done();
     });
   });
