@@ -3,11 +3,16 @@ div(ng-include='"components/navbar/navbar.html"')
 .container
   .row
     .col-lg-3
-      h2 Assignments
-      ul(ng-repeat='form in forms')
-        li
-          a(href='', ng-click="viewForm(form)", tooltip='{{form.roles}}')
-            | {{form.name}}
-            
+      .well
+        h2 Assignments
+        div.list-group
+          a.list-group-item(ng-repeat='form in forms', href='', ng-click="viewForm(form, $index)", ng-class="{active: $index == selectedForm}") {{form.name}}
+        h2 Submitted Work
+        div.list-group
+          a.list-group-item(ng-repeat='submission in submissions', href='', ng-click="viewSubmission(submission, $index)", ng-class="{active: $index == selectedSubmission}") {{submission.name}}
     .col-lg-9
-      eda-easy-form-viewer(eda-easy-form-viewer-data-model="form.dataModel", eda-easy-form-viewer-easy-form-generator-fields-model="form.fieldsModel", eda-easy-form-viewer-submit-button-text="{{ form.btnSubmitText }}", eda-easy-form-viewer-cancel-button-text="{{ form.btnCancelText }}", eda-easy-form-viewer-submit-form-event="form.submitFormEvent(dataSubmitted)", eda-easy-form-viewer-cancel-form-event="form.cancelFormEvent()")
+      eda-easy-form-viewer(ng-show="form.fieldsModel", eda-easy-form-viewer-data-model="form.dataModel", eda-easy-form-viewer-easy-form-generator-fields-model="form.fieldsModel", eda-easy-form-viewer-submit-button-text="{{ form.btnSubmitText }}", eda-easy-form-viewer-cancel-button-text="{{ form.btnCancelText }}", eda-easy-form-viewer-submit-form-event="submitForm()", eda-easy-form-viewer-cancel-form-event="cancelForm()")
+      div(ng-show="submissionFields")
+        li.list-group-item(ng-repeat='field in submissionFields')
+          strong {{field.prop}}
+          span.text-muted  {{field.val}}
