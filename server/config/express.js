@@ -15,6 +15,7 @@ var errorHandler = require('errorhandler');
 var path = require('path');
 var config = require('./environment');
 var passport = require('passport');
+var helmet = require('helmet');
 
 module.exports = function(app) {
   var env = app.get('env');
@@ -22,6 +23,7 @@ module.exports = function(app) {
   app.set('views', config.root + '/server/views');
   app.set('view engine', 'jade');
   app.use(compression());
+  app.use(helmet());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
   app.use(methodOverride());
