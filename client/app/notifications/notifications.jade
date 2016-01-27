@@ -1,0 +1,10 @@
+div(ng-include='"components/navbar/navbar.html"')
+
+.container
+  h1 Notifications
+  ul.list-group
+    li.list-group-item(ng-repeat='notification in notifications') 
+      | {{notification.text}}&nbsp;
+      em.text-muted {{notification.role}}
+      br
+      span.text-muted {{notification.date}}

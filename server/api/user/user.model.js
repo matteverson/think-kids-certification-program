@@ -24,7 +24,8 @@ var UserSchema = new Schema({
     bio: String
   },
   provider: String,
-  salt: String
+  salt: String,
+  notifications: Array
 });
 
 /**

@@ -1,0 +1,10 @@
+div(ng-include='"components/navbar/navbar.html"')
+.container
+  h1 New Notification
+  form.form(name='newNotificationForm', ng-submit='sendNotification()')
+    .form-group
+      label Text
+      input.form-control(type='text', name='text', ng-model='text', required)
+    div
+      button.btn.btn-inverse.btn-lg.btn-login(type='submit')
+        | Send Notification

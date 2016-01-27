@@ -5,9 +5,9 @@ var mongoose = require('mongoose'),
 
 var RoleSchema = new Schema({
     name: String,
-    activities: [String],
-    assignments: [String],
-    payments: [String]
+    activities: String,
+    assignments: String,
+    payments: String
 });
 
 module.exports = mongoose.model('Role', RoleSchema);

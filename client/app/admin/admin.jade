@@ -1,8 +1,8 @@
 div(ng-include='"components/navbar/navbar.html"')
 .container
-  p
-    | The delete user and user index api routes are restricted to users with the 'admin' role.
+
   ul.list-group
+    h3 Users
     li.list-group-item(ng-repeat='user in users')
       a(href="{{user._id}}/profile")
         strong {{user.name}}
@@ -26,6 +26,7 @@ div(ng-include='"components/navbar/navbar.html"')
   br
 
   ul.list-group
+    h3 Forms
     li.list-group-item(ng-repeat='form in forms')
       a(href='/form/{{form._id}}')
         strong {{form.name}}
@@ -42,6 +43,7 @@ div(ng-include='"components/navbar/navbar.html"')
   br
 
   ul.list-group
+    h3 Classes
     li.list-group-item(ng-repeat='class in classes')
       a(href='/class/{{class._id}}')
         strong {{class.name}}
@@ -50,3 +52,10 @@ div(ng-include='"components/navbar/navbar.html"')
   div
     a.btn.btn-default.btn-lg.btn-register(href='/class/new', ng-show='isAdmin()')
       | New Class
+  br
+
+  ul.list-group
+    h3 Roles
+    li.list-group-item(ng-repeat='role in roles')      
+      strong {{role.name}}&nbsp;
+      a.text-muted(href='/notifications/new/{{role.name}}') Send notification
