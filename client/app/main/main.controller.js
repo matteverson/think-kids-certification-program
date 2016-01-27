@@ -72,7 +72,7 @@ angular.module('thinkKidsCertificationProgramApp')
 
     // Name all fields with their labels instead of random IDs
     for (var i = 0; i < formSubmittedDataProps.length; i++) {
-      for (var x = 1; x < formFieldsData.length; x++) {
+      for (var x = 0; x < formFieldsData.length; x++) {
         for (var y = 0; y < formFieldsData[x].columns.length; y++) {
           if (formFieldsData[x].columns[y].control.key === formSubmittedDataProps[i]) {
             formSubmittedData[formFieldsData[x].columns[y].control.templateOptions.label] = $scope.form.dataModel[formSubmittedDataProps[i]];
