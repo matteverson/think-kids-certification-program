@@ -9,13 +9,13 @@ angular.module('thinkKidsCertificationProgramApp')
 
     if(Auth.isLoggedIn()) {
       $scope.newMessage = false;
-      $scope.newNotification = false;
+      $scope.newAnnouncement = false;
 
       $http.get('/api/users/'+Auth.getCurrentUser()._id)
         .success(function(user) {
-          for(var x = 0; x < user.notifications.length; x++) {
-            if(!user.notifications[x].read) {
-              $scope.newNotification = true;
+          for(var x = 0; x < user.announcements.length; x++) {
+            if(!user.announcements[x].read) {
+              $scope.newAnnouncement = true;
               break;
             }
           }

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('thinkKidsCertificationProgramApp')
-  .controller('newNotificationCtrl', function ($scope, $http, $location, $stateParams) {
-    $scope.sendNotification = function() {
+  .controller('newAnnouncementCtrl', function ($scope, $http, $location, $stateParams) {
+    $scope.sendAnnouncement = function() {
       $http.get('/api/users')
         .success(function(users) {
           users = users.filter(function(user) {
@@ -11,14 +11,14 @@ angular.module('thinkKidsCertificationProgramApp')
 
           var date = new Date();
           date = date.getDate() + '/' + date.getMonth()+1 + '/' + date.getFullYear() + ' at ' + date.getHours() + ':' + date.getMinutes();
-          var notification = {
+          var announcement = {
             text: $scope.text,
             read: false,
             date: date
           };
 
           users = users.map(function(user) {
-            user.notifications.push(notification);
+            user.announcements.push(announcement);
             return user;
           });
 

@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('thinkKidsCertificationProgramApp')
-  .controller('NotificationsCtrl', function ($scope, Auth, $http) {
+  .controller('AnnouncementsCtrl', function ($scope, Auth, $http) {
     $http.get('/api/users/'+Auth.getCurrentUser()._id)
       .success(function(user) {
         $scope.user = user;
-        $scope.notifications = $scope.user.notifications.slice().reverse();
+        $scope.announcements = $scope.user.announcements.slice().reverse();
 
-        for(var i = 0; i < $scope.user.notifications.length; i++) {
-          $scope.user.notifications[i].read = true;
+        for(var i = 0; i < $scope.user.announcements.length; i++) {
+          $scope.user.announcements[i].read = true;
         }
 
         $http.patch('/api/users/' + $scope.user._id, $scope.user);

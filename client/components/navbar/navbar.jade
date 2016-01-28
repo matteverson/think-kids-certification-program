@@ -27,18 +27,18 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarCtrl')
 
         li(ng-show='newMessage && isLoggedIn()')
           a(href='{{ getCurrentUser()._id }}/messages')
-            i.fa.fa-envelope(style="color: #3e8acc")
+            i.fa.fa-envelope(style="color: #da5353")
         
         li(ng-show='!newMessage && isLoggedIn()')
           a(href='{{ getCurrentUser()._id }}/messages')
             i.fa.fa-envelope-o
         
-        li(ng-show='newNotification && isLoggedIn()')
-          a(href='notifications')
-            i.fa.fa-bell
+        li(ng-show='newAnnouncement && isLoggedIn()')
+          a(href='announcements')
+            i.fa.fa-bell(style="color: #da5353")
               
-        li(ng-show='!newNotification && isLoggedIn()')
-          a(href='notifications')
+        li(ng-show='!newAnnouncement && isLoggedIn()')
+          a(href='announcements')
             i.fa.fa-bell-o
         
         li(ng-show='isLoggedIn()', ng-class='{active: isActive("/settings")}')
