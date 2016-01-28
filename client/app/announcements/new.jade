@@ -1,0 +1,10 @@
+div(ng-include='"components/navbar/navbar.html"')
+.container
+  h1 New Announcement
+  form.form(name='newAnnouncementForm', ng-submit='sendAnnouncement()')
+    .form-group
+      label Text
+      input.form-control(type='text', name='text', ng-model='text', required)
+    div
+      button.btn.btn-inverse.btn-lg.btn-login(type='submit')
+        | Send Announcement

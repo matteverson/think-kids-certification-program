@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('thinkKidsCertificationProgramApp')
-  .controller('NavbarCtrl', function ($scope, $location, Auth) {
+  .controller('NavbarCtrl', function ($scope, $location, Auth, $http) {
     $scope.menu = [{
       'title': 'Home',
       'link': '/'
@@ -9,15 +9,25 @@ angular.module('thinkKidsCertificationProgramApp')
 
     if(Auth.isLoggedIn()) {
       $scope.newMessage = false;
+      $scope.newAnnouncement = false;
 
-      var user = Auth.getCurrentUser();
-      var messages = user.messages.filter(function(message) {
-        return !message.read;
+      $http.get('/api/users/'+Auth.getCurrentUser()._id)
+        .success(function(user) {
+          for(var x = 0; x < user.announcements.length; x++) {
+            if(!user.announcements[x].read) {
+              $scope.newAnnouncement = true;
+              break;
+            }
+          }
+
+          var messages = user.messages.filter(function(message) {
+            return !message.read;
+          });
+
+          if(messages.length > 0) {
+            $scope.newMessage = true;
+          }
       });
-
-      if(messages.length > 0) {
-        $scope.newMessage = true;
-      }
     }
 
     $scope.isCollapsed = true;

@@ -25,6 +25,11 @@ angular.module('thinkKidsCertificationProgramApp')
           $scope.classes = classes;
         });
 
+    $http.get('/api/roles')
+        .success(function(roles) {
+          $scope.roles = roles;
+        });
+
     $scope.toggleActivation = function(user) {
       user.active = !user.active;
       if(user.active) {

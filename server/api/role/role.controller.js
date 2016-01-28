@@ -6,6 +6,7 @@
 'use strict';
 
 var Role = require('./role.model.js');
+var _ = require('lodash');
 
 // Gets a list of Roles
 exports.index = function(req, res) {

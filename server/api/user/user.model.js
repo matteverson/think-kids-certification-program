@@ -12,9 +12,9 @@ var UserSchema = new Schema({
     type: String,
     default: 'user'
   },
-  roles: [String],
+  roles: Array,
   messages: Array,
-  classes: [String],
+  classes: Array,
   active: Boolean,
   hashedPassword: String,
   prof: {
@@ -24,7 +24,8 @@ var UserSchema = new Schema({
     bio: String
   },
   provider: String,
-  salt: String
+  salt: String,
+  announcements: Array
 });
 
 /**

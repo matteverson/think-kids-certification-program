@@ -1,0 +1,10 @@
+div(ng-include='"components/navbar/navbar.html"')
+
+.container
+  h1 Announcements
+  ul.list-group
+    li.list-group-item(ng-repeat='announcement in announcements') 
+      | {{announcement.text}}&nbsp;
+      em.text-muted {{announcement.role}}
+      br
+      span.text-muted {{announcement.date}}
