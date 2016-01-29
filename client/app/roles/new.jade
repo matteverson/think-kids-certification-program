@@ -1,0 +1,16 @@
+div(ng-include='"components/navbar/navbar.html"')
+.container
+  h1 New Role
+  form.form(name='newRoleForm', ng-submit='newRole()')
+    .form-group
+      label Name
+      input.form-control(type='text', name='name', ng-model='role.name', required)
+    .md-list(ng-cloak)
+      md-subheader(class="md-no-sticky")
+        | Activities
+      md-list-item(ng-repeat="activity in activities")
+        p {{activity.name}}
+        md-checkbox(class="md-secondary", ng-model="activity.selected")
+    div
+      button.btn.btn-inverse.btn-lg.btn-login(type='submit')
+        | Create Role
