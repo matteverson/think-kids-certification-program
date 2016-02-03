@@ -2,11 +2,26 @@
 
 angular.module('thinkKidsCertificationProgramApp')
   .controller('newAnnouncementCtrl', function ($scope, $http, $location, $stateParams) {
+    $http.get('/api/roles')
+      .success(function(roles) {
+        $scope.roles = roles.map(function(role) {
+          if(role.name === $stateParams.name) {
+            role.selected = true;
+          }
+          return role;
+        });
+      });
+
     $scope.sendAnnouncement = function() {
       $http.get('/api/users')
         .success(function(users) {
+          var roles = $scope.roles.filter(function(role) {
+            return role.selected;
+          });
           users = users.filter(function(user) {
-            return user.roles.indexOf($stateParams.name) > -1;
+            for(var i = 0; i < roles.length; i++) {
+              return user.roles.indexOf(roles[i].name) > -1;
+            }
           });
 
           var date = new Date();
