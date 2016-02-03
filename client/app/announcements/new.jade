@@ -2,6 +2,12 @@ div(ng-include='"components/navbar/navbar.html"')
 .container
   h1 New Announcement
   form.form(name='newAnnouncementForm', ng-submit='sendAnnouncement()')
+    .md-list(ng-cloak)
+      md-subheader(class="md-no-sticky")
+        | Select the roles to which the announcement must be sent
+      md-list-item(ng-repeat="role in roles")
+        p {{role.name}}
+        md-checkbox(class="md-secondary", ng-model="role.selected")
     .form-group
       label Text
       input.form-control(type='text', name='text', ng-model='text', required)
