@@ -37,6 +37,33 @@ module.exports = function(uri) {
       });
 
       return promise;
+    },
+    sendNotif: function(user) {
+      var promise = new Promise(function (resolve, reject) {
+        var data = {
+          from: 'Think:Kids Certification Program <password-robot@samples.mailgun.org>',
+          to: user.email,
+          subject: 'Think:Kids New Announcement',
+          text: 'There has been a new announcement! Please visit ' + uri + ' to read it.'
+        };
+
+        // Skip sending emails from unit test runs
+        if (process.env.NODE_ENV !== 'test') {
+          mailgun.messages().send(data)
+          .then(function (body) {
+            resolve(true);
+          },
+          function (err) {
+            console.log(err);
+            reject(err);
+          });
+        }
+        else {
+          resolve(true);
+        }
+      });
+
+      return promise;
     }
   };
 };

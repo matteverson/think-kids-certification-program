@@ -15,6 +15,7 @@ router.get('/:id', auth.isAuthenticated(), controller.show);
 router.post('/', auth.can('create_users'), controller.create);
 router.post('/:id/password_reset', controller.requestPasswordReset);
 router.post('/reset_token/', controller.resetPassword);
+router.post('/email_notif', controller.newEmailNotif);
 router.patch('/:id', controller.update);
 router.patch('/newMessage/:id', auth.isAuthenticated(), controller.newMessage);
 
