@@ -54,12 +54,6 @@ div(ng-include='"components/navbar/navbar.html"')
       | New Class
   br
 
-  ul.list-group
-    h3 Roles
-    li.list-group-item(ng-repeat='role in roles')      
-      strong {{role.name}}&nbsp;
-      a.text-muted(href='/announcements/new/{{role.name}}') Send announcement
-      
   div
-    a.btn.btn-default.btn-lg.btn-register(href='/roles/new', ng-show='isAdmin()')
-      | New Role
+    a.btn.btn-default.btn-lg.btn-register(href='/announcements/new', ng-show='isAdmin()')
+      | New Announcement
