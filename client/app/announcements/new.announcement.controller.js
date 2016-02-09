@@ -1,12 +1,16 @@
 'use strict';
 
 angular.module('thinkKidsCertificationProgramApp')
-  .controller('newAnnouncementCtrl', function ($scope, $http, $location, $stateParams) {
+  .controller('newAnnouncementCtrl', function ($scope, $http, $location) {
     $http.get('/api/roles')
       .success(function(roles) {
         $scope.roles = roles.map(function(role) {
-          if(role.name === $stateParams.name) {
-            role.selected = true;
+          if(role.name === 'admin') {
+            role.name = 'Admin';
+          } else if(role.name === 'user') {
+            role.name = 'All users';
+          } else if(role.name === 'inst') {
+            role.name = 'Instructors';
           }
           return role;
         });
@@ -15,7 +19,16 @@ angular.module('thinkKidsCertificationProgramApp')
     $scope.sendAnnouncement = function() {
       $http.get('/api/users')
         .success(function(users) {
-          var roles = $scope.roles.filter(function(role) {
+          var roles = $scope.roles.map(function(role) {
+            if(role.name === 'Admin') {
+              role.name = 'admin';
+            } else if(role.name === 'All users') {
+              role.name = 'user';
+            } else if(role.name === 'Instructors') {
+              role.name = 'inst';
+            }
+            return role;
+          }).filter(function(role) {
             return role.selected;
           });
 

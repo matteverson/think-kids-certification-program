@@ -9,7 +9,7 @@ angular.module('thinkKidsCertificationProgramApp')
         controller: 'AnnouncementsCtrl'
       })
       .state('newAnnouncement', {
-        url: '/announcements/new/:name',
+        url: '/announcements/new',
         templateUrl: 'app/announcements/new.html',
         controller: 'newAnnouncementCtrl'
       });
