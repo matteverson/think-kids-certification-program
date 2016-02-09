@@ -3,16 +3,43 @@
 angular.module('thinkKidsCertificationProgramApp')
   .controller('AdminCtrl', function ($scope, $http, Auth, User) {
 
-    // Use the User $resource to fetch all users
-    $scope.users = User.query(function(users) {
-      users = users.map(function(user) {
-        if(user.active) {
-          user.activeString = 'Deactivate';
-        } else {
-          user.activeString = 'Activate';
+    $http.get('/api/users')
+      .success(function(users) {
+        $scope.users = users.map(function(user) {
+          if(user.active) {
+            user.activeString = 'Deactivate';
+          } else {
+            user.activeString = 'Activate';
+          }
+          return user;
+        });
+
+        $scope.announcements = [];
+
+        for(var i = 0; i < $scope.users.length; i++) {
+          for(var x = 0; x < $scope.users[i].announcements.length; x++) {
+            $scope.users[i].announcements[x].recipients = [];
+            $scope.users[i].announcements[x].recipients.push($scope.users[i].name);
+            $scope.announcements.push($scope.users[i].announcements[x]);
+          }
+        }
+
+        for(var i = 0; i < $scope.announcements.length; i++) {
+          for(var x = i+1; x < $scope.announcements.length; x) {
+            if($scope.announcements[i].text === $scope.announcements[x].text) {
+              $scope.announcements[i].recipients.push($scope.announcements[x].recipients[0]);
+              $scope.announcements.splice(x, 1);
+            } else {
+              x++;
+            }
+          }
+        }
+
+        if($scope.announcements.length > 0) {
+          $scope.sentAnnouncements = true;
         }
       });
-    });
+
     $scope.isAdmin = Auth.isAdmin;
 
     $http.get('/api/forms')
