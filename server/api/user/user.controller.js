@@ -116,6 +116,22 @@ exports.changePassword = function(req, res, next) {
   });
 };
 
+exports.newEmailNotif = function(req, res, next) {
+  var email = String(req.body.email);
+  var sender = emailSender('http://' + req.headers.host + '/announcements');
+  User.findOne({email: email}).exec()
+  .then(function (user) {
+    if (!user) throw Error("No user found");
+    return sender.sendNotif(user);
+  })
+  .then(function (user) {
+      res.status(200).send('OK');
+  },
+  function (err) {
+    res.status(404).send('Not found');
+  });
+};
+
 /**
  * Request a password reset
  */

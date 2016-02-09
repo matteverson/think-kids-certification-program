@@ -58,6 +58,7 @@ angular.module('thinkKidsCertificationProgramApp')
 
           for(var i = 0; i < users.length; i++) {
             $http.patch('/api/users/'+users[i]._id, users[i]);
+            $http.post('/api/users/email_notif', {email: users[i].email});
           }
 
           $location.path('/admin');
