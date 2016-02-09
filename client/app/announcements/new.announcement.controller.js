@@ -18,10 +18,16 @@ angular.module('thinkKidsCertificationProgramApp')
           var roles = $scope.roles.filter(function(role) {
             return role.selected;
           });
+
           users = users.filter(function(user) {
-            for(var i = 0; i < roles.length; i++) {
-              return user.roles.indexOf(roles[i].name) > -1;
+            var common = roles.filter(function(role) {
+              return user.roles.indexOf(role.name) > -1;
+            });
+
+            if(common.length > 0) {
+              return true;
             }
+            return false;
           });
 
           var date = new Date();
