@@ -54,6 +54,15 @@ div(ng-include='"components/navbar/navbar.html"')
       | New Class
   br
 
+  ul.list-group
+    h3 Roles
+    li.list-group-item(ng-repeat='role in roles')      
+      {{role.name}}
+      
+  div
+    a.btn.btn-default.btn-lg.btn-register(href='/roles/new', ng-show='isAdmin()')
+      | New Role
+  br
   div
     a.btn.btn-default.btn-lg.btn-register(href='/announcements/new', ng-show='isAdmin()')
       | New Announcement
