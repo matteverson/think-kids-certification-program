@@ -119,7 +119,7 @@ User.find({}).remove(function() {
     name: "Cisco Ramon",
     email: "trainee@new.com",
     password: "trainee",
-    roles: ['Certified Trainer Trainee (new)', 'user'],
+    roles: ['Certified Trainer Trainee (New)', 'user'],
     prof: {
       fullName: 'Cisco Ramon',
       avatar: 'http://www.lessuk.org/downloads/Photos/Staff-Photos/No_picture_icon_2.jpg',
@@ -159,7 +159,7 @@ User.find({}).remove(function() {
     name: "Patricia Schexnayder",
     email: "prac_trainee@old.com",
     password: "tranee",
-    roles: ['Certified Pracitioner Trainee (New)', 'user'],
+    roles: ['Certified Practitioner Trainee (New)', 'user'],
     prof: {
       fullName: 'Patricia Schexnayder',
       avatar: 'http://www.lessuk.org/downloads/Photos/Staff-Photos/No_picture_icon_2.jpg',

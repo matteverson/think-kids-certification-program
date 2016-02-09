@@ -63,6 +63,13 @@ div(ng-include='"components/navbar/navbar.html"')
     a.btn.btn-default.btn-lg.btn-register(href='/roles/new', ng-show='isAdmin()')
       | New Role
   br
+  
+  ul.list-group(ng-show="sentAnnouncements")
+    h3 Sent Announcements
+    li.list-group-item(ng-repeat='announcement in announcements')      
+      strong {{announcement.text}}
+      br
+      span.text-muted Sent to {{announcement.recipients.join(', ')}}
   div
     a.btn.btn-default.btn-lg.btn-register(href='/announcements/new', ng-show='isAdmin()')
       | New Announcement
