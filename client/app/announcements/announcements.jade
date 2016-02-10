@@ -7,4 +7,4 @@ div(ng-include='"components/navbar/navbar.html"')
       | {{announcement.text}}&nbsp;
       em.text-muted {{announcement.role}}
       br
-      span.text-muted {{announcement.date}}
+      span.text-muted(rel='tooltip', title='{{announcement.date}}') {{announcement.dateString}}
