@@ -6,6 +6,10 @@ angular.module('thinkKidsCertificationProgramApp')
       .success(function(user) {
         $scope.user = user;
         $scope.announcements = $scope.user.announcements.slice().reverse();
+        $scope.announcements = $scope.announcements.map(function(item) {
+            item.dateString = moment(item.date).fromNow();
+            return item;
+        });
 
         for(var i = 0; i < $scope.user.announcements.length; i++) {
           $scope.user.announcements[i].read = true;

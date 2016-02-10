@@ -43,8 +43,7 @@ angular.module('thinkKidsCertificationProgramApp')
             return false;
           });
 
-          var date = new Date();
-          date = date.getDate() + '/' + date.getMonth()+1 + '/' + date.getFullYear() + ' at ' + date.getHours() + ':' + date.getMinutes();
+          var date = moment().format();
           var announcement = {
             text: $scope.text,
             read: false,
