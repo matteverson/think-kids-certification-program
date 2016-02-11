@@ -95,6 +95,7 @@ angular.module('thinkKidsCertificationProgramApp')
 
     formSubmittedData.onTime = moment().unix();
     formSubmittedData.byName = Auth.getCurrentUser().name;
+    formSubmittedData.Date = moment(Date.parse(formSubmittedData.Date)).format('MMMM Do YYYY');
 
     console.log('Submitting form data', formSubmittedData);
     $http.patch('/api/forms/' + form._id, {
