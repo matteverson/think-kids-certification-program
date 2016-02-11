@@ -10,6 +10,11 @@ div(ng-include='"components/navbar/navbar.html"')
         h2 Submitted Work
         div.list-group
           a.list-group-item(ng-repeat='submission in submissions', href='', ng-click="viewSubmission(submission, $index)", ng-class="{active: $index == selectedSubmission}") {{submission.name}}
+        h2 My Classes
+        div.list-group
+          span.list-group-item(ng-show="noClasses") You're not in any class!
+          a.list-group-item(ng-repeat='class in classes', href='/class/{{class._id}}', ng-hide="noClasses") {{class.name}}
+
     .col-lg-9
       eda-easy-form-viewer(ng-show="form.fieldsModel", eda-easy-form-viewer-data-model="form.dataModel", eda-easy-form-viewer-easy-form-generator-fields-model="form.fieldsModel", eda-easy-form-viewer-submit-button-text="{{ form.btnSubmitText }}", eda-easy-form-viewer-cancel-button-text="{{ form.btnCancelText }}", eda-easy-form-viewer-submit-form-event="submitForm()", eda-easy-form-viewer-cancel-form-event="cancelForm()")
       div(ng-show="submissionFields")
