@@ -8,6 +8,11 @@ angular.module('thinkKidsCertificationProgramApp')
         templateUrl: 'app/class/new.html',
         controller: 'newClassCtrl'
       })
+      .state('editClass', {
+        url: '/class/:id/edit',
+        templateUrl: 'app/class/new.html',
+        controller: 'editClassCtrl'
+      })
       .state('class', {
         url: '/class/:id',
         templateUrl: 'app/class/class.html',

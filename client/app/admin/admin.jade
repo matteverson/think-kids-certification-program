@@ -47,6 +47,9 @@ div(ng-include='"components/navbar/navbar.html"')
     li.list-group-item(ng-repeat='class in classes')
       a(href='/class/{{class._id}}')
         strong {{class.name}}
+      br
+      a(href="/class/{{class._id}}/edit")
+        span.text-muted Edit Class
       a.trash(ng-click='deleteClass(class)')
         span.glyphicon.glyphicon-trash.pull-right
   div
