@@ -16,8 +16,6 @@ angular.module('thinkKidsCertificationProgramApp')
       if($scope.classes.length === 0) {
         $scope.noClasses = true;
       }
-
-      console.log(classes);
     });
 
   updateSubmittedWork();
