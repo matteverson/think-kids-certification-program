@@ -5,6 +5,20 @@ angular.module('thinkKidsCertificationProgramApp')
   $scope.forms = [];
   $scope.submissions = [];
   $scope.submissionFields = [];
+  $scope.noClasses = false;
+
+  $http.get('/api/classes')
+    .success(function(classes) {
+      $scope.classes = classes.filter(function(clas) {
+        return clas.students.indexOf(Auth.getCurrentUser().name) > -1 || clas.instructors.indexOf(Auth.getCurrentUser().name) > -1;
+      });
+
+      if($scope.classes.length === 0) {
+        $scope.noClasses = true;
+      }
+
+      console.log(classes);
+    });
 
   updateSubmittedWork();
 
