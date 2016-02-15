@@ -47,10 +47,14 @@ md-list-item > a:hover {
   margin: 16px 0px 0px 0px;
 }
 
-.md-toolbar-tools > i {
+.md-toolbar-tools > .md-icon-button > i {
   color: #000;
 }
 
 i.fa.fa-envelope, i.fa.fa-bell {
   color: #da5353;
+}
+
+.md-toolbar-tools > h2 {
+  color: #000;
 }

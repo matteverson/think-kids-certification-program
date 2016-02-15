@@ -31,4 +31,7 @@ div(ng-controller='NavbarCtrl', layout="row", ng-show="isLoggedIn()")
           h6 Notifications
   md-toolbar.top-toolbar
     div.md-toolbar-tools
-      i.fa.fa-bars.pointer(ng-click="toggleMenu()")
+      md-button.md-icon-button(aria-label="Open menu bar")
+        i.fa.fa-bars.pointer(ng-click="toggleMenu()")
+      h2 
+        span {{heading}}

@@ -1,12 +1,17 @@
 'use strict';
 
 angular.module('thinkKidsCertificationProgramApp')
-  .controller('NavbarCtrl', function ($scope, $location, Auth, $http, $mdSidenav) {
+  .controller('NavbarCtrl', function ($scope, $location, Auth, $http, $mdSidenav, Heading, $timeout) {
     $scope.toggleMenu = function() {
         $mdSidenav('left').toggle();
     };
 
+    $timeout(function() {
+      $scope.heading = Heading.getHeading();
+    });
+
     if(Auth.isLoggedIn()) {
+<<<<<<< 91ed5c025e7721d27f5dba9309b8650404da4bfb
       $http.get('/api/users/'+Auth.getCurrentUser()._id)
         .success(function(user) {
           $scope.newAnnouncement = function() {
@@ -19,6 +24,24 @@ angular.module('thinkKidsCertificationProgramApp')
             if(announcements.length > 0) {
               return true;
             }
+=======
+      $timeout(function() {
+        $scope.newAnnouncement = false;
+        $scope.newMessage = false;
+      });
+
+      $http.get('/api/users/'+Auth.getCurrentUser()._id)
+        .success(function(user) {
+          var announcements = user.announcements.filter(function(item) {
+            return !item.read;
+          });
+
+          if(announcements.length > 0) {
+            $timeout(function() {
+              $scope.newAnnouncement = true;
+            });
+          }
+>>>>>>> Add heading to top bar
 
             return false;
           };
@@ -32,8 +55,16 @@ angular.module('thinkKidsCertificationProgramApp')
               return true;
             }
 
+<<<<<<< 91ed5c025e7721d27f5dba9309b8650404da4bfb
             return false;
           };
+=======
+          if(messages.length > 0) {
+            $timeout(function() {
+              $scope.newMessage = true;
+            });
+          }
+>>>>>>> Add heading to top bar
       });
     }
 
