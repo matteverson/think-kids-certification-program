@@ -1,0 +1,56 @@
+.top-toolbar {
+  background-color: #fff !important; /* !important used to override angular material's default toolbar colour */
+}
+
+// md-sidenav {
+//   min-height: 100%;
+// }
+
+md-toolbar > h1 {
+  height: 32px;
+  margin: 15px 0px 0px 0px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+md-toolbar > h1 > a, md-toolbar > h1 > a:visited {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+}
+
+md-toolbar > a, md-toolbar > a:visited {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+md-toolbar > a:hover, md-toolbar > a:active, md-toolbar > h1 > a:hover, md-toolbar > h1 > a:active {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: underline;
+}
+
+md-list-item > a {
+  color: rgba(0, 0, 0, 0.8);
+  text-decration: none;
+}
+
+md-list-item > a:hover {
+  color: rgba(0, 0, 0, 0.8);
+  text-decoration: underline;
+}
+
+.avatar {
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  margin: 16px 0px 0px 0px;
+}
+
+.md-toolbar-tools > i {
+  color: #000;
+}
+
+i.fa.fa-envelope, i.fa.fa-bell {
+  color: #da5353;
+}
