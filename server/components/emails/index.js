@@ -3,6 +3,7 @@
 var api_key = process.env.MAILGUN_API_KEY;
 var domain = process.env.MAILGUN_DOMAIN;
 var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
+var schedule = require('node-schedule');
 
 // Send email with token
 module.exports = function(uri) {
@@ -38,7 +39,7 @@ module.exports = function(uri) {
 
       return promise;
     },
-    sendNotif: function(user) {
+    sendNotif: function(user, recieveDate) {
       var promise = new Promise(function (resolve, reject) {
         var data = {
           from: 'Think:Kids Certification Program <password-robot@samples.mailgun.org>',
@@ -49,13 +50,15 @@ module.exports = function(uri) {
 
         // Skip sending emails from unit test runs
         if (process.env.NODE_ENV !== 'test') {
-          mailgun.messages().send(data)
-          .then(function (body) {
-            resolve(true);
-          },
-          function (err) {
-            console.log(err);
-            reject(err);
+          var j = schedule.scheduleJob(recieveDate, function(){
+            mailgun.messages().send(data)
+            .then(function (body) {
+              resolve(true);
+            },
+            function (err) {
+              console.log(err);
+              reject(err);
+            });
           });
         }
         else {

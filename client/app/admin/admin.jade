@@ -66,6 +66,11 @@ div(ng-include='"components/navbar/navbar.html"')
     a.btn.btn-default.btn-lg.btn-register(href='/roles/new', ng-show='isAdmin()')
       | New Role
   br
+    
+  div
+    a.btn.btn-default.btn-lg.btn-register(href='/roles/fees', ng-show='isAdmin()')
+      | Set payment reminder
+  br
   
   ul.list-group(ng-show="sentAnnouncements")
     h3 Sent Announcements

@@ -12,7 +12,8 @@ angular.module('thinkKidsCertificationProgramApp', [
   'eda.easyFormViewer',
   'ngMaterial',
   'ngFileUpload',
-  'angular-loading-bar'
+  'angular-loading-bar',
+  'ngMessages'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
