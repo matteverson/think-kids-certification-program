@@ -1,16 +1,19 @@
 div(ng-controller='NavbarCtrl', layout="row", ng-show="isLoggedIn()")
   md-sidenav.md-sidenav-left.md-whiteframe-z2(md-component-id="left")
-    md-toolbar(layout="column", layout-align="center center")
-      img.avatar(src="{{ getCurrentUser().prof.avatar }}")
-      h1
-        a(href="/{{getCurrentUser()._id}}/profile") {{ getCurrentUser().name }}
-      a(href="#", ng-click="logout()") Logout
+    md-toolbar
+      md-button.md-icon-button(aria-label="Open menu bar", ng-click="toggleMenu()")
+        i.fa.fa-bars.pointer
+      md-toolbar(layout="column", layout-align="center center")  
+        img.avatar(src="{{ getCurrentUser().prof.avatar }}")
+        h1
+          a(href="/{{getCurrentUser()._id}}/profile") {{ getCurrentUser().name }}
+        a(href="#", ng-click="logout()") Logout
     md-content(layout-padding="")
       md-list
-        md-list-item
+        md-list-item.navbar-list
           a(href='/') Home
           md-divider
-        md-list-item(ng-show="isAdmin()")
+        md-list-item.navbar-list(ng-show="isAdmin()")
           a(href='/admin') Admin
           md-divider
         md-list-item(layout="row", layout-align="space-around center")
@@ -31,7 +34,7 @@ div(ng-controller='NavbarCtrl', layout="row", ng-show="isLoggedIn()")
           h6 Notifications
   md-toolbar.top-toolbar
     div.md-toolbar-tools
-      md-button.md-icon-button(aria-label="Open menu bar")
-        i.fa.fa-bars.pointer(ng-click="toggleMenu()")
+      md-button.md-icon-button(aria-label="Open menu bar", ng-click="toggleMenu()")
+        i.fa.fa-bars.pointer
       h2 
         span {{heading}}
