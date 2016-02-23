@@ -52,7 +52,7 @@ angular.module('thinkKidsCertificationProgramApp')
               text: 'The payment, \'' +$scope.fee.description + '\' is due on ' + moment.unix(Date.parse($scope.fee.dueDate)/1000).format('MMMM Do YYYY'),
               read: false,
               date: date,
-              recieveDate: moment($scope.reminderDate).unix() * 1000
+              recieveDate: moment($scope.fee.reminderDate).unix() * 1000
             };
 
             $scope.users = $scope.users.map(function(user) {
@@ -62,7 +62,7 @@ angular.module('thinkKidsCertificationProgramApp')
 
             for(var i = 0; i < $scope.users.length; i++) {
               $http.patch('/api/users/'+$scope.users[i]._id, $scope.users[i]);
-              $http.post('/api/users/email_notif', {email: $scope.users[i].email, recieveDate: (moment($scope.reminderDate).unix() * 1000) + (60 * 1000)});
+              $http.post('/api/users/email_notif', {email: $scope.users[i].email, recieveDate: (moment($scope.fee.reminderDate).unix() * 1000) + (60 * 1000)});
             }
           });
 
