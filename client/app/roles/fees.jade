@@ -1,0 +1,33 @@
+div(ng-include='"components/navbar/navbar.html"')
+div.container.fee-wrapper(ng-cloak="")
+  md-content(layout-padding="", layout="column")
+    form.fee-form(ng-submit="setFees(users)", name="feeForm", novalidate='', layout="column", layout-align="center center")
+      md-chips(ng-model="selectedRoleNames", md-autocomplete-snap="", md-transform-chip="transformChip($chip)", md-require-match="true")
+        md-autocomplete(name="rolesChip", md-selected-item="selectedItem", md-search-text="searchText", md-items="item in querySearch(searchText)", md-item-text="item.name", placeholder="Roles")
+          span(md-highlight-text="searchText") {{item.name}}
+        md-chip-template
+          span
+            strong {{$chip.name}}
+      br  
+      br  
+      div(layout="column")
+        md-input-container.md-block
+          label Fee description
+          input(required="", ng-model='fee.description', name="description")
+          div(ng-messages="feeForm.description.$error")
+            div(ng-message="required") This data is required.
+      div(layout="column", layout-xs="column", layout-align="space-around", layout-align-xs="space-around center")
+        md-datepicker(ng-model="fee.dueDate", name="dueDate", md-placeholder="Fee due date", md-min-date="minDate", required="")
+        div.validation-messages(ng-messages="feeForm.dueDate.$error", ng-show="showError")
+          div(ng-message="valid") The entered value is not a date!
+          div(ng-message="required") This date is required!
+        br
+        br
+        md-datepicker(ng-model="fee.reminderDate", name="reminderDate", md-placeholder="Reminder date", md-min-date="minDate", required="")
+        div.validation-messages(ng-messages="feeForm.reminderDate.$error", ng-show="showError")
+          div(ng-message="valid") The entered value is not a date!
+          div(ng-message="required") This date is required!
+      br
+      br
+      md-button.md-raised.md-primary.md-hue-2(type='submit')
+        | Create reminder

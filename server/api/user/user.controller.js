@@ -122,10 +122,11 @@ exports.newEmailNotif = function(req, res, next) {
   User.findOne({email: email}).exec()
   .then(function (user) {
     if (!user) throw Error("No user found");
-    return sender.sendNotif(user);
+    return user;
   })
   .then(function (user) {
       res.status(200).send('OK');
+      return sender.sendNotif(user, req.body.recieveDate);
   },
   function (err) {
     res.status(404).send('Not found');

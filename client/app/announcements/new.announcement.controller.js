@@ -47,7 +47,8 @@ angular.module('thinkKidsCertificationProgramApp')
           var announcement = {
             text: $scope.text,
             read: false,
-            date: date
+            date: date,
+            recieveDate: Date.now()
           };
 
           users = users.map(function(user) {
@@ -57,7 +58,7 @@ angular.module('thinkKidsCertificationProgramApp')
 
           for(var i = 0; i < users.length; i++) {
             $http.patch('/api/users/'+users[i]._id, users[i]);
-            $http.post('/api/users/email_notif', {email: users[i].email});
+            $http.post('/api/users/email_notif', {email: users[i].email, recieveDate: Date.now() + (60 * 1000)});
           }
 
           $location.path('/admin');

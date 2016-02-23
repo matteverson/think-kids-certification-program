@@ -9,6 +9,8 @@ angular.module('thinkKidsCertificationProgramApp')
         $scope.announcements = $scope.announcements.map(function(item) {
             item.dateString = moment(item.date).fromNow();
             return item;
+        }).filter(function(item) {
+          return item.recieveDate <= Date.now();
         });
 
         for(var i = 0; i < $scope.user.announcements.length; i++) {
