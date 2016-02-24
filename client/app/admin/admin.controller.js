@@ -1,14 +1,15 @@
 'use strict';
 
 angular.module('thinkKidsCertificationProgramApp')
-  .controller('AdminCtrl', function ($scope, $http, Auth, User) {
-
+  .controller('AdminCtrl', function ($scope, $http, Auth, User, $location, $mdDialog, $mdToast, $timeout) {
     $http.get('/api/users')
       .success(function(users) {
         $scope.users = users.map(function(user) {
           if(user.active) {
+            user.activeClass = '';
             user.activeString = 'Deactivate';
           } else {
+            user.activeClass = 'disabled';
             user.activeString = 'Activate';
           }
           return user;
@@ -24,13 +25,13 @@ angular.module('thinkKidsCertificationProgramApp')
           }
         }
 
-        for(var i = 0; i < $scope.announcements.length; i++) {
-          for(var x = i+1; x < $scope.announcements.length; x) {
-            if($scope.announcements[i].text === $scope.announcements[x].text) {
-              $scope.announcements[i].recipients.push($scope.announcements[x].recipients[0]);
-              $scope.announcements.splice(x, 1);
+        for(var n = 0; n < $scope.announcements.length; n++) {
+          for(var y = n+1; y < $scope.announcements.length; y) {
+            if($scope.announcements[n].text === $scope.announcements[y].text) {
+              $scope.announcements[n].recipients.push($scope.announcements[y].recipients[0]);
+              $scope.announcements.splice(y, 1);
             } else {
-              x++;
+              y++;
             }
           }
         }
@@ -52,57 +53,139 @@ angular.module('thinkKidsCertificationProgramApp')
           $scope.classes = classes;
         });
 
-    $http.get('/api/roles')
+    $timeout(function() {
+      $http.get('/api/roles')
         .success(function(roles) {
           $scope.roles = roles;
+          $scope.rolesPayments = roles.filter(function(role) {
+            return role.payments.length > 0;
+          });
+        });
+      }, 100);
+
+    $scope.showToast = function(toastText) {
+      var toast = $mdToast.simple()
+            .textContent(toastText)
+            .action('OK')
+            .highlightAction('false')
+            .position('bottom right');
+
+      $mdToast.show(toast);
+    };
+
+    $scope.openMenu = function($mdOpenMenu, ev) {
+      $mdOpenMenu(ev);
+    };
+
+    $scope.paidStr = function(payment) {
+      if(payment.paid) {
+        return 'Paid';
+      } else {
+        return 'Unpaid';
+      }
+    };
+
+    $scope.pay = function(role) {
+      $timeout(function() {
+        $http.patch('/api/roles/'+role._id, role)
+        .success(function(roleU) {
+          role.__v = roleU.__v;
+        });
+      }, 0);
+    };
+
+    $scope.toggleActivation = function(user, ev) {
+      var confirm = $mdDialog.confirm()
+        .title('Are you sure you want to ' + user.activeString.toLowerCase() + ' the account?')
+        .textContent('')
+        .ariaLabel(user.activeString)
+        .targetEvent(ev)
+        .ok('Yes')
+        .cancel('Cancel');
+
+      $mdDialog.show(confirm).then(function() {
+        user.active = !user.active;
+        $scope.showToast('Account ' + user.activeString.toLowerCase() + 'd.');
+        if(user.active) {
+          user.activeClass = '';
+          user.activeString = 'Deactivate';
+        } else {
+          user.activeClass = 'disabled';
+          user.activeString = 'Activate';
+        }
+
+        $http.patch('/api/users/' + user._id, {active: user.active});
+      });
+    };
+
+    $scope.deleteUser = function(user, ev) {
+      var confirm = $mdDialog.confirm()
+        .title('Are you sure you want to delete the account?')
+        .textContent('This action is irreversible.')
+        .ariaLabel('Delete account')
+        .targetEvent(ev)
+        .ok('Yes')
+        .cancel('Cancel');
+
+      $mdDialog.show(confirm).then(function() {
+        User.remove({ id: user._id });
+        angular.forEach($scope.users, function(u, i) {
+          if (u === user) {
+            $scope.users.splice(i, 1);
+          }
+        });
+        $scope.showToast('Account deleted.');
+      });
+    };
+
+    $scope.deleteForm = function(form, ev) {
+      var confirm = $mdDialog.confirm()
+        .title('Are you sure you want to delete the form?')
+        .textContent('This action is irreversible.')
+        .ariaLabel('Delete form')
+        .targetEvent(ev)
+        .ok('Yes')
+        .cancel('Cancel');
+
+      $mdDialog.show(confirm).then(function() {
+        $http.delete('/api/forms/' + form._id);
+        angular.forEach($scope.forms, function(u, i) {
+          if (u === form) {
+            $scope.forms.splice(i, 1);
+          }
+        });
+        $scope.showToast('Form deleted.');
+      });
+    };
+
+    $scope.deleteClass = function(clas, ev) {
+      var confirm = $mdDialog.confirm()
+        .title('Are you sure you want to delete the class?')
+        .textContent('This action is irreversible.')
+        .ariaLabel('Delete class')
+        .targetEvent(ev)
+        .ok('Yes')
+        .cancel('Cancel');
+
+      $mdDialog.show(confirm).then(function() {
+        $http.delete('/api/classes/' + clas._id);
+        angular.forEach($scope.classes, function(u, i) {
+          if (u === clas) {
+            $scope.classes.splice(i, 1);
+          }
         });
 
-    $scope.toggleActivation = function(user) {
-      user.active = !user.active;
-      if(user.active) {
-        user.activeString = 'Activate';
-      } else {
-        user.activeString = 'Deactivate';
-      }
-
-      $http.patch('/api/users/' + user._id, {active: user.active});
-    };
-
-    $scope.deleteUser = function(user) {
-      User.remove({ id: user._id });
-      angular.forEach($scope.users, function(u, i) {
-        if (u === user) {
-          $scope.users.splice(i, 1);
-        }
-      });
-    };
-
-    $scope.deleteForm = function(form) {
-      $http.delete('/api/forms/' + form._id);
-      angular.forEach($scope.forms, function(u, i) {
-        if (u === form) {
-          $scope.forms.splice(i, 1);
-        }
-      });
-    };
-
-    $scope.deleteClass = function(clas) {
-      $http.delete('/api/classes/' + clas._id);
-      angular.forEach($scope.classes, function(u, i) {
-        if (u === clas) {
-          $scope.classes.splice(i, 1);
-        }
-      });
-
-      for(var i = 0; i < clas.students.length; i++) {
-        for(var x = 0; x < $scope.users.length; x++) {
-          if(clas.students[i] === $scope.users[x].name) {
-            var index = $scope.users[x].classes.indexOf(clas.name);
-            $scope.users[x].classes.splice(index, 1);
-            $http.patch('/api/users/' + $scope.users[x]._id, $scope.users[x]);
+        for(var i = 0; i < clas.students.length; i++) {
+          for(var x = 0; x < $scope.users.length; x++) {
+            if(clas.students[i] === $scope.users[x].name) {
+              var index = $scope.users[x].classes.indexOf(clas.name);
+              $scope.users[x].classes.splice(index, 1);
+              $http.patch('/api/users/' + $scope.users[x]._id, $scope.users[x]);
+            }
           }
         }
-      }
 
+        $scope.showToast('Class deleted.');
+      });
     };
   });
