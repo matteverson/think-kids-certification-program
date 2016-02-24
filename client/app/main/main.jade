@@ -21,3 +21,10 @@ div(ng-include='"components/navbar/navbar.html"')
         li.list-group-item(ng-repeat='field in submissionFields')
           strong {{field.prop}}
           span.text-muted  {{field.val}}
+        div(ng-show="feedback", ng-repeat='response in feedback')
+          h3 Feedback
+          li.list-group-item
+            span.text-muted From {{response.byName}}
+          li.list-group-item
+            strong Comments 
+            span.text-muted {{response.Comments}}

@@ -57,7 +57,13 @@ angular.module('thinkKidsCertificationProgramApp')
   $scope.viewSubmission = function(submission, index) {
     $scope.cancelForm();
     $scope.selectedSubmission = index;
-    $scope.submissionFields = $scope.submissions[index].fields;
+    $scope.feedback = $scope.submissions[index].fields.filter(function (field) {
+      return (field.prop === 'feedback');
+    })[0].val;
+    $scope.submissionFields = $scope.submissions[index].fields.filter(function (field) {
+      return (field.prop !== 'feedback');
+    });
+    console.log($scope.feedback);
     console.log($scope.submissionFields);
   };
 
