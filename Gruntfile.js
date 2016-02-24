@@ -50,7 +50,7 @@ module.exports = function (grunt) {
     },
     open: {
       server: {
-        url: 'http://localhost:<%= express.options.port %>'
+        url: 'http://0.0.0.0:<%= express.options.port %>'
       }
     },
     watch: {
@@ -202,7 +202,7 @@ module.exports = function (grunt) {
     'node-inspector': {
       custom: {
         options: {
-          'web-host': 'localhost'
+          'web-host': '0.0.0.0'
         }
       }
     },
@@ -224,7 +224,7 @@ module.exports = function (grunt) {
             // opens browser on initial server start
             nodemon.on('config:update', function () {
               setTimeout(function () {
-                require('open')('http://localhost:8080/debug?port=5858');
+                require('open')('http://0.0.0.0:8080/debug?port=5858');
               }, 500);
             });
           }
