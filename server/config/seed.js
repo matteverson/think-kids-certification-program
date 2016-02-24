@@ -62,6 +62,21 @@ User.find({}).remove(function() {
     },
   }, {
     provider: 'local',
+    role: 'admin',
+    roles: ['admin', 'user'],
+    active: true,
+    name: 'Aniruddh Agarwal',
+    email: 'aaniruddh99@gmail.com',
+    password: 'admin',
+    prof: {
+      fullName: 'Aniruddh Agarwal',
+      avatar: 'http://www.lessuk.org/downloads/Photos/Staff-Photos/No_picture_icon_2.jpg',
+      bio: 'I’m a marketing manager with 10 years of experience in both web and traditional advertising, promotions, events, and campaigns. I have worked on integrated campaigns for major clients such as Etrade, Bank of America, Sony Music, and Microsoft and have been recognized with several awards during my career.',
+      gender: 'Female',
+      location: 'Atlantis'
+    },
+  }, {
+    provider: 'local',
     name: "Harrison Wells",
     email: "inst@inst.com",
     password: "inst",
