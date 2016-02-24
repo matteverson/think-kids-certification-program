@@ -34,7 +34,7 @@ angular.module('thinkKidsCertificationProgramApp')
     $scope.setFees = function() {
       $scope.showError = true;
       if($scope.fee.description && $scope.fee.dueDate && $scope.fee.reminderDate) {
-
+        $scope.roles = $scope.selectedRoleNames;
         var selectedRoleNames = $scope.selectedRoleNames.map(function(role) {
           role = role.name;
           return role;
@@ -46,7 +46,16 @@ angular.module('thinkKidsCertificationProgramApp')
               return _.intersection(user.roles, selectedRoleNames).length > 0;
             });
 
-            var date = moment().format();
+            var date = moment($scope.fee.dueDate).format('Do MMMM YYYY');
+
+            $scope.roles = $scope.roles.map(function(role) {
+              role.payments.push({
+                description: $scope.fee.description,
+                dueDate: date,
+                paid: false
+              });
+              return role;
+            });
 
             var announcement = {
               text: 'The payment, \'' +$scope.fee.description + '\' is due on ' + moment.unix(Date.parse($scope.fee.dueDate)/1000).format('MMMM Do YYYY'),
@@ -60,9 +69,13 @@ angular.module('thinkKidsCertificationProgramApp')
               return user;
             });
 
-            for(var i = 0; i < $scope.users.length; i++) {
-              $http.patch('/api/users/'+$scope.users[i]._id, $scope.users[i]);
-              $http.post('/api/users/email_notif', {email: $scope.users[i].email, recieveDate: (moment($scope.fee.reminderDate).unix() * 1000) + (60 * 1000)});
+            for(var i = 0; i < $scope.roles.length; i++) {
+              $http.patch('/api/roles/'+$scope.roles[i]._id, $scope.roles[i]);
+            }
+
+            for(var c = 0; c < $scope.users.length; c++) {
+              $http.patch('/api/users/'+$scope.users[c]._id, $scope.users[c]);
+              $http.post('/api/users/email_notif', {email: $scope.users[c].email, recieveDate: (moment($scope.fee.reminderDate).unix() * 1000) + (60 * 1000)});
             }
           });
 
