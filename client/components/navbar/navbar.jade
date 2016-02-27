@@ -25,19 +25,19 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarCtrl')
             a(href="{{ getCurrentUser()._id }}/profile")
               {{ getCurrentUser().name }}
 
-        li(ng-show='newMessage && isLoggedIn()')
+        li(ng-show='newMessage() && isLoggedIn()')
           a(href='{{ getCurrentUser()._id }}/messages')
             i.fa.fa-envelope(style="color: #da5353")
         
-        li(ng-show='!newMessage && isLoggedIn()')
+        li(ng-show='!newMessage() && isLoggedIn()')
           a(href='{{ getCurrentUser()._id }}/messages')
             i.fa.fa-envelope-o
         
-        li(ng-show='newAnnouncement && isLoggedIn()')
+        li(ng-show='newAnnouncement() && isLoggedIn()')
           a(href='announcements')
             i.fa.fa-bell(style="color: #da5353")
               
-        li(ng-show='!newAnnouncement && isLoggedIn()')
+        li(ng-show='!newAnnouncement() && isLoggedIn()')
           a(href='announcements')
             i.fa.fa-bell-o
         

@@ -8,25 +8,33 @@ angular.module('thinkKidsCertificationProgramApp')
     }];
 
     if(Auth.isLoggedIn()) {
-      $scope.newMessage = false;
-      $scope.newAnnouncement = false;
-
       $http.get('/api/users/'+Auth.getCurrentUser()._id)
         .success(function(user) {
-          for(var x = 0; x < user.announcements.length; x++) {
-            if(!user.announcements[x].read) {
-              $scope.newAnnouncement = true;
-              break;
+          $scope.newAnnouncement = function() {
+            var announcements = user.announcements.filter(function(announcement) {
+              return !announcement.read;
+            }).filter(function(announcement) {
+              return announcement.recieveDate <= Date.now();
+            });
+
+            if(announcements.length > 0) {
+              return true;
             }
-          }
 
-          var messages = user.messages.filter(function(message) {
-            return !message.read;
-          });
+            return false;
+          };
 
-          if(messages.length > 0) {
-            $scope.newMessage = true;
-          }
+          $scope.newMessage = function() {
+            var messages = user.messages.filter(function(message) {
+              return !message.read;
+            });
+
+            if(messages.length > 0) {
+              return true;
+            }
+
+            return false;
+          };
       });
     }
 
