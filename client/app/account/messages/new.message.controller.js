@@ -7,7 +7,9 @@ angular.module('thinkKidsCertificationProgramApp')
     $http.get('/api/users')
       .success(function(users) {
         allUsers = users;
-        $scope.userNames = users.map(function(user) {
+        $scope.userNames = users.filter(function(user) {
+          return Auth.getCurrentUser()._id !== user._id;
+        }).map(function(user) {
           return user.name;
         });
 
