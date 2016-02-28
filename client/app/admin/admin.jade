@@ -56,12 +56,16 @@ md-content.container
       md-button.md-raised.md-primary(href='/roles/new', ng-show='isAdmin()') New Role
     
     md-tab(label="Payments")
-      md-list(ng-repeat="role in rolesPayments")
-        md-subheader.md-no-sticky {{role.name}}
-        md-list-item(ng-repeat='payment in role.payments')
+      form
+        md-autocomplete(md-selected-item="payments.selectedUser", md-search-text="payments.searchUser", md-items="item in searchUser(payments.searchUser)", md-item-text="item.name", placeholder="Select user to view their pending payments")
+          md-item-template
+            span(md-highlight-text="payments.searchUser") {{item.name}}
+          md-not-found No matches found.
+      md-list
+        md-list-item(ng-repeat='payment in payments.selectedUser.payments')
           {{payment.description}}, due on {{payment.dueDate}}
           span.md-secondary
-            md-switch(ng-model="payment.paid", ng-click="pay(role)", aria-label="Toggle 'paid'") {{paidStr(payment)}}
+            md-switch(ng-model="payment.paid", ng-click="pay(payments.selectedUser)", aria-label="Toggle 'paid'") {{paidStr(payment)}}
       md-button.md-primary.md-raised(href='/roles/fees', ng-show='isAdmin()')
         | Set payment reminder
           

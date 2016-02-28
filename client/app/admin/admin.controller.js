@@ -2,43 +2,45 @@
 
 angular.module('thinkKidsCertificationProgramApp')
   .controller('AdminCtrl', function ($scope, $http, Auth, User, $location, $mdDialog, $mdToast, $timeout) {
-    $http.get('/api/users')
-      .success(function(users) {
-        $scope.users = users.map(function(user) {
-          if(user.active) {
-            user.activeClass = '';
-            user.activeString = 'Deactivate';
-          } else {
-            user.activeClass = 'disabled';
-            user.activeString = 'Activate';
-          }
-          return user;
-        });
-
-        $scope.announcements = [];
-
-        for(var i = 0; i < $scope.users.length; i++) {
-          for(var x = 0; x < $scope.users[i].announcements.length; x++) {
-            $scope.users[i].announcements[x].recipients = [];
-            $scope.users[i].announcements[x].recipients.push($scope.users[i].name);
-            $scope.announcements.push($scope.users[i].announcements[x]);
-          }
-        }
-
-        for(var n = 0; n < $scope.announcements.length; n++) {
-          for(var y = n+1; y < $scope.announcements.length; y) {
-            if($scope.announcements[n].text === $scope.announcements[y].text) {
-              $scope.announcements[n].recipients.push($scope.announcements[y].recipients[0]);
-              $scope.announcements.splice(y, 1);
+    $timeout(function() {  
+      $http.get('/api/users')
+        .success(function(users) {
+          $scope.users = users.map(function(user) {
+            if(user.active) {
+              user.activeClass = '';
+              user.activeString = 'Deactivate';
             } else {
-              y++;
+              user.activeClass = 'disabled';
+              user.activeString = 'Activate';
+            }
+            return user;
+          });
+
+          $scope.announcements = [];
+
+          for(var i = 0; i < $scope.users.length; i++) {
+            for(var x = 0; x < $scope.users[i].announcements.length; x++) {
+              $scope.users[i].announcements[x].recipients = [];
+              $scope.users[i].announcements[x].recipients.push($scope.users[i].name);
+              $scope.announcements.push($scope.users[i].announcements[x]);
             }
           }
-        }
 
-        if($scope.announcements.length > 0) {
-          $scope.sentAnnouncements = true;
-        }
+          for(var n = 0; n < $scope.announcements.length; n++) {
+            for(var y = n+1; y < $scope.announcements.length; y) {
+              if($scope.announcements[n].text === $scope.announcements[y].text) {
+                $scope.announcements[n].recipients.push($scope.announcements[y].recipients[0]);
+                $scope.announcements.splice(y, 1);
+              } else {
+                y++;
+              }
+            }
+          }
+
+          if($scope.announcements.length > 0) {
+            $scope.sentAnnouncements = true;
+          }
+        });
       });
 
     $scope.isAdmin = Auth.isAdmin;
@@ -53,15 +55,10 @@ angular.module('thinkKidsCertificationProgramApp')
           $scope.classes = classes;
         });
 
-    $timeout(function() {
-      $http.get('/api/roles')
-        .success(function(roles) {
-          $scope.roles = roles;
-          $scope.rolesPayments = roles.filter(function(role) {
-            return role.payments.length > 0;
-          });
-        });
-      }, 100);
+    $http.get('/api/roles')
+      .success(function(roles) {
+        $scope.roles = roles;
+      });
 
     $scope.showToast = function(toastText) {
       var toast = $mdToast.simple()
@@ -85,13 +82,19 @@ angular.module('thinkKidsCertificationProgramApp')
       }
     };
 
-    $scope.pay = function(role) {
+    $scope.searchUser = function(userName) {
+      return $scope.users.filter(function(user) {
+        return angular.lowercase(user.name).indexOf(angular.lowercase(userName)) > -1;
+      });
+    };
+
+    $scope.pay = function(user) {
       $timeout(function() {
-        $http.patch('/api/roles/'+role._id, role)
-        .success(function(roleU) {
-          role.__v = roleU.__v;
+        $http.patch('/api/users/'+user._id, user)
+        .success(function(updatedUser) {
+          user.__v = updatedUser.__v;
         });
-      }, 0);
+      });
     };
 
     $scope.toggleActivation = function(user, ev) {
