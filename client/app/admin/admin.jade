@@ -1,83 +1,80 @@
 div(ng-include='"components/navbar/navbar.html"')
-.container
-
-  ul.list-group
-    h3 Users
-    li.list-group-item(ng-repeat='user in users')
-      a(href="{{user._id}}/profile")
-        strong {{user.name}}
-      a.text-muted(ng-click="toggleActivation(user)")  {{user.activeString}} account
-      span.text-muted  /
-      a.text-muted(href="signup/{{user._id}}/roles")  Edit Roles
-      br
-      em.text-muted
-        {{user.roles.join(', ')}}
-      br
-      em.text-muted
-        {{user.classes.join(', ')}}
-      br
-      span.text-muted {{user.email}}
-      a.trash(ng-click='deleteUser(user)')
-        span.glyphicon.glyphicon-trash.pull-right
-
-  div
-    a.btn.btn-default.btn-lg.btn-register(href='/signup', ng-show='isAdmin()')
-      | New User
-  br
-
-  ul.list-group
-    h3 Forms
-    li.list-group-item(ng-repeat='form in forms')
-      a(href='/form/{{form._id}}')
-        strong {{form.name}}
-        a(href="form/{{form._id}}/data")
-          span.text-muted  (View Form Data)
-        br
-        a(href="form/{{form._id}}/roles")
-          span.text-muted Edit Roles
-      a.trash(ng-click='deleteForm(form)')
-        span.glyphicon.glyphicon-trash.pull-right
-  div
-    a.btn.btn-default.btn-lg.btn-register(href='/form', ng-show='isAdmin()')
-      | New Form
-  br
-
-  ul.list-group
-    h3 Classes
-    li.list-group-item(ng-repeat='class in classes')
-      a(href='/class/{{class._id}}')
-        strong {{class.name}}
-      br
-      a(href="/class/{{class._id}}/edit")
-        span.text-muted Edit Class
-      a.trash(ng-click='deleteClass(class)')
-        span.glyphicon.glyphicon-trash.pull-right
-  div
-    a.btn.btn-default.btn-lg.btn-register(href='/class/new', ng-show='isAdmin()')
-      | New Class
-  br
-
-  ul.list-group
-    h3 Roles
-    li.list-group-item(ng-repeat='role in roles')      
-      {{role.name}}
-      
-  div
-    a.btn.btn-default.btn-lg.btn-register(href='/roles/new', ng-show='isAdmin()')
-      | New Role
-  br
+md-content.container
+  md-tabs(md-dynamic-height="")
+    md-tab(label="Users")
+      md-list
+        md-list-item.md-3-line(ng-repeat='user in users', ng-disabled="true")
+          img.face(ng-src="{{user.prof.avatar}}", alt="{{user.name}}", ng-class="user.activeClass")
+          div.md-list-item-text
+            h3 
+              a(href="{{user._id}}/profile") {{user.name}}
+            h4 {{user.email}}
+            p {{user.roles.join(', ')}}
+          md-menu
+            md-button(ng-click="openMenu($mdOpenMenu, $event)") Options
+            md-menu-content
+              md-menu-item
+                md-button(ng-click='deleteUser(user, $event)') Delete user
+              md-menu-item
+                md-button(ng-click='toggleActivation(user, $event)') {{user.activeString}} account
+              md-menu-item
+                md-button(href='/signup/{{user._id}}/roles') Edit user's roles
+          md-divider
+      md-button.md-raised.md-primary(href='/signup', ng-show='isAdmin()') New User
     
-  div
-    a.btn.btn-default.btn-lg.btn-register(href='/roles/fees', ng-show='isAdmin()')
-      | Set payment reminder
-  br
-  
-  ul.list-group(ng-show="sentAnnouncements")
-    h3 Sent Announcements
-    li.list-group-item(ng-repeat='announcement in announcements')      
-      strong {{announcement.text}}
-      br
-      span.text-muted Sent to {{announcement.recipients.join(', ')}}
-  div
-    a.btn.btn-default.btn-lg.btn-register(href='/announcements/new', ng-show='isAdmin()')
-      | New Announcement
+    md-tab(label="forms")
+      md-list
+        md-list-item.md-3-line(ng-repeat='form in forms')
+          div.md-list-item-text
+            h3
+              a(href='/form/{{form._id}}') {{form.name}}
+            h4
+              a(href="form/{{form._id}}/data") View Form Data
+            p
+              a(href="form/{{form._id}}/roles") Edit Roles
+          md-button.md-secondary(ng-click="deleteForm(form, $event)") Delete form
+          md-divider
+      md-button.md-raised.md-primary(href='/form', ng-show='isAdmin()') New Form
+          
+    md-tab(label="Classes")  
+      md-list
+        md-list-item.md-2-line(ng-repeat='class in classes')
+          div.md-list-item-text
+            h3
+              a(href='/class/{{class._id}}') {{class.name}}
+            p  
+              a(href="/class/{{class._id}}/edit") Edit Class
+          md-button.md-secondary(ng-click='deleteClass(class, $event)') Delete class
+          md-divider
+      md-button.md-raised.md-primary(href='/class/new', ng-show='isAdmin()') New Class
+
+    md-tab(label="Roles")
+      md-list
+        md-list-item(ng-repeat='role in roles')      
+          {{role.name}}  
+          md-divider  
+      md-button.md-raised.md-primary(href='/roles/new', ng-show='isAdmin()') New Role
+    
+    md-tab(label="Payments")
+      form
+        md-autocomplete(md-selected-item="payments.selectedUser", md-search-text="payments.searchUser", md-items="item in searchUser(payments.searchUser)", md-item-text="item.name", placeholder="Select user to view their pending payments")
+          md-item-template
+            span(md-highlight-text="payments.searchUser") {{item.name}}
+          md-not-found No matches found.
+      md-list
+        md-list-item(ng-repeat='payment in payments.selectedUser.payments')
+          {{payment.description}}, due on {{payment.dueDate}}
+          span.md-secondary
+            md-switch(ng-model="payment.paid", ng-click="pay(payments.selectedUser)", aria-label="Toggle 'paid'") {{paidStr(payment)}}
+      md-button.md-primary.md-raised(href='/roles/fees', ng-show='isAdmin()')
+        | Set payment reminder
+          
+    md-tab(label="Announcements")
+      md-list
+        md-subheader.md-no-sticky Sent Announcements
+        md-list-item.md-2-line(ng-repeat='announcement in announcements')      
+          div.md-list-item-text
+            h3 &quot;{{announcement.text}}&quot;
+            p Sent to {{announcement.recipients.join(', ')}}
+          md-divider
+      md-button.md-primary.md-raised(href='/announcements/new', ng-show='isAdmin()') New Announcement

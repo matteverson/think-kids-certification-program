@@ -25,7 +25,8 @@ var UserSchema = new Schema({
   },
   provider: String,
   salt: String,
-  announcements: Array
+  announcements: Array,
+  payments: Array
 });
 
 /**
