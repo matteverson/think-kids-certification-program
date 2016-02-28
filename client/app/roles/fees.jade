@@ -2,8 +2,16 @@ div(ng-include='"components/navbar/navbar.html"')
 div.container.fee-wrapper(ng-cloak="")
   md-content(layout-padding="", layout="column")
     form.fee-form(ng-submit="setFees(users)", name="feeForm", novalidate='', layout="column", layout-align="center center")
-      md-chips(ng-model="selectedRoleNames", md-autocomplete-snap="", md-transform-chip="transformChip($chip)", md-require-match="true")
-        md-autocomplete(name="rolesChip", md-selected-item="selectedItem", md-search-text="searchText", md-items="item in querySearch(searchText)", md-item-text="item.name", placeholder="Roles")
+      md-chips(ng-model="selectedRoles", md-autocomplete-snap="", md-transform-chip="transformChip($chip)", md-require-match="true")
+        md-autocomplete(name="rolesChip", md-selected-item="selectedItem", md-search-text="searchText", md-items="item in queryRolesSearch(searchText)", md-item-text="item.name", placeholder="Select roles")
+          span(md-highlight-text="searchText") {{item.name}}
+        md-chip-template
+          span
+            strong {{$chip.name}}
+      br
+      | or
+      md-chips(ng-model="selectedUsers", md-autocomplete-snap="", md-transform-chip="transformChip($chip)", md-require-match="true")
+        md-autocomplete(name="usersChip", md-selected-item="selectedItem", md-search-text="searchText", md-items="item in queryUsersSearch(searchText)", md-item-text="item.name", placeholder="Select specific users")
           span(md-highlight-text="searchText") {{item.name}}
         md-chip-template
           span
