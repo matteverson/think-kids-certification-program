@@ -42,20 +42,7 @@ angular.module('thinkKidsCertificationProgramApp')
 
         $http.get('/api/users')
           .success(function(users) {
-            $scope.users = users.filter(function(user) {
-              return _.intersection(user.roles, selectedRoleNames).length > 0;
-            });
-
             var date = moment($scope.fee.dueDate).format('Do MMMM YYYY');
-
-            $scope.roles = $scope.roles.map(function(role) {
-              role.payments.push({
-                description: $scope.fee.description,
-                dueDate: date,
-                paid: false
-              });
-              return role;
-            });
 
             var announcement = {
               text: 'The payment, \'' +$scope.fee.description + '\' is due on ' + moment.unix(Date.parse($scope.fee.dueDate)/1000).format('MMMM Do YYYY'),
@@ -64,14 +51,17 @@ angular.module('thinkKidsCertificationProgramApp')
               recieveDate: moment($scope.fee.reminderDate).unix() * 1000
             };
 
-            $scope.users = $scope.users.map(function(user) {
+            $scope.users = users.filter(function(user) {
+              return _.intersection(user.roles, selectedRoleNames).length > 0;
+            }).map(function(user) {
+              user.payments.push({
+                description: $scope.fee.description,
+                dueDate: date,
+                paid: false
+              });
               user.announcements.push(announcement);
               return user;
             });
-
-            for(var i = 0; i < $scope.roles.length; i++) {
-              $http.patch('/api/roles/'+$scope.roles[i]._id, $scope.roles[i]);
-            }
 
             for(var c = 0; c < $scope.users.length; c++) {
               $http.patch('/api/users/'+$scope.users[c]._id, $scope.users[c]);
