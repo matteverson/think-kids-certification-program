@@ -2,7 +2,7 @@
 
 angular.module('thinkKidsCertificationProgramApp')
   .controller('AdminCtrl', function ($scope, $http, Auth, User, $location, $mdDialog, $mdToast, $timeout) {
-    $timeout(function() {  
+    $timeout(function() {
       $http.get('/api/users')
         .success(function(users) {
           $scope.users = users.map(function(user) {

@@ -2,16 +2,27 @@ div(ng-include='"components/navbar/navbar.html"')
 .container
   h1 {{class.name}}
   h5 Taught by {{class.instructors.join(', ')}}
-  section.col-md-4
-    h3 Students
-    p(ng-repeat="student in class.students") {{student}}
-  section.col-md-8
-    h3 Messages
-    ul.list-group
-      li.list-group-item(ng-repeat='message in class.messages')
-        strong {{message.author}}:&nbsp;
-        | {{message.text}}
-    form.form(name='messageForm', ng-submit='sendMessage()')
-      .form-group.col-md-11
-        input.form-control(type='text', name='messageText', ng-model='message.text', required)
-      button.col-md-1.btn.btn-primary(type="submit") Send
+  
+  md-content(layout="row", layout-xs="column", layout-align="space-around")
+    md-content(layout="column", flex="30", flex-xs="100")
+      h3 Assignments
+      md-list
+        md-list-item(ng-repeat="form in forms", href="/form/{{form._id}}") {{form.name}}
+          md-divider
+        
+      h3 Students
+      md-list
+        md-list-item(ng-repeat="student in class.students") {{student}}
+          md-divider
+    
+    md-content(flex="65", flex-xs="100")
+      h3 Messages
+      md-list
+        md-list-item(ng-repeat="message in class.messages")
+          strong {{message.author}}:&nbsp;
+          | {{message.text}}
+          md-divider
+      form.form(name='messageForm', ng-submit='sendMessage()')
+        md-input-container.md-block
+          label Type your message and press enter
+          input(name="messageText", ng-model="message.text")

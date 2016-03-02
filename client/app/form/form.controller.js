@@ -63,7 +63,8 @@ angular.module('thinkKidsCertificationProgramApp')
           name: data.formName,
           submittedData: [],
           data: [data],
-          roles: []
+          roles: [],
+          classes: []
         }).success(function(form) {
           $location.path('/form/' + form._id + '/roles');
         });

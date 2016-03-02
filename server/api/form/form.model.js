@@ -8,6 +8,7 @@ var FormSchema = new Schema({
   data: Array,
   submittedData: Array,
   roles: Array,
+  classes: Array,
   isFeedback: Boolean
 });
 

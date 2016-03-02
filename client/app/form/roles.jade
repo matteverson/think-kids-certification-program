@@ -6,6 +6,13 @@ div(ng-include='"components/navbar/navbar.html"')
     md-list-item(ng-repeat="role in roles")
       p {{role.name}}
       md-checkbox(class="md-secondary", ng-model="role.permitted")
+        
+    md-subheader(class="md-no-sticky")
+      | Choose which classes are allowed to fill the form
+    md-list-item(ng-repeat="class in classes")
+      p {{class.name}}
+      md-checkbox(class="md-secondary", ng-model="class.permitted")
+    
     md-subheader(class="md-no-sticky")
       | Is this an instructor feedback form?
     md-list-item
@@ -14,5 +21,6 @@ div(ng-include='"components/navbar/navbar.html"')
           | Yes
         md-radio-button(value="No")
           | No
-    md-button(class="md-raised md-primary", ng-click="saveRoles(roles)")
+    
+    md-button(class="md-raised md-primary", ng-click="saveRoles(roles, classes)")
       | Save

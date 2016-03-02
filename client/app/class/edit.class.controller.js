@@ -5,7 +5,7 @@ angular.module('thinkKidsCertificationProgramApp')
     $http.get('/api/classes/'+$stateParams.id)
       .success(function(clas) {
         $scope.class = clas;
-        
+
         $http.get('/api/users')
             .success(function(users) {
               $scope.users = users.filter(function(user) {
