@@ -1,14 +1,12 @@
 'use strict';
 
 angular.module('thinkKidsCertificationProgramApp')
-  .controller('NavbarCtrl', function ($scope, $location, Auth, $http, $mdSidenav, Heading, $timeout) {
+  .controller('NavbarCtrl', function ($scope, $location, Auth, $http, $mdSidenav, Heading) {
     $scope.toggleMenu = function() {
         $mdSidenav('left').toggle();
     };
 
-    $timeout(function() {
-      $scope.heading = Heading.getHeading();
-    });
+    $scope.heading = Heading.getHeading;
 
     if(Auth.isLoggedIn()) {
       $http.get('/api/users/'+Auth.getCurrentUser()._id)

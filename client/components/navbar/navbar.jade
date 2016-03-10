@@ -2,7 +2,7 @@ div(ng-controller='NavbarCtrl', layout="row", ng-show="isLoggedIn()")
   md-sidenav.md-sidenav-left.md-whiteframe-z2(md-component-id="left")
     md-toolbar
       md-button.md-icon-button(aria-label="Open menu bar", ng-click="toggleMenu()")
-        i.fa.fa-bars.pointer
+        i.fa.fa-remove.pointer
       md-toolbar(layout="column", layout-align="center center")  
         img.avatar(src="{{ getCurrentUser().prof.avatar }}")
         h1
@@ -30,11 +30,9 @@ div(ng-controller='NavbarCtrl', layout="row", ng-show="isLoggedIn()")
           a(href='/settings')
             span.glyphicon.glyphicon-cog
           md-divider
-        md-list
-          h6 Notifications
   md-toolbar.top-toolbar
     div.md-toolbar-tools
-      md-button.md-icon-button(aria-label="Open menu bar", ng-click="toggleMenu()")
-        i.fa.fa-bars.pointer
+      md-button.md-primary(aria-label="Open menu bar", ng-click="toggleMenu()")
+        | Menu
       h2 
-        span {{heading}}
+        span {{heading()}}
