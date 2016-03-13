@@ -14,11 +14,11 @@ md-content.container
             md-button(ng-click="openMenu($mdOpenMenu, $event)") Options
             md-menu-content
               md-menu-item
-                md-button(ng-click='deleteUser(user, $event)') Delete user
+                md-button(href='/signup/{{user._id}}/roles') Edit user's roles
               md-menu-item
                 md-button(ng-click='toggleActivation(user, $event)') {{user.activeString}} account
               md-menu-item
-                md-button(href='/signup/{{user._id}}/roles') Edit user's roles
+                md-button.md-warn(ng-click='deleteUser(user, $event)') Delete user
           md-divider
       md-button.md-raised.md-primary(href='/signup', ng-show='isAdmin()') New User
     
@@ -32,7 +32,7 @@ md-content.container
               a(href="form/{{form._id}}/data") View Form Data
             p
               a(href="form/{{form._id}}/roles") Edit Authorised Roles and Classes
-          md-button.md-secondary(ng-click="deleteForm(form, $event)") Delete form
+          md-button.md-secondary.md-warn(ng-click="deleteForm(form, $event)") Delete form
           md-divider
       md-button.md-raised.md-primary(href='/form', ng-show='isAdmin()') New Form
           
@@ -44,7 +44,7 @@ md-content.container
               a(href='/class/{{class._id}}') {{class.name}}
             p  
               a(href="/class/{{class._id}}/edit") Edit Class
-          md-button.md-secondary(ng-click='deleteClass(class, $event)') Delete class
+          md-button.md-secondary.md-warn(ng-click='deleteClass(class, $event)') Delete class
           md-divider
       md-button.md-raised.md-primary(href='/class/new', ng-show='isAdmin()') New Class
 
