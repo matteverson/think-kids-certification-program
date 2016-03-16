@@ -1,9 +1,9 @@
 div(ng-include='"components/navbar/navbar.html"')
 .container
   h1 {{message.subject}}
-  {{message.body}}
+  div {{message.body}}
   div(ng-show='message.attachment')
-    a(href='https://think-kids-cert-uploads.s3.amazonaws.com/' + message.attachment) {{ message.attachment }}
+    a(href='https://think-kids-cert-uploads.s3.amazonaws.com/' + '{{message.attachment}}') {{ message.attachment }}
   br
   br
   hr

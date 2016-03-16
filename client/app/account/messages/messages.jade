@@ -11,6 +11,6 @@ div(ng-include='"components/navbar/navbar.html"')
       span.text-muted(ng-hide="message.read") &nbsp;unread
       br
       span.text-muted From 
-        a(href="{{message.sender._id}}/profile"){{message.sender.name}}
+        a(href="{{message.sender._id}}/profile") {{message.sender.name}}
       a.trash(ng-click='deleteMessage(message)')
         span.glyphicon.glyphicon-trash.pull-right
