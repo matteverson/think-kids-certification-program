@@ -13,6 +13,12 @@ div(ng-include='"components/navbar/navbar.html"')
     .form-group
       label Body
       textarea.form-control(name='body', ng-model='message.body', required)
+    .form-group
+      label Attachment
+      div.input-group
+        div.form-control.uploadStatus(type='text', name='attachment', ngf-select="readyUpload($file)", ng-model='message.attachment') {{placeholder}} 
+        span.input-group-addon(ng-click='startUpload()')
+          i(ng-class="['glyphicon', icon_class, uploadStatus]")
     div
       button.btn.btn-inverse.btn-lg.btn-login(type='submit')
         | Send Message
