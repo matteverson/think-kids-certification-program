@@ -6,7 +6,7 @@ angular.module('thinkKidsCertificationProgramApp')
     $scope.reset = {};
     $scope.errors = {};
     $scope.reset.token = $stateParams.t;
-    
+
     $scope.forgot = function(form) {
       $scope.forgotSubmitted = true;
 
@@ -16,7 +16,7 @@ angular.module('thinkKidsCertificationProgramApp')
           $scope.errors.requestForm = 'A password reset email has been sent.';
         })
         .catch( function(err) {
-          $scope.errors.requestForm = err.message;
+          $scope.errors.requestForm = 'User not found';
         });
       }
     };
