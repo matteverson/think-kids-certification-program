@@ -50,7 +50,7 @@ angular.module('thinkKidsCertificationProgramApp')
               };
 
               $scope.form.cancelFormEvent = function() {
-                console.log('Form cancelled!');
+                $location.path('/admin');
               };
             }
           });
