@@ -19,7 +19,7 @@ div(ng-include='"components/navbar/navbar.html"')
             | Request reset
 
   hr
-  .row
+  .row(ng-show="reset.token")
     .col-sm-12
       form.form(name='resetForm', ng-submit='resetPassword(resetForm)', novalidate='')
         .form-group

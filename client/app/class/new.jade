@@ -11,7 +11,7 @@ div(ng-include='"components/navbar/navbar.html"')
           input.form-control(type='text', name='name', ng-model='class.name', required='')
         br
         .form-group
-          label Users
+          label Students
           md-list(ng-cloak)
             md-list-item(ng-repeat="user in users")
               p {{user.name}}
