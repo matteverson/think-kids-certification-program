@@ -47,8 +47,7 @@ User.find({}).remove(function() {
     active: true
   }, {
     provider: 'local',
-    role: 'admin',
-    roles: ['admin', 'user'],
+    roles: ['Admin', 'user'],
     active: true,
     name: 'Lisa Allen',
     email: 'admin@admin.com',
@@ -62,8 +61,7 @@ User.find({}).remove(function() {
     },
   }, {
     provider: 'local',
-    role: 'admin',
-    roles: ['admin', 'user'],
+    roles: ['Admin', 'user'],
     active: true,
     name: 'Aniruddh Agarwal',
     email: 'aaniruddh99@gmail.com',
@@ -80,7 +78,7 @@ User.find({}).remove(function() {
     name: "Harrison Wells",
     email: "inst@inst.com",
     password: "inst",
-    roles: ['inst', 'user'],
+    roles: ['Instructor', 'user'],
     prof: {
       fullName: 'Harrison Wells',
       avatar: 'http://www.lessuk.org/downloads/Photos/Staff-Photos/No_picture_icon_2.jpg',
@@ -218,13 +216,14 @@ User.find({}).remove(function() {
 
 Role.find({}).remove(function() {
   Role.create({
-    name: 'admin',
+    name: 'Admin',
     activities : ['view_users', 'update_users', 'view_forms', 'create_forms', 'delete_forms', 'delete_users', 'create_users', 'assign_users', 'track_payments','de_activate_users','reset_passwords', 'edit_role', 'add_notif', 'view_profile', 'add_class', 'edit_class']
   }, {
     name: 'user',
     activities : ['upload_doc', 'view_forms', 'fill_forms', 'make_payment','view_sub','edit_detail', 'message_user', 'view_feedback']
   }, {
-    name: 'inst',
+    name: 'Instructor',
+    instructor: true,
     activities: ['grade_sub', 'view_forms']
   }, {
     name: 'Certified Trainer (Old)',

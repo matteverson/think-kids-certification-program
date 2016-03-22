@@ -2,6 +2,9 @@
 
 angular.module('thinkKidsCertificationProgramApp')
   .controller('newRoleCtrl', function ($scope, $http, $location) {
+
+    $scope.isInstructor = false;
+
     $scope.activities = [
       {code: 'view_users', name: 'View users'},
     	{code: 'create_users', name: 'Create users'},
@@ -30,17 +33,14 @@ angular.module('thinkKidsCertificationProgramApp')
     	{code: 'view_feedback', name: 'View feedback'}
     ];
 
-    $scope.newRole = function() {
-      var activities = $scope.activities.filter(function(activity) {
-        return activity.selected;
-      }).map(function(activity) {
-        activity = activity.code;
-        return activity;
-      });
+    $scope.newRole = () => {
+      const activities = $scope.activities.filter(activity => activity.selected)
+          .map(activity => activity = activity.code);
 
-      var role = {
+      const role = {
         name: $scope.role.name,
-        activities: activities
+        activities: activities,
+        instructor: $scope.isInstructor
       };
 
       $http.post('/api/roles', role);

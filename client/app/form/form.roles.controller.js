@@ -20,7 +20,7 @@ angular.module('thinkKidsCertificationProgramApp')
               });
 
             $scope.roles = roles.filter(function(role) {
-              return role.name !== 'user' && role.name !== 'inst' && role.name !== 'admin';
+              return role.name !== 'user';
             }).map(function(role) {
               if (form.roles.indexOf(role.name) !== -1) {
                 role.permitted = true;
@@ -38,8 +38,6 @@ angular.module('thinkKidsCertificationProgramApp')
       }).map(function(role) {
         return role.name;
       });
-      roles.push('admin');
-      roles.push('inst');
 
       classes = classes.filter(function(clas) {
         return clas.permitted === true;
