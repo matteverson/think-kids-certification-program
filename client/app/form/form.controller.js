@@ -8,9 +8,13 @@ angular.module('thinkKidsCertificationProgramApp')
 
         $http.get('/api/forms/' + $stateParams.id)
           .success(function(form) {
-            const permittedRoles = form.roles.filter(role => {
+            let permittedRoles = form.roles.filter(role => {
               return Auth.getCurrentUser().roles.indexOf(role) !== -1;
             }).length;
+
+            if(Auth.getCurrentUser().roles.indexOf('Admin') !== -1) {
+              permittedRoles = 1;
+            }
 
             const permittedClasses = form.classes.filter(clas => {
               return Auth.getCurrentUser().classes.indexOf(clas) !== -1;
