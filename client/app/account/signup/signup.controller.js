@@ -37,9 +37,6 @@ angular.module('thinkKidsCertificationProgramApp')
     };
 
     if($stateParams.userID) {
-      var isAdmin = false;
-      var isInstructor = false;
-
       $http.get('/api/roles')
         .success(function(roles) {
           $http.get('/api/users/' + $stateParams.userID)
@@ -53,15 +50,7 @@ angular.module('thinkKidsCertificationProgramApp')
                 return role;
               });
 
-              if(user.roles.indexOf('admin') !== -1) {
-                isAdmin = true;
-              }
-
-              if(user.roles.indexOf('inst') !== -1) {
-                isInstructor = true;
-              }
-
-              $scope.roles = $scope.roles.splice(3, $scope.roles.length-3);
+              $scope.roles = $scope.roles.filter(role => role.name !== 'user' );
             });
         });
 
@@ -73,14 +62,6 @@ angular.module('thinkKidsCertificationProgramApp')
         });
 
         roles.push('user');
-
-        if(isAdmin) {
-          roles.push('admin');
-        }
-
-        if(isInstructor) {
-          roles.push('inst');
-        }
 
         $http.patch('/api/users/'+$stateParams.userID, {roles: roles})
           .success(function() {

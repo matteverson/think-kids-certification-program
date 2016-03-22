@@ -145,7 +145,10 @@ angular.module('thinkKidsCertificationProgramApp')
        * @return {Boolean}
        */
       isAdmin: function() {
-        return currentUser.role === 'admin';
+        if(currentUser.roles) {
+          return currentUser.roles.indexOf('Admin') > -1;
+        }
+        return false;
       },
 
       /**

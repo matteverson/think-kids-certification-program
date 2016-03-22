@@ -95,7 +95,16 @@ angular.module('thinkKidsCertificationProgramApp')
           $scope.form = $.extend(true, {}, form);
           if ($stateParams.onTime) {
             $scope.showData = false;
-            $scope.isInstructor = Auth.getCurrentUser().role === 'admin' || Auth.getCurrentUser().role === 'inst';
+
+            $http.get('/api/roles')
+              .success(roles => {
+                roles = roles.filter(role => role.instructor || role.name === 'Admin')
+                             .map(role => role.name);
+
+                $scope.isInstructor = Auth.getCurrentUser().roles.filter(role => {
+                  return roles.indexOf(role) > -1;
+                }).length > 0;
+              });
 
             $scope.pass = function() {
               var submittedData = form.submittedData.map(function(data) {
