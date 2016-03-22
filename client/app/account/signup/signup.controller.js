@@ -18,7 +18,7 @@ angular.module('thinkKidsCertificationProgramApp')
         })
         .then( function(user) {
           // Account created, redirect to admin list of all users
-          $location.path('/singup/' + user.id + '/roles');
+          $location.path('/signup/' + user.id + '/roles');
         })
         .catch( function(err) {
           err = err.data;
