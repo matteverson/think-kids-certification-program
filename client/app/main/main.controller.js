@@ -1,7 +1,12 @@
 'use strict';
 
 angular.module('thinkKidsCertificationProgramApp')
-.controller('MainCtrl', function ($scope, $http, Auth) {
+.controller('MainCtrl', function ($scope, $http, Auth, $location) {
+
+  if(Auth.isAdmin()) {
+    $location.path('/admin');
+  }
+
   $scope.forms = [];
   $scope.submissions = [];
   $scope.submissionFields = [];
@@ -64,7 +69,7 @@ angular.module('thinkKidsCertificationProgramApp')
     if (feedback[0]) {
       $scope.feedback = feedback[0].val;
     }
-    
+
     $scope.submissionFields = $scope.submissions[index].fields.filter(function (field) {
       return (field.prop !== 'feedback');
     });
