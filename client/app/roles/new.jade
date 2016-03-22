@@ -5,12 +5,16 @@ div(ng-include='"components/navbar/navbar.html"')
     .form-group
       label Name
       input.form-control(type='text', name='name', ng-model='role.name', required)
-    .md-list(ng-cloak)
+    
+    md-list(ng-cloak)
+      md-list-item
+        p Is this role an instructor?
+        md-switch(class="secondary", ng-model="isInstructor")
       md-subheader(class="md-no-sticky")
         | Activities
       md-list-item(ng-repeat="activity in activities")
         p {{activity.name}}
         md-checkbox(class="md-secondary", ng-model="activity.selected")
     div
-      button.btn.btn-inverse.btn-lg.btn-login(type='submit')
+      md-button.md-primary.md-raised(type='submit')
         | Create Role
