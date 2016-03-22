@@ -14,6 +14,10 @@ angular.module('thinkKidsCertificationProgramApp')
               user.activeString = 'Activate';
             }
             return user;
+          }).sort((a, b) => {
+            if(a.name < b.name) { return -1; }
+            if(a.name > b.name) { return 1; }
+            return 0;
           });
 
           $scope.announcements = [];
