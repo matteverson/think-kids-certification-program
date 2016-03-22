@@ -14,6 +14,9 @@ angular.module('thinkKidsCertificationProgramApp')
           email: $scope.user.email,
           password: $scope.user.password,
           roles: [],
+          prof: {
+            avatar: 'http://www.lessuk.org/downloads/Photos/Staff-Photos/No_picture_icon_2.jpg'
+          },
           active: true
         })
         .then( function(user) {
