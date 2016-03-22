@@ -16,7 +16,7 @@ angular.module('thinkKidsCertificationProgramApp')
               return Auth.getCurrentUser().classes.indexOf(clas) !== -1;
             }).length;
 
-            if (permittedRoles === 0 || permittedClasses === 0) {
+            if (permittedRoles === 0 && permittedClasses === 0) {
               $location.path('/');
             } else {
               $scope.form = {};
