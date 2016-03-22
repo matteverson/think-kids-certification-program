@@ -15,7 +15,11 @@ angular.module('thinkKidsCertificationProgramApp')
         })
         .then( function() {
           // Logged in, redirect to home
-          $location.path('/');
+          if(Auth.isAdmin()) {
+            $location.path('/admin');
+          } else {
+            $location.path('/');
+          }
         })
         .catch( function(err) {
           $scope.errors.other = err.message;
