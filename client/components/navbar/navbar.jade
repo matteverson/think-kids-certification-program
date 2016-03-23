@@ -32,7 +32,6 @@ div(ng-controller='NavbarCtrl', layout="row", ng-show="isLoggedIn()")
           md-divider
   md-toolbar.top-toolbar
     div.md-toolbar-tools
-      md-button.md-primary(aria-label="Open menu bar", ng-click="toggleMenu()")
+      md-button.md-primary.md-raised(aria-label="Open menu bar", ng-click="toggleMenu()")
         | Menu
-      h2 
-        span {{heading()}}
+      h2 &nbsp;&nbsp;&nbsp;{{heading()}}
