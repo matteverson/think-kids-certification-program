@@ -44,14 +44,16 @@ angular.module('thinkKidsCertificationProgramApp')
 
 
     $scope.saveClass = () => {
-      const instructors = $scope.instructors.filter(instructor => instructor.inClass)
-        .map(instructor => instructor.name);
-      const users = $scope.users.filter(user => user.inClass);
-      users.forEach(user => user.classes.push($scope.class.name));
+      const instructors = $scope.instructors.filter(instructor => instructor.inClass);
+      const instructorNames = instructors.map(instructor => instructor.name);
+
+      let users = $scope.users.filter(user => user.inClass);
       const userNames = users.map(user => user.name);
+      users = users.concat(instructors);
+      users.forEach(user => user.classes.push($scope.class.name));
       const userIDs = users.map(user => user._id);
 
-      $http.patch('/api/classes/'+$scope.class._id, {name: $scope.class.name, instructors: instructors, students: userNames});
+      $http.patch('/api/classes/'+$scope.class._id, {name: $scope.class.name, instructors: instructorNames, students: userNames});
 
       for(let i = 0; i < userIDs.length; i++) {
         $http.patch('/api/users/' + userIDs[i], users[i]);
