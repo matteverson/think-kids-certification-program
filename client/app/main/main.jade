@@ -1,26 +1,37 @@
 div(ng-include='"components/navbar/navbar.html"')
 
-.container
-  .row
-    .col-lg-3
-      .well
-        h2 Assignments
-        div.list-group
-          a.list-group-item(ng-repeat='form in forms', href='', ng-click="viewForm(form, $index)", ng-class="{active: $index == selectedForm}") {{form.name}}
-        h2 Submitted Work
-        div.list-group
-          a.list-group-item(ng-repeat='submission in submissions', href='', ng-click="viewSubmission(submission, $index)", ng-class="{active: $index == selectedSubmission}") {{submission.name}}
-        h2 My Classes
-        div.list-group
-          span.list-group-item(ng-show="noClasses") You're not in any class!
-          a.list-group-item(ng-repeat='class in classes', href='/class/{{class._id}}', ng-hide="noClasses") {{class.name}}
-
-    .col-lg-9
+.container(layout="row")
+  md-content(flex="27")
+    md-list.md-dense
+      md-subheader Assignments
+      md-list-item(ng-show="noAssignments")
+        p You currently don't have any due assignments.
+      md-list-item(ng-repeat="form in forms")
+        a.no-blue(href='', ng-click="viewForm(form, $index)", ng-class="{active: $index == selectedForm}") {{form.name}}
+        md-divider(ng-if="$last")
+      md-subheader Submitted Work
+      md-list-item(ng-repeat="submission in submissions")
+        a.no-blue(href='', ng-click="viewSubmission(submission, $index)", ng-class="{active: $index == selectedSubmission}") {{submission.name}}
+        md-divider(ng-if="$last")
+      md-subheader My Classes
+      md-list-item(ng-show="noClasses")
+        p You are not currently enrolled in a class.
+      md-list-item(ng-repeat="class in classes")
+        a.no-blue(href='/class/{{class._id}}', ng-hide="noClasses") {{class.name}}
+  md-divider
+  md-content(flex="70", flex-offset="3", layout="column")
+    div(layout="column", layout-align="center center", ng-show="viewWelcome")
+      em
+        h1.text-muted Welcome.
+      p.text-muted Please select an option from the menu on the left.
+    md-list.md-dense
       eda-easy-form-viewer(ng-show="form.fieldsModel", eda-easy-form-viewer-data-model="form.dataModel", eda-easy-form-viewer-easy-form-generator-fields-model="form.fieldsModel", eda-easy-form-viewer-submit-button-text="{{ form.btnSubmitText }}", eda-easy-form-viewer-cancel-button-text="{{ form.btnCancelText }}", eda-easy-form-viewer-submit-form-event="submitForm()", eda-easy-form-viewer-cancel-form-event="cancelForm()")
       div(ng-show="submissionFields")
-        li.list-group-item(ng-repeat='field in submissionFields')
-          strong {{field.prop}}
-          span.text-muted  {{field.val}}
+        md-list.md-dense  
+          md-list-item.md-2-line(ng-repeat='field in submissionFields')
+            div.md-list-item-text
+              h3 {{field.prop}}
+              p  {{field.val}}
         div(ng-show="feedback", ng-repeat='response in feedback')
           h3 Feedback
           li.list-group-item
