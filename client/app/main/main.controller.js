@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('thinkKidsCertificationProgramApp')
-.controller('MainCtrl', function ($scope, $http, Auth, $location) {
+.controller('MainCtrl', function ($scope, $http, Auth, $location, Heading) {
+
+  Heading.setHeading('Home.');
 
   if(Auth.isAdmin()) {
     $location.path('/admin');
@@ -11,6 +13,8 @@ angular.module('thinkKidsCertificationProgramApp')
   $scope.submissions = [];
   $scope.submissionFields = [];
   $scope.noClasses = false;
+  $scope.noAssignments = false;
+  $scope.viewWelcome = true;
 
   $http.get('/api/classes')
     .success(function(classes) {
@@ -23,15 +27,15 @@ angular.module('thinkKidsCertificationProgramApp')
       }
     });
 
-  updateSubmittedWork();
-
-  function updateSubmittedWork()
-  {
+  let updateSubmittedWork = () => {
     $scope.submissions = [];
     $http.get('/api/forms/mine').success(function(forms) {
       $scope.forms = forms;
-      forms.forEach(function(form) {
-        form.submittedData.forEach(function(data) {
+      if($scope.forms.length === 0) {
+        $scope.noAssignments = true;
+      }
+      forms.forEach(form => {
+        form.submittedData.forEach(data => {
           if (data.byName == Auth.getCurrentUser().name) {
             var dataProps = Object.getOwnPropertyNames(data);
             var filteredData = [];
@@ -57,9 +61,12 @@ angular.module('thinkKidsCertificationProgramApp')
         });
       });
     });
-  }
+  };
 
-  $scope.viewSubmission = function(submission, index) {
+  updateSubmittedWork();
+
+  $scope.viewSubmission = (submission, index) => {
+    $scope.viewWelcome = false;
     $scope.cancelForm();
     $scope.selectedSubmission = index;
     var feedback = $scope.submissions[index].fields.filter(function (field) {
@@ -83,6 +90,7 @@ angular.module('thinkKidsCertificationProgramApp')
   }
 
   $scope.viewForm = function(form, index) {
+    $scope.viewWelcome = false;
     cancelSubmission();
     $scope.selectedForm = index;
     $scope.form = {};
@@ -99,6 +107,7 @@ angular.module('thinkKidsCertificationProgramApp')
     var formSubmittedData = {};
 
     // Name all fields with their labels instead of random IDs
+    // TODO implement **forEach** and replace the **for** loops
     for (var i = 0; i < formSubmittedDataProps.length; i++) {
       for (var x = 0; x < formFieldsData.length; x++) {
         for (var y = 0; y < formFieldsData[x].columns.length; y++) {
