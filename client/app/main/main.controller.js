@@ -27,31 +27,39 @@ angular.module('thinkKidsCertificationProgramApp')
       }
     });
 
-  let updateSubmittedWork = () => {
+  const updateSubmittedWork = () => {
     $scope.submissions = [];
-    $http.get('/api/forms/mine').success(function(forms) {
+    $http.get('/api/forms/mine').success(forms => {
       $scope.forms = forms;
+
       if($scope.forms.length === 0) {
         $scope.noAssignments = true;
       }
+
       forms.forEach(form => {
         form.submittedData.forEach(data => {
-          if (data.byName == Auth.getCurrentUser().name) {
-            var dataProps = Object.getOwnPropertyNames(data);
-            var filteredData = [];
+          if (data.byName === Auth.getCurrentUser().name) {
+            const dataProps = Object.getOwnPropertyNames(data);
+            const filteredData = [];
 
-            for (var i = 0; i < dataProps.length; i++) {
-              if (dataProps[i] === 'byName') {
-                continue;
-              } else if (dataProps[i] === 'onTime') {
-                continue;
+            dataProps.forEach(prop => {
+              if (prop === 'byName') {
+                return;
+              } else if (prop === 'onTime') {
+                return;
               } else {
-                var field = {};
-                field.prop = dataProps[i];
-                field.val = data[dataProps[i]];
+                const field = {};
+                field.prop = prop;
+                field.val = data[prop];
+
+                if(moment(field.val, moment.ISO_8601).isValid()) {
+                  field.val = moment(field.val).format('MMMM Do, YYYY');
+                }
+
                 filteredData.push(field);
               }
-            }
+            });
+
             $scope.submissions.push({
               name: form.name + ' - ' + moment.unix(data.onTime).fromNow(),
               fields: filteredData,
@@ -69,27 +77,21 @@ angular.module('thinkKidsCertificationProgramApp')
     $scope.viewWelcome = false;
     $scope.cancelForm();
     $scope.selectedSubmission = index;
-    var feedback = $scope.submissions[index].fields.filter(function (field) {
-      return (field.prop === 'feedback');
-    });
+    const feedback = $scope.submissions[index].fields.filter(field => field.prop === 'feedback');
 
     if (feedback[0]) {
       $scope.feedback = feedback[0].val;
     }
 
-    $scope.submissionFields = $scope.submissions[index].fields.filter(function (field) {
-      return (field.prop !== 'feedback');
-    });
-    console.log($scope.feedback);
-    console.log($scope.submissionFields);
+    $scope.submissionFields = $scope.submissions[index].fields.filter(field => field.prop !== 'feedback');
   };
 
-  function cancelSubmission() {
+  const cancelSubmission = () => {
     $scope.selectedSubmission = null;
     $scope.submissionFields = [];
-  }
+  };
 
-  $scope.viewForm = function(form, index) {
+  $scope.viewForm = (form, index) => {
     $scope.viewWelcome = false;
     cancelSubmission();
     $scope.selectedForm = index;
@@ -100,33 +102,30 @@ angular.module('thinkKidsCertificationProgramApp')
     $scope.form.dataModel = {};
   };
 
-  $scope.submitForm = function() {
-    var form = $scope.forms[$scope.selectedForm];
-    var formFieldsData = form.data[0].edaFieldsModel;
-    var formSubmittedDataProps = Object.getOwnPropertyNames($scope.form.dataModel);
-    var formSubmittedData = {};
+  $scope.submitForm = () => {
+    const form = $scope.forms[$scope.selectedForm];
+    const formFieldsData = form.data[0].edaFieldsModel;
+    const formSubmittedDataProps = Object.getOwnPropertyNames($scope.form.dataModel);
+    const formSubmittedData = {};
 
     // Name all fields with their labels instead of random IDs
-    // TODO implement **forEach** and replace the **for** loops
-    for (var i = 0; i < formSubmittedDataProps.length; i++) {
-      for (var x = 0; x < formFieldsData.length; x++) {
-        for (var y = 0; y < formFieldsData[x].columns.length; y++) {
-          if (formFieldsData[x].columns[y].control.key === formSubmittedDataProps[i]) {
-            formSubmittedData[formFieldsData[x].columns[y].control.templateOptions.label] = $scope.form.dataModel[formSubmittedDataProps[i]];
+    formSubmittedDataProps.forEach(prop => {
+      formFieldsData.forEach(field => {
+        field.columns.forEach(column => {
+          if(column.control.key === prop) {
+            formSubmittedData[column.control.templateOptions.label] = $scope.form.dataModel[prop];
           }
-        }
-      }
-    }
+        });
+      });
+    });
 
     formSubmittedData.onTime = moment().unix();
     formSubmittedData.byName = Auth.getCurrentUser().name;
-    formSubmittedData.Date = moment(Date.parse(formSubmittedData.Date)).format('MMMM Do YYYY');
 
-    console.log('Submitting form data', formSubmittedData);
     $http.patch('/api/forms/' + form._id, {
         submittedData: formSubmittedData
       })
-      .success(function() {
+      .success(() => {
         $scope.selectedForm = null;
         $scope.form = {};
         $scope.form.dataModel = {};
@@ -134,7 +133,7 @@ angular.module('thinkKidsCertificationProgramApp')
       });
   };
 
-  $scope.cancelForm = function() {
+  $scope.cancelForm = () => {
     $scope.selectedForm = null;
     $scope.form = {};
     $scope.form.dataModel = {};

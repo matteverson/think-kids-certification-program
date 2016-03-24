@@ -34,6 +34,7 @@
     "lodash": "~3.9.3",
     "bootstrap": "~3.3.5",
     "angular-loading-bar": "~0.8.0",
-    "angular": ">=1"
+    "angular": ">=1",
+    "angular-material": "~1.0.6"
   }
 }
