@@ -8,8 +8,16 @@ angular.module('thinkKidsCertificationProgramApp')
         $scope.class = clas;
         $http.get('/api/forms')
           .success(function(forms) {
-            $scope.forms = forms.filter(function(form) {
-              return form.classes.indexOf($scope.class.name) > -1;
+            $scope.forms = forms.filter(({ startDate, endDate, classes}) => {
+              if(startDate === undefined) {
+                startDate = moment();
+              }
+
+              if(endDate === undefined) {
+                endDate = moment().add(1, 'd');
+              }
+
+              return classes.indexOf($scope.class.name) > -1 && moment().isBetween(startDate, endDate);
             });
           });
       });

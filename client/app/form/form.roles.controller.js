@@ -2,10 +2,21 @@
 
 angular.module('thinkKidsCertificationProgramApp')
   .controller('FormRolesCtrl', function($scope, $http, $stateParams, $location) {
+
+    $scope.today = moment().toDate();
+
     $http.get('/api/roles')
       .success(function(roles) {
         $http.get('/api/forms/' + $stateParams.id)
           .success(function(form) {
+
+            if(form.startDate) {
+              $scope.startDate = moment(form.startDate).toDate();
+            }
+
+            if(form.endDate) {
+              $scope.endDate = moment(form.endDate).toDate();
+            }
 
             $http.get('/api/classes')
               .success(function(classes) {
@@ -32,34 +43,16 @@ angular.module('thinkKidsCertificationProgramApp')
           });
       });
 
-    $scope.saveRoles = function(roles, classes) {
-      roles = roles.filter(function(role) {
-        return role.permitted === true;
-      }).map(function(role) {
-        return role.name;
-      });
+    $scope.saveRoles = (roles, classes) => {
+      roles = roles.filter(role => role.permitted === true)
+                   .map(role => role.name);
 
-      classes = classes.filter(function(clas) {
-        return clas.permitted === true;
-      }).map(function(clas) {
-        return clas.name;
-      });
+      classes = classes.filter(clas => clas.permitted === true)
+                       .map(clas => clas.name);
 
-      var isFeedback;
+      const { startDate, endDate, isFeedback } = $scope;
 
-      if ($scope.Feedback === 'Yes') {
-        isFeedback = true;
-      } else {
-        isFeedback = false;
-      }
-
-      $http.patch('/api/forms/' + $stateParams.id, {
-          roles: roles,
-          classes: classes,
-          isFeedback: isFeedback
-        })
-        .success(function() {
-          $location.path('/admin');
-        });
+      $http.patch('/api/forms/' + $stateParams.id, { roles, classes, isFeedback, startDate, endDate })
+        .success(() => $location.path('/admin'));
     };
   });

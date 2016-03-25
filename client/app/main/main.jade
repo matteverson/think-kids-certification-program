@@ -6,18 +6,15 @@ div(ng-include='"components/navbar/navbar.html"')
       md-subheader Assignments
       md-list-item(ng-show="noAssignments")
         p You currently don't have any due assignments.
-      md-list-item(ng-repeat="form in forms")
-        a.no-blue(href='', ng-click="viewForm(form, $index)", ng-class="{active: $index == selectedForm}") {{form.name}}
+      md-list-item(ng-repeat="form in forms",href='', ng-click="viewForm(form, $index)", ng-class="{active: $index == selectedForm}") {{form.name}}
         md-divider(ng-if="$last")
       md-subheader Submitted Work
-      md-list-item(ng-repeat="submission in submissions")
-        a.no-blue(href='', ng-click="viewSubmission(submission, $index)", ng-class="{active: $index == selectedSubmission}") {{submission.name}}
+      md-list-item(ng-repeat="submission in submissions", href='', ng-click="viewSubmission(submission, $index)", ng-class="{active: $index == selectedSubmission}") {{submission.name}}
         md-divider(ng-if="$last")
       md-subheader My Classes
       md-list-item(ng-show="noClasses")
         p You are not currently enrolled in a class.
-      md-list-item(ng-repeat="class in classes")
-        a.no-blue(href='/class/{{class._id}}', ng-hide="noClasses") {{class.name}}
+      md-list-item(ng-repeat="class in classes", href='/class/{{class._id}}', ng-hide="noClasses") {{class.name}}
   md-divider
   md-content(flex="70", flex-offset="3", layout="column")
     div(layout="column", layout-align="center center", ng-show="viewWelcome")
