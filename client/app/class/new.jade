@@ -1,29 +1,25 @@
 div(ng-include='"components/navbar/navbar.html"')
 .container
-  .row
-    .col-sm-12
-      h1 Create class
-      br
-      .col-sm-12
-      form.form(name='form', ng-submit='register(form)')
-        .form-group
-          label Name
-          input.form-control(type='text', name='name', ng-model='class.name', required='')
-        br
-        .form-group
-          label Students
-          md-list(ng-cloak)
-            md-list-item(ng-repeat="user in users")
-              p {{user.name}}
-              md-checkbox(class="md-secondary", ng-model="user.inClass")
-                
-        .form-group
-          label Instructors
-          md-list(ng-cloak)
-            md-list-item(ng-repeat="instructor in instructors")
-              p {{instructor.name}}
-              md-checkbox(class="md-secondary", ng-model="instructor.inClass")
+  form(name='editClassForm', ng-submit='register(form)')
+    md-list
+      md-subheader Name
+      md-list-item
+        md-input-container.md-block(flex-gt-sm="")
+          input(name="className", ng-model='class.name', required='')
+          div(ng-messages="editClassForm.className.$error")
+            div(ng-message="required") This is required
+    md-list(ng-cloak)
+      md-subheader Students
+      md-list-item(ng-repeat="user in users")
+        p {{user.name}}
+        md-checkbox(class="md-secondary", ng-model="user.inClass")
+    md-divider
+    md-list(ng-cloak)
+      md-subheader Instructors
+      md-list-item(ng-repeat="instructor in instructors")
+        p {{instructor.name}}
+        md-checkbox(class="md-secondary", ng-model="instructor.inClass")
 
-        div
-          button.btn.btn-inverse.btn-lg.btn-login(type='submit', ng-click="saveClass()")
-            | Save
+    md-button.md-primary.md-raised(type='submit', ng-click="saveClass()")
+      | Save
+  br

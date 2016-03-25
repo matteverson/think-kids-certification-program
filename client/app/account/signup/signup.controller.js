@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('thinkKidsCertificationProgramApp')
-  .controller('SignupCtrl', function ($scope, Auth, $http, $location, $stateParams) {
+  .controller('SignupCtrl', function ($scope, Auth, $http, $location, $stateParams, Heading) {
     $scope.user = {};
     $scope.errors = {};
 
@@ -37,10 +37,14 @@ angular.module('thinkKidsCertificationProgramApp')
     };
 
     if($stateParams.userID) {
+
       $http.get('/api/roles')
         .success(function(roles) {
           $http.get('/api/users/' + $stateParams.userID)
             .success(function(user) {
+
+              Heading.setHeading('Admin Panel > Set ' + user.name + '\'s roles.');
+
               $scope.roles = roles.map(function(role) {
                 if(user.roles.indexOf(role.name) !== -1) {
                   role.permitted = true;

@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module('thinkKidsCertificationProgramApp')
-  .controller('newAnnouncementCtrl', function ($scope, $http, $location) {
+  .controller('newAnnouncementCtrl', function ($scope, $http, $location, Heading) {
+
+    Heading.setHeading('Admin Panel > New Announcement');
+
     $http.get('/api/roles')
       .success(roles => {
         $scope.roles = roles.map(role => {
@@ -14,6 +17,9 @@ angular.module('thinkKidsCertificationProgramApp')
       });
 
     $scope.sendAnnouncement = function() {
+      if($scope.text === undefined) {
+        return;
+      }
       $http.get('/api/users')
         .success(users => {
           var roles = $scope.roles.map(function(role) {

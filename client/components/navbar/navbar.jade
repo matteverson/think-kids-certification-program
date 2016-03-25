@@ -10,28 +10,27 @@ div(ng-controller='NavbarCtrl', layout="row", ng-show="isLoggedIn()")
         a(href="#", ng-click="logout()") Logout
     md-content(layout-padding="")
       md-list
-        md-list-item.navbar-list
-          a(href='/') Home
+        md-list-item.navbar-list(href='/') Home
           md-divider
-        md-list-item.navbar-list(ng-show="isAdmin()")
-          a(href='/admin') Admin
+        md-list-item.navbar-list(ng-show="isAdmin()", href='/admin') Admin
           md-divider
         md-list-item(layout="row", layout-align="space-around center")
           a(href='{{ getCurrentUser()._id }}/messages', ng-show='newMessage() && isLoggedIn()')
             i.fa.fa-envelope
-          a(href='{{ getCurrentUser()._id }}/messages', ng-show='!newMessage() && isLoggedIn()')
+          a.no-blue(href='{{ getCurrentUser()._id }}/messages', ng-show='!newMessage() && isLoggedIn()')
             i.fa.fa-envelope-o
           
           a(href='announcements', ng-show='newAnnouncement() && isLoggedIn()')
             i.fa.fa-bell
-          a(href='announcements', ng-show='!newAnnouncement() && isLoggedIn()')
+          a.no-blue(href='announcements', ng-show='!newAnnouncement() && isLoggedIn()')
             i.fa.fa-bell-o
               
-          a(href='/settings')
+          a.no-blue(href='/settings')
             span.glyphicon.glyphicon-cog
           md-divider
   md-toolbar.top-toolbar
     div.md-toolbar-tools
-      md-button.md-primary.md-raised(aria-label="Open menu bar", ng-click="toggleMenu()")
+      md-button.md-raised(aria-label="Open menu bar", ng-click="toggleMenu()")
         | Menu
+      md-button(aria-label="Go back", ng-show="showGoBack", onClick="history.go(-1)") Go back
       h2 &nbsp;&nbsp;&nbsp;{{heading()}}

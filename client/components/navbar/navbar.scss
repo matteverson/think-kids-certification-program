@@ -1,6 +1,6 @@
-.top-toolbar {
-  background-color: rgba(255, 255, 255, 0) !important; /* !important used to override angular material's default toolbar colour */
-}
+// .top-toolbar {
+//   background-color: rgba(255, 255, 255, 0) !important; /* !important used to override angular material's default toolbar colour */
+// }
 
 md-toolbar > h1 {
   height: 32px;
@@ -45,10 +45,6 @@ md-toolbar > a:hover, md-toolbar > a:active, md-toolbar > h1 > a:hover, md-toolb
 
 i.fa.fa-envelope, i.fa.fa-bell {
   color: #da5353;
-}
-
-.md-toolbar-tools > h2 {
-  color: #000;
 }
 
 md-sidenav, md-backdrop {

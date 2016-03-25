@@ -6,6 +6,10 @@ angular.module('thinkKidsCertificationProgramApp')
         $mdSidenav('left').toggle();
     };
 
+    if(document.referrer.split('/')[2] === window.location.hostname + ':' + window.location.port && window.location.pathname !== '/admin' && window.location.pathname !== '/') {
+      $scope.showGoBack = true;
+    }
+
     $scope.heading = Heading.getHeading;
 
     if(Auth.isLoggedIn()) {
