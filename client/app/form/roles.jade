@@ -2,6 +2,12 @@ div(ng-include='"components/navbar/navbar.html"')
 .container
   md-list(ng-controller="FormRolesCtrl", ng-cloak)
     md-subheader(class="md-no-sticky")
+      | Choose the start and end dates for the form
+    md-list-item
+      md-datepicker(ng-model="startDate", md-placeholder="Start date", md-min-date="today")
+    md-list-item
+      md-datepicker(ng-model="endDate", md-placeholder="End date", md-min-date="startDate")
+    md-subheader(class="md-no-sticky")
       | Choose which users are allowed to fill the form
     md-list-item(ng-repeat="role in roles")
       p {{role.name}}
@@ -13,14 +19,9 @@ div(ng-include='"components/navbar/navbar.html"')
       p {{class.name}}
       md-checkbox(class="md-secondary", ng-model="class.permitted")
     
-    md-subheader(class="md-no-sticky")
-      | Is this an instructor feedback form?
     md-list-item
-      md-radio-group(ng-model="Feedback")
-        md-radio-button(value="Yes", class="md-primary")
-          | Yes
-        md-radio-button(value="No")
-          | No
+      p Is this an instructor feedback form?
+      md-switch.secondary(ng-model="isFeedback")
     
     md-button(class="md-raised md-primary", ng-click="saveRoles(roles, classes)")
       | Save
