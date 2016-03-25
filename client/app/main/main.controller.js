@@ -30,10 +30,26 @@ angular.module('thinkKidsCertificationProgramApp')
   let updateSubmittedWork = () => {
     $scope.submissions = [];
     $http.get('/api/forms/mine').success(function(forms) {
-      $scope.forms = forms;
+      $scope.forms = forms.filter(({startDate, endDate}) => {
+        if(startDate === undefined) {
+          startDate = moment();
+        }
+
+        if(endDate === undefined) {
+          endDate = moment().add(1, 'd');
+        }
+
+        console.log(startDate);
+        console.log(endDate);
+
+        const showForm = moment().isBetween(startDate, endDate);
+        return showForm;
+      });
+
       if($scope.forms.length === 0) {
         $scope.noAssignments = true;
       }
+
       forms.forEach(form => {
         form.submittedData.forEach(data => {
           if (data.byName == Auth.getCurrentUser().name) {
