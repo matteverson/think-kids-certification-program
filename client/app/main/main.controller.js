@@ -3,7 +3,7 @@
 angular.module('thinkKidsCertificationProgramApp')
 .controller('MainCtrl', function ($scope, $http, Auth, $location, Heading) {
 
-  Heading.setHeading('Home.');
+  Heading.setHeading('Home');
 
   if(Auth.isAdmin()) {
     $location.path('/admin');
@@ -29,8 +29,23 @@ angular.module('thinkKidsCertificationProgramApp')
 
   const updateSubmittedWork = () => {
     $scope.submissions = [];
+
     $http.get('/api/forms/mine').success(forms => {
-      $scope.forms = forms;
+      $scope.forms = forms.filter(({startDate, endDate}) => {
+        if(startDate === undefined) {
+          startDate = moment();
+        }
+
+        if(endDate === undefined) {
+          endDate = moment().add(1, 'd');
+        }
+
+        console.log(startDate);
+        console.log(endDate);
+
+        const showForm = moment().isBetween(startDate, endDate);
+        return showForm;
+      });
 
       if($scope.forms.length === 0) {
         $scope.noAssignments = true;

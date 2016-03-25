@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module('thinkKidsCertificationProgramApp')
-  .controller('AdminCtrl', function ($scope, $http, Auth, User, $location, $mdDialog, $mdToast, $timeout) {
+  .controller('AdminCtrl', function ($scope, $http, Auth, User, $location, $mdDialog, $mdToast, $timeout, Heading) {
+
+    Heading.setHeading('Admin Panel');
+
     $timeout(function() {
       $http.get('/api/users')
         .success(function(users) {

@@ -9,7 +9,9 @@ var FormSchema = new Schema({
   submittedData: Array,
   roles: Array,
   classes: Array,
-  isFeedback: Boolean
+  isFeedback: Boolean,
+  startDate: String,
+  endDate: String
 });
 
 module.exports = mongoose.model('Form', FormSchema);
