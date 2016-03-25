@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('thinkKidsCertificationProgramApp')
-  .controller('FormRolesCtrl', function($scope, $http, $stateParams, $location) {
+  .controller('FormRolesCtrl', function($scope, $http, $stateParams, $location, Heading) {
 
     $scope.today = moment().toDate();
 
@@ -9,6 +9,8 @@ angular.module('thinkKidsCertificationProgramApp')
       .success(function(roles) {
         $http.get('/api/forms/' + $stateParams.id)
           .success(function(form) {
+
+            Heading.setHeading('Admin Panel > Edit ' + form.name + '\'s details');
 
             if(form.startDate) {
               $scope.startDate = moment(form.startDate).toDate();

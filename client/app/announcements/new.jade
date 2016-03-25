@@ -1,16 +1,18 @@
 div(ng-include='"components/navbar/navbar.html"')
 .container
-  h1 New Announcement
-  form.form(name='newAnnouncementForm', ng-submit='sendAnnouncement()')
+  form(name='newAnnouncementForm', ng-submit='sendAnnouncement()', novalidate="")
     .md-list(ng-cloak)
       md-subheader(class="md-no-sticky")
-        | Select the roles to which the announcement must be sent
+        | Select the roles to whom the announcement must be sent
       md-list-item(ng-repeat="role in roles")
         p {{role.name}}
         md-checkbox(class="md-secondary", ng-model="role.selected")
-    .form-group
+    
+    md-input-container.md-block
       label Text
-      input.form-control(type='text', name='text', ng-model='text', required)
-    div
-      button.btn.btn-inverse.btn-lg.btn-login(type='submit')
-        | Send Announcement
+      input(name="announcementTxt", ng-model="text", required="")
+      div(ng-messages="newAnnouncementForm.announcementTxt.$error")
+        div(ng-message="required") This is required.
+    
+    md-button.md-primary.md-raised(type='submit')
+      | Send Announcement

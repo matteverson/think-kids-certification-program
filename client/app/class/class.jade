@@ -1,20 +1,18 @@
 div(ng-include='"components/navbar/navbar.html"')
 .container
-  h1 {{class.name}}
   h5 Taught by {{class.instructors.join(', ')}}
   
-  md-content(layout="row", layout-xs="column", layout-align="space-around")
+  div(layout="row", layout-xs="column", layout-align="space-around")
     md-content(layout="column", flex="30", flex-xs="100")
       h3 Assignments
       md-list
         md-list-item(ng-repeat="form in forms", href="/form/{{form._id}}") {{form.name}}
-          md-divider
+      md-divider
         
       h3 Students
       md-list
         md-list-item(ng-repeat="student in class.students") {{student}}
-          md-divider
-    
+    md-divider
     md-content(flex="65", flex-xs="100")
       h3 Messages
       md-list

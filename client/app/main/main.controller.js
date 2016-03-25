@@ -3,7 +3,7 @@
 angular.module('thinkKidsCertificationProgramApp')
 .controller('MainCtrl', function ($scope, $http, Auth, $location, Heading) {
 
-  Heading.setHeading('Home.');
+  Heading.setHeading('Home');
 
   if(Auth.isAdmin()) {
     $location.path('/admin');

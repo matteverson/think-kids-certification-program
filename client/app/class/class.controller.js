@@ -1,10 +1,11 @@
 'use strict';
 
 angular.module('thinkKidsCertificationProgramApp')
-  .controller('ClassCtrl', function ($scope, $stateParams, $http, Auth) {
+  .controller('ClassCtrl', function ($scope, $stateParams, $http, Auth, Heading) {
 
     $http.get('/api/classes/' + $stateParams.id)
       .success(function (clas) {
+        Heading.setHeading(clas.name);
         $scope.class = clas;
         $http.get('/api/forms')
           .success(function(forms) {
