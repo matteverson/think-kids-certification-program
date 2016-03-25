@@ -10,6 +10,14 @@ angular.module('thinkKidsCertificationProgramApp')
         $http.get('/api/forms/' + $stateParams.id)
           .success(function(form) {
 
+            if(form.startDate) {
+              $scope.startDate = moment(form.startDate).toDate();
+            }
+
+            if(form.endDate) {
+              $scope.endDate = moment(form.endDate).toDate();
+            }
+
             $http.get('/api/classes')
               .success(function(classes) {
                 $scope.classes = classes.map(function(clas) {
