@@ -8,6 +8,10 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
  * App-wide Styles
  */
 
+ .no-bottom-margin {
+   margin-bottom: 0;
+ }
+
 .browsehappy {
     margin: 0.2em 0;
     background: #ccc;
@@ -24,6 +28,7 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 @import 'form/form.scss';
 @import 'main/main.scss';
 @import 'roles/fees.scss';
+@import 'roles/roles.scss';
 @import 'upload/upload.scss';
 @import 'modal/modal.scss';
 @import 'navbar/navbar.scss';
