@@ -45,7 +45,7 @@ exports.update = function(req, res) {
 };
 
 exports.destroy = function(req, res) {
-    Role.findById(function (err, role) {
+    Role.findById(req.params.id, function (err, role) {
         if(err) { return handleError(res, err); }
         if(!role) { return res.status(404).send('Not Found'); }
         role.remove(function(err) {

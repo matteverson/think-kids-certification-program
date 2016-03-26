@@ -51,7 +51,9 @@ md-content.container
     md-tab(label="Roles")
       md-list
         md-list-item(ng-repeat='role in roles')      
-          {{role.name}}  
+          {{role.name}}
+          md-button.md-secondary.md-warn(ng-show="role.canDelete", ng-click='deleteRole(role, $event)') Delete role
+          md-button.md-secondary(ng-disabled="true", ng-hide="role.canDelete") Delete role
           md-divider  
       md-button.md-raised.md-primary(href='/roles/new', ng-show='isAdmin()') New Role
     

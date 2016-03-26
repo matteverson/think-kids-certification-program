@@ -63,8 +63,14 @@ angular.module('thinkKidsCertificationProgramApp')
         });
 
     $http.get('/api/roles')
-      .success(function(roles) {
-        $scope.roles = roles;
+      .success(roles => {
+        $scope.roles = roles.map(role => {
+          role.canDelete = true;
+          if(role.name === 'Admin' || role.name === 'Instructor' || role.name === 'user') {
+            role.canDelete = false;
+          }
+          return role;
+        });
       });
 
     $scope.showToast = function(toastText) {
@@ -158,13 +164,15 @@ angular.module('thinkKidsCertificationProgramApp')
         .cancel('Cancel');
 
       $mdDialog.show(confirm).then(function() {
-        $http.delete('/api/forms/' + form._id);
-        angular.forEach($scope.forms, function(u, i) {
-          if (u === form) {
-            $scope.forms.splice(i, 1);
-          }
-        });
-        $scope.showToast('Form deleted.');
+        $http.delete('/api/forms/' + form._id)
+          .success(() => {
+            angular.forEach($scope.forms, function(u, i) {
+              if (u === form) {
+                $scope.forms.splice(i, 1);
+              }
+            });
+            $scope.showToast('Form deleted.');
+          });
       });
     };
 
@@ -178,24 +186,48 @@ angular.module('thinkKidsCertificationProgramApp')
         .cancel('Cancel');
 
       $mdDialog.show(confirm).then(function() {
-        $http.delete('/api/classes/' + clas._id);
-        angular.forEach($scope.classes, function(u, i) {
-          if (u === clas) {
-            $scope.classes.splice(i, 1);
-          }
+        $http.delete('/api/classes/' + clas._id)
+          .success(() => {
+            angular.forEach($scope.classes, function(u, i) {
+              if (u === clas) {
+                $scope.classes.splice(i, 1);
+              }
+            });
+          });
+
+        clas.students.forEach(student => {
+          $scope.users.forEach(user =>  {
+            if(student === user.name) {
+              const index = user.classes.indexOf(clas.name);
+              user.classes.splice(index, 1);
+              $http.patch('/api/users/' + user._id, user);
+            }
+          });
         });
 
-        for(var i = 0; i < clas.students.length; i++) {
-          for(var x = 0; x < $scope.users.length; x++) {
-            if(clas.students[i] === $scope.users[x].name) {
-              var index = $scope.users[x].classes.indexOf(clas.name);
-              $scope.users[x].classes.splice(index, 1);
-              $http.patch('/api/users/' + $scope.users[x]._id, $scope.users[x]);
-            }
-          }
-        }
-
         $scope.showToast('Class deleted.');
+      });
+    };
+
+    $scope.deleteRole = (role, ev) => {
+      var confirm = $mdDialog.confirm()
+        .title('Are you sure you want to delete the role?')
+        .textContent('This action is irreversible.')
+        .ariaLabel('Delete Role')
+        .targetEvent(ev)
+        .ok('Yes')
+        .cancel('Cancel');
+
+      $mdDialog.show(confirm).then(() => {
+        $http.delete('/api/roles/' + role._id)
+          .success(() => {
+            angular.forEach($scope.roles, (u, i) => {
+              if (u === role) {
+                $scope.roles.splice(i, 1);
+              }
+            });
+            $scope.showToast('Role deleted.');
+          });
       });
     };
   });
