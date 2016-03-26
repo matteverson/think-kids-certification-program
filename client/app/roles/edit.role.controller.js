@@ -1,10 +1,9 @@
 'use strict';
 
 angular.module('thinkKidsCertificationProgramApp')
-  .controller('newRoleCtrl', function ($scope, $http, $location, Heading) {
+  .controller('editRoleCtrl', function ($scope, $http, $location, $stateParams, Heading) {
 
-    Heading.setHeading('Admin Panel > New Role');
-    $scope.isInstructor = false;
+    $scope.role = {};
 
     $scope.activities = [
       {code: 'view_users', name: 'View users'},
@@ -34,6 +33,21 @@ angular.module('thinkKidsCertificationProgramApp')
     	{code: 'view_feedback', name: 'View feedback'}
     ];
 
+    $http.get('/api/roles/'+$stateParams.id)
+      .success(role => {
+        Heading.setHeading('Admin Panel > Edit ' + role.name);
+        $scope.isInstructor = role.instructor;
+        $scope.role.name = role.name;
+
+        $scope.activities = $scope.activities.map(activity => {
+          if(role.activities.indexOf(activity.code) !== -1) {
+            activity.selected = true;
+          }
+
+          return activity;
+        });
+      });
+
     $scope.saveRole = () => {
       if($scope.role.name === undefined) {
         return;
@@ -48,7 +62,7 @@ angular.module('thinkKidsCertificationProgramApp')
         instructor: $scope.isInstructor
       };
 
-      $http.post('/api/roles', role);
+      $http.patch('/api/roles/'+$stateParams.id, role);
       $location.path('/admin');
     };
   });

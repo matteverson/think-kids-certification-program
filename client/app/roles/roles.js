@@ -12,5 +12,10 @@ angular.module('thinkKidsCertificationProgramApp')
         url: '/roles/fees',
         templateUrl: 'app/roles/fees.html',
         controller: 'RoleFeesCtrl'
+      })
+      .state('editRole', {
+        url: '/roles/:id/edit',
+        templateUrl: 'app/roles/new.html',
+        controller: 'editRoleCtrl'
       });
   });
