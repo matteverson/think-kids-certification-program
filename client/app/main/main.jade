@@ -6,11 +6,19 @@ div(ng-include='"components/navbar/navbar.html"')
       md-subheader Assignments
       md-list-item(ng-show="noAssignments")
         p You currently don't have any due assignments.
-      md-list-item(ng-repeat="form in forms",href='', ng-click="viewForm(form, $index)", ng-class="{active: $index == selectedForm}") {{form.name}}
-        md-divider(ng-if="$last")
+      md-list-item(ng-repeat="form in forms",href='', ng-click="viewForm(form, $index)", ng-class="{active: form == selectedForm}") {{form.name}}
+      md-divider
+    
+    md-list.md-dense(ng-hide="noLockedAssignments")    
+      md-subheader Locked Assignments
+      md-list-item(ng-repeat="form in disabledForms",href='', ng-click="viewForm(form, $index)", ng-class="{active: form == selectedForm}") {{form.name}}
+      md-divider
+
+    md-list.md-dense
       md-subheader Submitted Work
       md-list-item(ng-repeat="submission in submissions", href='', ng-click="viewSubmission(submission, $index)", ng-class="{active: $index == selectedSubmission}") {{submission.name}}
-        md-divider(ng-if="$last")
+      md-divider
+
       md-subheader My Classes
       md-list-item(ng-show="noClasses")
         p You are not currently enrolled in a class.

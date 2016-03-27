@@ -52,7 +52,12 @@ angular.module('thinkKidsCertificationProgramApp')
       classes = classes.filter(clas => clas.permitted === true)
                        .map(clas => clas.name);
 
-      const { startDate, endDate, isFeedback } = $scope;
+      const { endDate, isFeedback } = $scope;
+      let { startDate } = $scope;
+
+      if(startDate === undefined) {
+        startDate = moment().toDate();
+      }
 
       $http.patch('/api/forms/' + $stateParams.id, { roles, classes, isFeedback, startDate, endDate })
         .success(() => $location.path('/admin'));

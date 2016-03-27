@@ -1,14 +1,21 @@
 div(ng-include='"components/navbar/navbar.html"')
 .container
   h5 Taught by {{class.instructors.join(', ')}}
-  
+
   div(layout="row", layout-xs="column", layout-align="space-around")
     md-content(layout="column", flex="30", flex-xs="100")
       h3 Assignments
       md-list
-        md-list-item(ng-repeat="form in forms", href="/form/{{form._id}}") {{form.name}}
+        md-list-item(ng-show="noAssignments") There are no pending assignments!
+        md-list-item(ng-hide="noAssignments", ng-repeat="form in forms", href="/form/{{form._id}}") {{form.name}}
       md-divider
-        
+
+      div(ng-show="viewLockedAssignments")
+        h3 Locked Assignments
+        md-list
+          md-list-item(ng-repeat="form in disabledForms", href="/form/{{form._id}}") {{form.name}}
+        md-divider
+
       h3 Students
       md-list
         md-list-item(ng-repeat="student in class.students") {{student}}
