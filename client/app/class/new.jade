@@ -2,19 +2,19 @@ div(ng-include='"components/navbar/navbar.html"')
 .container
   form(name='editClassForm', ng-submit='register(form)')
     md-list
-      md-subheader Name
       md-list-item
-        md-input-container.md-block(flex-gt-sm="")
+        md-input-container.md-block.no-bottom-margin(flex-gt-sm="")
+          label Class name
           input(name="className", ng-model='class.name', required='')
           div(ng-messages="editClassForm.className.$error")
             div(ng-message="required") This is required
-    md-list(ng-cloak)
+      
       md-subheader Students
       md-list-item(ng-repeat="user in users")
         p {{user.name}}
         md-checkbox(class="md-secondary", ng-model="user.inClass")
-    md-divider
-    md-list(ng-cloak)
+      md-divider
+      
       md-subheader Instructors
       md-list-item(ng-repeat="instructor in instructors")
         p {{instructor.name}}

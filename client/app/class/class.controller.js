@@ -9,17 +9,34 @@ angular.module('thinkKidsCertificationProgramApp')
         $scope.class = clas;
         $http.get('/api/forms')
           .success(function(forms) {
-            $scope.forms = forms.filter(({ startDate, endDate, classes}) => {
-              if(startDate === undefined) {
-                startDate = moment();
+            forms = forms.filter(form => {
+              if(moment().isAfter(form.endDate)) {
+                console.log('yo');
+                return false;
+              } else {
+                return true;
+              }
+            })
+            .map(form => {
+              if(form.endDate === undefined) {
+                form.endDate = moment().add(1, 'd');
               }
 
-              if(endDate === undefined) {
-                endDate = moment().add(1, 'd');
-              }
+              form.unlocked = moment().isBetween(form.startDate, form.endDate);
 
-              return classes.indexOf($scope.class.name) > -1 && moment().isBetween(startDate, endDate);
+              return form;
             });
+
+            $scope.forms = forms.filter(form => form.unlocked);
+            $scope.disabledForms = forms.filter(form => !form.unlocked);
+
+            if($scope.forms.length === 0) {
+              $scope.noAssignments = true;
+            }
+
+            if($scope.disabledForms.length > 0) {
+              $scope.viewLockedAssignments = true;
+            }
           });
       });
 

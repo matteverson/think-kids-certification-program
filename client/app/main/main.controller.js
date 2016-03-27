@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('thinkKidsCertificationProgramApp')
-.controller('MainCtrl', function ($scope, $http, Auth, $location, Heading) {
+.controller('MainCtrl', function ($scope, $http, Auth, $location, Heading, $mdToast) {
 
   Heading.setHeading('Home');
 
@@ -31,24 +31,32 @@ angular.module('thinkKidsCertificationProgramApp')
     $scope.submissions = [];
 
     $http.get('/api/forms/mine').success(forms => {
-      $scope.forms = forms.filter(({startDate, endDate}) => {
-        if(startDate === undefined) {
-          startDate = moment();
+      forms = forms
+      .filter(form => {
+        if(moment().isAfter(form.endDate)) {
+          return false;
         }
 
-        if(endDate === undefined) {
-          endDate = moment().add(1, 'd');
+        return true;
+      })
+      .map(form => {
+        if(form.endDate === undefined) {
+          form.endDate = moment().add(1, 'd');
         }
 
-        console.log(startDate);
-        console.log(endDate);
-
-        const showForm = moment().isBetween(startDate, endDate);
-        return showForm;
+        form.unlocked = moment().isBetween(form.startDate, form.endDate);
+        return form;
       });
+
+      $scope.forms = forms.filter(form => form.unlocked);
+      $scope.disabledForms = forms.filter(form => !form.unlocked);
 
       if($scope.forms.length === 0) {
         $scope.noAssignments = true;
+      }
+
+      if($scope.disabledForms.length === 0) {
+        $scope.noLockedAssignments = true;
       }
 
       forms.forEach(form => {
@@ -109,7 +117,8 @@ angular.module('thinkKidsCertificationProgramApp')
   $scope.viewForm = (form, index) => {
     $scope.viewWelcome = false;
     cancelSubmission();
-    $scope.selectedForm = index;
+    $scope.selectedForm = form;
+    $scope.index = index;
     $scope.form = {};
     $scope.form.btnSubmitText = form.data[0].btnSubmitText;
     $scope.form.btnCancelText = form.data[0].btnCancelText;
@@ -118,10 +127,29 @@ angular.module('thinkKidsCertificationProgramApp')
   };
 
   $scope.submitForm = () => {
-    const form = $scope.forms[$scope.selectedForm];
+
+    let form;
+
+    if($scope.selectedForm.unlocked) {
+      form = $scope.forms[$scope.index];
+    } else {
+      form = $scope.disabledForms[$scope.index];
+    }
+
     const formFieldsData = form.data[0].edaFieldsModel;
     const formSubmittedDataProps = Object.getOwnPropertyNames($scope.form.dataModel);
     const formSubmittedData = {};
+
+    if(!form.unlocked) {
+      var toast = $mdToast.simple()
+            .textContent('The form is locked! You cannot submit it before ' + moment(form.startDate).format('MMMM Do, YYYY'))
+            .action('OK')
+            .highlightAction('false')
+            .position('bottom right');
+
+      $mdToast.show(toast);
+      return;
+    }
 
     // Name all fields with their labels instead of random IDs
     formSubmittedDataProps.forEach(prop => {
@@ -142,6 +170,7 @@ angular.module('thinkKidsCertificationProgramApp')
       })
       .success(() => {
         $scope.selectedForm = null;
+        $scope.index = null;
         $scope.form = {};
         $scope.form.dataModel = {};
         updateSubmittedWork();
@@ -150,6 +179,8 @@ angular.module('thinkKidsCertificationProgramApp')
 
   $scope.cancelForm = () => {
     $scope.selectedForm = null;
+    $scope.index = null;
+    $scope.viewWelcome = true;
     $scope.form = {};
     $scope.form.dataModel = {};
   };
