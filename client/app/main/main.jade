@@ -1,6 +1,6 @@
 div(ng-include='"components/navbar/navbar.html"')
 
-.container(layout="row")
+.container(layout="row", ng-hide="isInst")
   md-content(flex="27")
     md-list.md-dense
       md-subheader Assignments
@@ -44,3 +44,19 @@ div(ng-include='"components/navbar/navbar.html"')
           li.list-group-item
             strong Comments 
             span.text-muted {{response.Comments}}
+.container(ng-show="isInst")
+  md-tabs(md-dynamic-height="")
+    md-tab(label="forms")
+      md-list
+        md-list-item.md-3-line(ng-repeat='form in forms')
+          div.md-list-item-text
+            h3
+              a(href='/form/{{form._id}}') {{form.name}}
+            h4
+              a(href="form/{{form._id}}/data") View Form Data
+            p
+              a(href="form/{{form._id}}/roles") Edit Form Details
+          md-button.md-secondary.md-warn(ng-click="deleteForm(form, $event)") Delete form
+          md-divider
+      md-button.md-raised.md-primary(href='/form') New Form
+    md-tab(label="calls")
