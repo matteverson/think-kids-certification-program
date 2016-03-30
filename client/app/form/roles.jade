@@ -12,16 +12,21 @@ div(ng-include='"components/navbar/navbar.html"')
     md-list-item(ng-repeat="role in roles")
       p {{role.name}}
       md-checkbox(class="md-secondary", ng-model="role.permitted")
+    md-divider
         
     md-subheader(class="md-no-sticky")
       | Choose which classes are allowed to fill the form
     md-list-item(ng-repeat="class in classes")
       p {{class.name}}
       md-checkbox(class="md-secondary", ng-model="class.permitted")
+    md-divider
     
     md-list-item
       p Is this an instructor feedback form?
       md-switch.secondary(ng-model="isFeedback")
+    md-list-item(ng-show="showPoll")
+      p Is this a poll?
+      md-switch.secondary(ng-model="isPoll")
     
     md-button(class="md-raised md-primary", ng-click="saveRoles(roles, classes)")
       | Save

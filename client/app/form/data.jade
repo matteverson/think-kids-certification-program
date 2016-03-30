@@ -1,6 +1,6 @@
 div(ng-include='"components/navbar/navbar.html"')
-.container(ng-hide="isFeedback")
-  ul.list-group
+.controller
+  ul.list-group(ng-hide="isFeedback")
     li.list-group-item(ng-repeat='data in form.submittedData', ng-show="showData")
       strong
         a(href="/form/{{form._id}}/data/{{data.onTime}}")
@@ -11,9 +11,7 @@ div(ng-include='"components/navbar/navbar.html"')
         em  Show feedback
       a.trash(ng-click='deleteData(data)')
         span.glyphicon.glyphicon-trash.pull-right
-    div(ng-hide="showData")
-      a(href="/form/{{form._id}}/data")
-        | Back
+    div(ng-hide="showData && showPoll")
       li.list-group-item(ng-repeat='data in data')
         strong {{data.prop}}
         span.text-muted  {{data.val}}
@@ -24,8 +22,12 @@ div(ng-include='"components/navbar/navbar.html"')
       br
       button.btn.btn-lg.btn-danger(ng-show="isInstructor", ng-click="fail()")
         | Fail
-.container(ng-show="isFeedback")
-  ul.list-group
+  ul.list-group(ng-show="isFeedback")
     li.list-group-item(ng-repeat='data in data')
       strong {{data.prop}}
       span.text-muted  {{data.val}}
+  div(ng-show="showPoll")
+    canvas#bar.chart.chart-bar(chart-data="data", chart-labels="labels")
+  div(ng-show="noData", ng-hide="showPoll", layout="column", layout-align="center center")
+    h1.text-muted
+      em No Data.

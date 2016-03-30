@@ -1,29 +1,52 @@
 'use strict';
 
 angular.module('thinkKidsCertificationProgramApp')
-  .controller('FormRolesCtrl', function($scope, $http, $stateParams, $location, Heading) {
+  .controller('FormRolesCtrl', ($scope, $http, $stateParams, $location, Heading) => {
 
     $scope.today = moment().toDate();
 
     $http.get('/api/roles')
-      .success(function(roles) {
-        $http.get('/api/forms/' + $stateParams.id)
-          .success(function(form) {
+      .success(roles => {
+        $http.get(`/api/forms/${$stateParams.id}`)
+          .success(form => {
+            $scope.isFeedback = form.isFeedback;
+            $scope.isPoll = form.isPoll;
 
-            Heading.setHeading('Admin Panel > Edit ' + form.name + '\'s details');
+            let numOfFields = form.data[0].edaFieldsModel.length;
 
-            if(form.startDate) {
+            form.data[0].edaFieldsModel.forEach(row => {
+              if (row.columns.length > 1) {
+                numOfFields += row.columns.length - 1;
+              }
+            });
+
+            const checkboxesAndRadio = form.data[0].edaFieldsModelStringified
+                                        .match(/(\"type\":\"checkbox\"|\"type\":\"radio\")/g);
+
+            let numOfCheckboxesAndRadio = 0;
+
+            if (checkboxesAndRadio) {
+              numOfCheckboxesAndRadio = checkboxesAndRadio.length;
+            }
+
+            if (numOfFields === numOfCheckboxesAndRadio) {
+              $scope.showPoll = true;
+            }
+
+            Heading.setHeading(`Admin Panel > Edit ${form.name}'s details`);
+
+            if (form.startDate) {
               $scope.startDate = moment(form.startDate).toDate();
             }
 
-            if(form.endDate) {
+            if (form.endDate) {
               $scope.endDate = moment(form.endDate).toDate();
             }
 
             $http.get('/api/classes')
-              .success(function(classes) {
-                $scope.classes = classes.map(function(clas) {
-                  if(form.classes.indexOf(clas.name) > -1) {
+              .success(classes => {
+                $scope.classes = classes.map(clas => {
+                  if (form.classes.indexOf(clas.name) > -1) {
                     clas.permitted = true;
                   } else {
                     clas.permitted = false;
@@ -32,16 +55,15 @@ angular.module('thinkKidsCertificationProgramApp')
                 });
               });
 
-            $scope.roles = roles.filter(function(role) {
-              return role.name !== 'user';
-            }).map(function(role) {
-              if (form.roles.indexOf(role.name) !== -1) {
-                role.permitted = true;
-              } else {
-                role.permitted = false;
-              }
-              return role;
-            });
+            $scope.roles = roles.filter((role) => role.name !== 'user')
+                                .map((role) => {
+                                  if (form.roles.indexOf(role.name) !== -1) {
+                                    role.permitted = true;
+                                  } else {
+                                    role.permitted = false;
+                                  }
+                                  return role;
+                                });
           });
       });
 
@@ -52,14 +74,15 @@ angular.module('thinkKidsCertificationProgramApp')
       classes = classes.filter(clas => clas.permitted === true)
                        .map(clas => clas.name);
 
-      const { endDate, isFeedback } = $scope;
+      const { endDate, isFeedback, isPoll } = $scope;
       let { startDate } = $scope;
 
-      if(startDate === undefined) {
+      if (startDate === undefined) {
         startDate = moment().toDate();
       }
 
-      $http.patch('/api/forms/' + $stateParams.id, { roles, classes, isFeedback, startDate, endDate })
+      $http.patch(`/api/forms/${$stateParams.id}`,
+                  { roles, classes, isFeedback, startDate, endDate, isPoll })
         .success(() => $location.path('/admin'));
     };
   });
