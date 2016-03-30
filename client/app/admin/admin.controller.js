@@ -3,6 +3,21 @@
 angular.module('thinkKidsCertificationProgramApp')
   .controller('AdminCtrl', function ($scope, $http, Auth, User, $location, $mdDialog, $mdToast, $timeout, Heading) {
 
+    $scope.showToast = toastText => {
+      const toast = $mdToast.simple()
+            .textContent(toastText)
+            .action('OK')
+            .highlightAction('false')
+            .position('bottom right');
+
+      $mdToast.show(toast);
+    };
+
+    if (!Auth.isAdmin()) {
+      $scope.showToast('Only admins can access the admin panel!');
+      $location.path('/');
+    }
+
     Heading.setHeading('Admin Panel');
 
     $timeout(function() {
@@ -72,16 +87,6 @@ angular.module('thinkKidsCertificationProgramApp')
           return role;
         });
       });
-
-    $scope.showToast = function(toastText) {
-      var toast = $mdToast.simple()
-            .textContent(toastText)
-            .action('OK')
-            .highlightAction('false')
-            .position('bottom right');
-
-      $mdToast.show(toast);
-    };
 
     $scope.openMenu = function($mdOpenMenu, ev) {
       $mdOpenMenu(ev);
