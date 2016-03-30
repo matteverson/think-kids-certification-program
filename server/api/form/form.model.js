@@ -11,7 +11,8 @@ var FormSchema = new Schema({
   classes: Array,
   isFeedback: Boolean,
   startDate: String,
-  endDate: String
+  endDate: String,
+  isPoll: Boolean,
 });
 
 module.exports = mongoose.model('Form', FormSchema);
