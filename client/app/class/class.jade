@@ -25,7 +25,9 @@ div(ng-include='"components/navbar/navbar.html"')
       md-list
         md-list-item(ng-repeat="message in class.messages")
           strong {{message.author}}:&nbsp;
-          | {{message.text}}
+          strong(ng-show="message.fromInstructor") 
+            em{{message.text}}
+          p(ng-hide="message.fromInstructor") {{message.text}}
           md-divider
       form.form(name='messageForm', ng-submit='sendMessage()')
         md-input-container.md-block
