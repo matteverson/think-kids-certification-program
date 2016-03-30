@@ -13,9 +13,10 @@ angular.module('thinkKidsCertificationProgramApp', [
   'ngMaterial',
   'ngFileUpload',
   'angular-loading-bar',
-  'ngMessages'
+  'ngMessages',
+  'chart.js',
 ])
-  .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+  .config(($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) => {
     $urlRouterProvider
       .otherwise('/');
 
@@ -23,22 +24,22 @@ angular.module('thinkKidsCertificationProgramApp', [
     $httpProvider.interceptors.push('authInterceptor');
   })
 
-  .factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location) {
+  .factory('authInterceptor', ($rootScope, $q, $cookieStore, $location) => {
     return {
       // Add authorization token to headers
-      request: function (config) {
+      request: config => {
         if (!config.skipAuthorization) {
           config.headers = config.headers || {};
           if ($cookieStore.get('token')) {
-            config.headers.Authorization = 'Bearer ' + $cookieStore.get('token');
+            config.headers.Authorization = `Bearer ${$cookieStore.get('token')}`;
           }
         }
         return config;
       },
 
       // Intercept 401s and redirect you to login
-      responseError: function(response) {
-        if(response.status === 401) {
+      responseError: response => {
+        if (response.status === 401) {
           $location.path('/login');
           // remove any stale tokens
           $cookieStore.remove('token');
@@ -47,14 +48,14 @@ angular.module('thinkKidsCertificationProgramApp', [
         else {
           return $q.reject(response);
         }
-      }
+      },
     };
   })
 
-  .run(function ($rootScope, $location, Auth) {
+  .run(($rootScope, $location, Auth) => {
     // Redirect to login if route requires auth and you're not logged in
-    $rootScope.$on('$stateChangeStart', function (event, next) {
-      Auth.isLoggedInAsync(function(loggedIn) {
+    $rootScope.$on('$stateChangeStart', (event, next) => {
+      Auth.isLoggedInAsync(loggedIn => {
         if (next.authenticate && !loggedIn) {
           event.preventDefault();
           $location.path('/login');

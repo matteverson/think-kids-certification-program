@@ -5,7 +5,7 @@ angular.module('thinkKidsCertificationProgramApp')
 
   Heading.setHeading('Home');
 
-  if(Auth.isAdmin()) {
+  if (Auth.isAdmin()) {
     $location.path('/admin');
   }
 
@@ -17,12 +17,13 @@ angular.module('thinkKidsCertificationProgramApp')
   $scope.viewWelcome = true;
 
   $http.get('/api/classes')
-    .success(function(classes) {
-      $scope.classes = classes.filter(function(clas) {
-        return clas.students.indexOf(Auth.getCurrentUser().name) > -1 || clas.instructors.indexOf(Auth.getCurrentUser().name) > -1;
-      });
+    .success(classes => {
+      $scope.classes = classes.filter(clas =>
+        clas.students.indexOf(Auth.getCurrentUser().name) > -1 ||
+              clas.instructors.indexOf(Auth.getCurrentUser().name) > -1
+      );
 
-      if($scope.classes.length === 0) {
+      if ($scope.classes.length === 0) {
         $scope.noClasses = true;
       }
     });
@@ -33,14 +34,14 @@ angular.module('thinkKidsCertificationProgramApp')
     $http.get('/api/forms/mine').success(forms => {
       forms = forms
       .filter(form => {
-        if(moment().isAfter(form.endDate)) {
+        if (moment().isAfter(form.endDate)) {
           return false;
         }
 
         return true;
       })
       .map(form => {
-        if(form.endDate === undefined) {
+        if (form.endDate === undefined) {
           form.endDate = moment().add(1, 'd');
         }
 
@@ -51,11 +52,11 @@ angular.module('thinkKidsCertificationProgramApp')
       $scope.forms = forms.filter(form => form.unlocked);
       $scope.disabledForms = forms.filter(form => !form.unlocked);
 
-      if($scope.forms.length === 0) {
+      if ($scope.forms.length === 0) {
         $scope.noAssignments = true;
       }
 
-      if($scope.disabledForms.length === 0) {
+      if ($scope.disabledForms.length === 0) {
         $scope.noLockedAssignments = true;
       }
 
@@ -75,7 +76,7 @@ angular.module('thinkKidsCertificationProgramApp')
                 field.prop = prop;
                 field.val = data[prop];
 
-                if(moment(field.val, moment.ISO_8601).isValid()) {
+                if (moment(field.val, moment.ISO_8601).isValid()) {
                   field.val = moment(field.val).format('MMMM Do, YYYY');
                 }
 
@@ -84,9 +85,9 @@ angular.module('thinkKidsCertificationProgramApp')
             });
 
             $scope.submissions.push({
-              name: form.name + ' - ' + moment.unix(data.onTime).fromNow(),
+              name: `${form.name} - ${moment.unix(data.onTime).fromNow()}`,
               fields: filteredData,
-              form: form
+              form,
             });
           }
         });
@@ -106,7 +107,9 @@ angular.module('thinkKidsCertificationProgramApp')
       $scope.feedback = feedback[0].val;
     }
 
-    $scope.submissionFields = $scope.submissions[index].fields.filter(field => field.prop !== 'feedback');
+    $scope.submissionFields = $scope.submissions[index].fields.filter(
+      field => field.prop !== 'feedback'
+    );
   };
 
   const cancelSubmission = () => {
@@ -127,10 +130,9 @@ angular.module('thinkKidsCertificationProgramApp')
   };
 
   $scope.submitForm = () => {
-
     let form;
 
-    if($scope.selectedForm.unlocked) {
+    if ($scope.selectedForm.unlocked) {
       form = $scope.forms[$scope.index];
     } else {
       form = $scope.disabledForms[$scope.index];
@@ -140,9 +142,10 @@ angular.module('thinkKidsCertificationProgramApp')
     const formSubmittedDataProps = Object.getOwnPropertyNames($scope.form.dataModel);
     const formSubmittedData = {};
 
-    if(!form.unlocked) {
-      var toast = $mdToast.simple()
-            .textContent('The form is locked! You cannot submit it before ' + moment(form.startDate).format('MMMM Do, YYYY'))
+    if (!form.unlocked) {
+      const toast = $mdToast.simple()
+      .textContent(`The form is locked! You cannot submit it before\
+                   ${moment(form.startDate).format('MMMM Do, YYYY')}`)
             .action('OK')
             .highlightAction('false')
             .position('bottom right');
@@ -155,7 +158,10 @@ angular.module('thinkKidsCertificationProgramApp')
     formSubmittedDataProps.forEach(prop => {
       formFieldsData.forEach(field => {
         field.columns.forEach(column => {
-          if(column.control.key === prop) {
+          if (column.control.type === 'radio' && column.control.key === prop) {
+            formSubmittedData[column.control.templateOptions.label] =
+              column.control.templateOptions.options[$scope.form.dataModel[prop]].name;
+          } else if (column.control.key === prop) {
             formSubmittedData[column.control.templateOptions.label] = $scope.form.dataModel[prop];
           }
         });
@@ -165,9 +171,10 @@ angular.module('thinkKidsCertificationProgramApp')
     formSubmittedData.onTime = moment().unix();
     formSubmittedData.byName = Auth.getCurrentUser().name;
 
-    $http.patch('/api/forms/' + form._id, {
-        submittedData: formSubmittedData
-      })
+    form.submittedData.push(formSubmittedData);
+    const submittedData = form.submittedData;
+
+    $http.patch(`/api/forms/${form._id}`, { submittedData })
       .success(() => {
         $scope.selectedForm = null;
         $scope.index = null;
