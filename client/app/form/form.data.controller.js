@@ -88,6 +88,7 @@ angular.module('thinkKidsCertificationProgramApp')
       $http.get(`/api/forms/${$stateParams.id}`)
         .success(form => {
           if (form.isPoll) {
+            console.log(form);
             const { name, submittedData } = form;
 
             Heading.setHeading(`${name}'s data`);
@@ -111,8 +112,6 @@ angular.module('thinkKidsCertificationProgramApp')
 
               $scope.labels = _.uniq(_.flatten($scope.labels));
 
-              console.log(submittedData);
-
               submittedData.forEach(submission => {
                 const labels = Object.keys(submission)
                   .filter(label => label !== 'onTime' && label !== 'byName');
@@ -135,6 +134,7 @@ angular.module('thinkKidsCertificationProgramApp')
                 });
               });
             } else {
+              $scope.showPoll = false;
               $scope.noData = true;
             }
           } else {
@@ -161,7 +161,7 @@ angular.module('thinkKidsCertificationProgramApp')
                 });
 
                 $http.patch(`/api/forms/${$stateParams.id}`, { submittedData });
-                $location.path(`/form/${$stateParams.id}/data/${$stateParams.onTime}/feedback'`);
+                $location.path(`/form/${$stateParams.id}/data/${$stateParams.onTime}/feedback`);
               };
 
               $scope.fail = () => {

@@ -28,6 +28,6 @@ div(ng-include='"components/navbar/navbar.html"')
       span.text-muted  {{data.val}}
   div(ng-show="showPoll")
     canvas#bar.chart.chart-bar(chart-data="data", chart-labels="labels")
-  div(ng-show="noData", ng-hide="showPoll", layout="column", layout-align="center center")
+  div(ng-show="noData", layout="column", layout-align="center center")
     h1.text-muted
       em No Data.
