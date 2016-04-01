@@ -1,5 +1,4 @@
 div(ng-include='"components/navbar/navbar.html"')
-
 .container(layout="row", ng-hide="isInst")
   md-content(flex="27")
     md-list.md-dense
@@ -34,7 +33,7 @@ div(ng-include='"components/navbar/navbar.html"')
       div(ng-show="submissionFields")
         md-list.md-dense  
           md-list-item.md-2-line(ng-repeat='field in submissionFields')
-            div.md-list-item-text
+            .md-list-item-text
               h3 {{field.prop}}
               p  {{field.val}}
         div(ng-show="feedback", ng-repeat='response in feedback')
@@ -44,8 +43,52 @@ div(ng-include='"components/navbar/navbar.html"')
           li.list-group-item
             strong Comments 
             span.text-muted {{response.Comments}}
+
 .container(ng-show="isInst")
   md-tabs(md-dynamic-height="")
+    md-tab(label="submitted assignments")
+      div(layout="row")
+        md-content(flex="27")
+          md-list.md-dense
+            md-subheader My Classes
+            md-list-item(ng-show="noClasses")
+              p You are not currently enrolled in a class.
+            md-list-item(ng-repeat="class in classes", href='/class/{{class._id}}', ng-hide="noClasses") {{class.name}}
+            md-divider
+          
+            md-subheader Ungraded Work
+            md-list-item.md-2-line(ng-repeat="submission in ungradedSubmissions", href='', ng-click="viewSubmission(submission, $index, 'ungraded')", ng-class="{active: submission == currentSubmission}") 
+              .md-list-item-text
+                h3 {{submission.name}}
+                p By {{submission.byName}}
+            md-divider
+              
+            md-subheader Graded Work
+            md-list-item.md-2-line(ng-repeat="submission in gradedSubmissions", href='', ng-click="viewSubmission(submission, $index, 'graded')", ng-class="{active: submission == currentSubmission}") 
+              .md-list-item-text
+                h3 {{submission.name}}
+                p By {{submission.byName}}
+
+        md-divider
+        md-content(flex="70", flex-offset="3")  
+          div(layout="column", layout-align="center center", ng-show="viewWelcome")
+            em
+              h1.text-muted Welcome.
+            p.text-muted Please select an option from the menu on the left.
+          div(ng-show="showSubmission")
+            md-list.md-dense(ng-hide="currentSubmission.isPoll")
+              md-list-item.md-2-line(ng-repeat='field in submissionFields')
+                .md-list-item-text
+                  h3 {{field.prop}}
+                  p  {{field.val}}
+
+            div(ng-show="currentSubmission.isPoll")      
+              canvas#bar.chart.chart-bar(chart-data="data", chart-labels="labels")
+
+            div(ng-show="isUngraded")
+              md-button.md-primary.md-raised(ng-click="pass()") Pass
+              md-button.md-warn.md-raised(ng-click="fail()") Fail
+
     md-tab(label="forms")
       md-list
         md-list-item.md-3-line(ng-repeat='form in forms')
@@ -59,4 +102,3 @@ div(ng-include='"components/navbar/navbar.html"')
           md-button.md-secondary.md-warn(ng-click="deleteForm(form, $event)") Delete form
           md-divider
       md-button.md-raised.md-primary(href='/form') New Form
-    md-tab(label="calls")

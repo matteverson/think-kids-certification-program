@@ -119,7 +119,7 @@ angular.module('thinkKidsCertificationProgramApp')
        * @return {Boolean}
        */
       isLoggedIn: function() {
-        return currentUser.hasOwnProperty('role');
+        return currentUser.hasOwnProperty('roles');
       },
 
       /**

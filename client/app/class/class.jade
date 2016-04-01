@@ -3,33 +3,67 @@ div(ng-include='"components/navbar/navbar.html"')
   h5 Taught by {{class.instructors.join(', ')}}
 
   div(layout="row", layout-xs="column", layout-align="space-around")
-    md-content(layout="column", flex="30", flex-xs="100")
-      h3 Assignments
-      md-list
-        md-list-item(ng-show="noAssignments") There are no pending assignments!
-        md-list-item(ng-hide="noAssignments", ng-repeat="form in forms", href="/form/{{form._id}}") {{form.name}}
-      md-divider
-
-      div(ng-show="viewLockedAssignments")
-        h3 Locked Assignments
-        md-list
-          md-list-item(ng-repeat="form in disabledForms", href="/form/{{form._id}}") {{form.name}}
-        md-divider
-
+    md-contant
       h3 Students
       md-list
         md-list-item(ng-repeat="student in class.students") {{student}}
     md-divider
+      
     md-content(flex="65", flex-xs="100")
-      h3 Messages
-      md-list
-        md-list-item(ng-repeat="message in class.messages")
-          strong {{message.author}}:&nbsp;
-          strong(ng-show="message.fromInstructor") 
-            em{{message.text}}
-          p(ng-hide="message.fromInstructor") {{message.text}}
-          md-divider
-      form.form(name='messageForm', ng-submit='sendMessage()')
-        md-input-container.md-block
-          label Type your message and press enter
-          input(name="messageText", ng-model="message.text")
+      md-tabs(md-dynamic-height="")
+        md-tab(label="assignments")
+          md-list
+            md-list-item(ng-show="noAssignments") There are no pending assignments!
+            md-list-item(ng-hide="noAssignments", ng-repeat="form in forms", href="/form/{{form._id}}") {{form.name}}
+        
+        md-tab(label="locked assignments")
+          md-list
+            md-list-item(ng-repeat="form in disabledForms", href="/form/{{form._id}}") {{form.name}}
+            
+        md-tab(label="submissions", ng-if="isInst")
+          div(layout="row")
+            div(flex="27")
+              md-subheader Ungraded Work
+              md-list-item.md-2-line(ng-repeat="submission in ungradedSubmissions", href='', ng-click="viewSubmission(submission, $index, 'ungraded')", ng-class="{active: submission == currentSubmission}") 
+                .md-list-item-text
+                  h3 {{submission.name}}
+                  p By {{submission.byName}}
+              md-divider
+                
+              md-subheader Graded Work
+              md-list-item.md-2-line(ng-repeat="submission in gradedSubmissions", href='', ng-click="viewSubmission(submission, $index, 'graded')", ng-class="{active: submission == currentSubmission}") 
+                .md-list-item-text
+                  h3 {{submission.name}}
+                  p By {{submission.byName}}
+              
+            div(flex="70", flex-offset="3")  
+              div(layout="column", layout-align="center center", ng-show="viewWelcome")
+                em
+                  h1.text-muted Welcome.
+                p.text-muted Please select an option from the menu on the left.
+              div(ng-show="showSubmission")
+                md-list.md-dense(ng-hide="currentSubmission.isPoll")
+                  md-list-item.md-2-line(ng-repeat='field in submissionFields')
+                    .md-list-item-text
+                      h3 {{field.prop}}
+                      p  {{field.val}}
+
+                div(ng-show="currentSubmission.isPoll")      
+                  canvas#bar.chart.chart-bar(chart-data="data", chart-labels="labels")
+
+                div(ng-show="isUngraded")
+                  md-button.md-primary.md-raised(ng-click="pass()") Pass
+                  md-button.md-warn.md-raised(ng-click="fail()") Fail
+
+        md-tab(label="messages")
+          md-list
+            md-list-item(ng-repeat="message in class.messages")
+              strong {{message.author}}:&nbsp;
+              strong(ng-show="message.fromInstructor") 
+                em{{message.text}}
+              p(ng-hide="message.fromInstructor") {{message.text}}
+              md-divider
+          form.form(name='messageForm', ng-submit='sendMessage()')
+            md-input-container.md-block
+              label Type your message and press enter
+              input(name="messageText", ng-model="message.text")
