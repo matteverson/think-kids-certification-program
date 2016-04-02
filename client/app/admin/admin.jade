@@ -1,7 +1,7 @@
 div(ng-include='"components/navbar/navbar.html"')
 md-content.container
-  md-tabs(md-dynamic-height="")
-    md-tab(label="Users")
+  md-tabs(md-dynamic-height="", md-selected="selectedTabIndex")
+    md-tab(label="users")
       md-list
         md-list-item.md-3-line(ng-repeat='user in users', ng-disabled="true")
           img.face(ng-src="{{user.prof.avatar}}", alt="{{user.name}}", ng-class="user.activeClass")
@@ -43,7 +43,7 @@ md-content.container
           md-divider
       md-button.md-raised.md-primary(href='/form', ng-show='isAdmin()') New Form
           
-    md-tab(label="Classes")  
+    md-tab(label="classes")  
       md-list
         md-list-item.md-2-line(ng-repeat='class in classes')
           div.md-list-item-text
@@ -55,7 +55,7 @@ md-content.container
           md-divider
       md-button.md-raised.md-primary(href='/class/new', ng-show='isAdmin()') New Class
 
-    md-tab(label="Roles")
+    md-tab(label="roles")
       md-list
         md-list-item.md-2-line(ng-repeat='role in roles')      
           div.md-list-item-text
@@ -67,7 +67,7 @@ md-content.container
           md-divider  
       md-button.md-raised.md-primary(href='/roles/new', ng-show='isAdmin()') New Role
     
-    md-tab(label="Payments")
+    md-tab(label="payments")
       form
         md-autocomplete(md-selected-item="payments.selectedUser", md-search-text="payments.searchUser", md-items="item in searchUser(payments.searchUser)", md-item-text="item.name", placeholder="Select user to view their pending payments")
           md-item-template
@@ -81,7 +81,7 @@ md-content.container
       md-button.md-primary.md-raised(href='/roles/fees', ng-show='isAdmin()')
         | Set payment reminder
           
-    md-tab(label="Announcements")
+    md-tab(label="announcements")
       md-list
         md-subheader.md-no-sticky Sent Announcements
         md-list-item.md-2-line(ng-repeat='announcement in announcements')      

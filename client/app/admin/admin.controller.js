@@ -1,7 +1,13 @@
 'use strict';
 
 angular.module('thinkKidsCertificationProgramApp')
-  .controller('AdminCtrl', function ($scope, $http, Auth, User, $location, $mdDialog, $mdToast, $timeout, Heading) {
+  .controller('AdminCtrl',
+  ($scope, $http, Auth, User, $location, $mdDialog, $mdToast, $timeout, Heading) => {
+    $scope.selectedTabIndex = localStorage.getItem('currentTab');
+
+    $scope.$watch('selectedTabIndex', () => {
+      localStorage.setItem('currentTab', $scope.selectedTabIndex);
+    });
 
     $scope.showToast = toastText => {
       const toast = $mdToast.simple()
