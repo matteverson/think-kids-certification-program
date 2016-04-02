@@ -91,6 +91,17 @@ angular.module('thinkKidsCertificationProgramApp')
       $scope.viewForm = false;
 
       $scope.saveForm = data => {
+        data.edaFieldsModel = data.edaFieldsModel.map(row => {
+          row.columns = row.columns.map(column => {
+            column.control.templateOptions.label =
+                        column.control.templateOptions.label.replace(/^\$|\.*/g, '');
+            return column;
+          });
+          return row;
+        });
+
+        data.edaFieldsModelStringified = JSON.stringify(data.edaFieldsModel);
+
         $http.post('/api/forms', {
           name: data.formName,
           submittedData: [],
