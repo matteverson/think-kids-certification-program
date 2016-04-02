@@ -1,6 +1,12 @@
 div(ng-include='"components/navbar/navbar.html"')
 .container
-  md-list(ng-controller="FormRolesCtrl", ng-cloak)
+  md-list(ng-controller="FormDuplicateCtrl", ng-cloak)
+    md-list-item
+      md-input-container.md-block.no-bottom-margin(flex-gt-sm="")
+        label Form name
+        input(name="formName", ng-model='form.name', required='')
+        div(ng-messages="editClassForm.formName.$error")
+          div(ng-message="required") This is required
     md-subheader(class="md-no-sticky")
       | Choose the start and end dates for the form
     md-list-item

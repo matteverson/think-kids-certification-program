@@ -5,17 +5,26 @@ div(ng-include='"components/navbar/navbar.html"')
       md-subheader Assignments
       md-list-item(ng-show="noAssignments")
         p You currently don't have any due assignments.
-      md-list-item(ng-repeat="form in forms",href='', ng-click="viewForm(form, $index)", ng-class="{active: form == selectedForm}") {{form.name}}
+      md-list-item.md-2-line(ng-repeat="form in forms",href='', ng-click="viewForm(form, $index)", ng-class="{active: form == selectedForm}") 
+        .md-list-item-text
+          h3 {{form.name}}
+          p {{form.clas}}
       md-divider
     
     md-list.md-dense(ng-hide="noLockedAssignments")    
       md-subheader Locked Assignments
-      md-list-item(ng-repeat="form in disabledForms",href='', ng-click="viewForm(form, $index)", ng-class="{active: form == selectedForm}") {{form.name}}
+      md-list-item.md-2-line(ng-repeat="form in disabledForms",href='', ng-click="viewForm(form, $index)", ng-class="{active: form == selectedForm}")
+        md-list-item-text
+          h3 {{form.name}}
+          p {{form.clas}}
       md-divider
 
     md-list.md-dense
       md-subheader Submitted Work
-      md-list-item(ng-repeat="submission in submissions", href='', ng-click="viewSubmission(submission, $index)", ng-class="{active: $index == selectedSubmission}") {{submission.name}}
+      md-list-item.md-2-line(ng-repeat="submission in submissions", href='', ng-click="viewSubmission(submission, $index)", ng-class="{active: $index == selectedSubmission}") 
+        .md-list-item-text
+          h3 {{submission.name}}
+          p {{submission.form.clas}}
       md-divider
 
       md-subheader My Classes
@@ -57,17 +66,19 @@ div(ng-include='"components/navbar/navbar.html"')
             md-divider
           
             md-subheader Ungraded Work
-            md-list-item.md-2-line(ng-repeat="submission in ungradedSubmissions", href='', ng-click="viewSubmission(submission, $index, 'ungraded')", ng-class="{active: submission == currentSubmission}") 
+            md-list-item.md-3-line(ng-repeat="submission in ungradedSubmissions", href='', ng-click="viewSubmission(submission, $index, 'ungraded')", ng-class="{active: submission == currentSubmission}") 
               .md-list-item-text
                 h3 {{submission.name}}
-                p By {{submission.byName}}
+                h4 By {{submission.byName}}
+                p For {{submission.clas}}
             md-divider
               
             md-subheader Graded Work
-            md-list-item.md-2-line(ng-repeat="submission in gradedSubmissions", href='', ng-click="viewSubmission(submission, $index, 'graded')", ng-class="{active: submission == currentSubmission}") 
+            md-list-item.md-3-line(ng-repeat="submission in gradedSubmissions", href='', ng-click="viewSubmission(submission, $index, 'graded')", ng-class="{active: submission == currentSubmission}") 
               .md-list-item-text
                 h3 {{submission.name}}
-                p By {{submission.byName}}
+                h4 By {{submission.byName}}
+                p For {{submission.clas}}
 
         md-divider
         md-content(flex="70", flex-offset="3")  

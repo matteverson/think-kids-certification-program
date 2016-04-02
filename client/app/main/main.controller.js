@@ -45,15 +45,12 @@ angular.module('thinkKidsCertificationProgramApp')
 
                 const classNames = classes.map(clas => clas.name);
 
-                let submissions = forms.filter(form => {
-                  const classesIntersection = form.classes.filter(clas =>
-                    classNames.indexOf(clas) > -1
-                  );
-
-                  return classesIntersection.length > 0;
-                }).map(form => {
+                let submissions = forms.filter(form =>
+                  classNames.indexOf(form.clas) > -1
+                ).map(form => {
                   const submittedData = form.submittedData.map(data => {
                     data.form = form._id;
+                    data.clas = form.clas;
                     data.isPoll = form.isPoll;
                     data.name = `${form.name} - ${moment.unix(data.onTime).fromNow()}`;
                     return data;
@@ -93,7 +90,7 @@ angular.module('thinkKidsCertificationProgramApp')
                                                 val: submission[field] });
                     }
                   });
-                })
+                });
 
                 $scope.ungradedSubmissions = submissions.filter(submission => !submission.grade);
                 $scope.gradedSubmissions = submissions.filter(submission => submission.grade);
@@ -307,8 +304,8 @@ angular.module('thinkKidsCertificationProgramApp')
         updateSubmittedWork();
 
         $scope.viewSubmission = (submission, index) => {
-          $scope.viewWelcome = false;
           $scope.cancelForm();
+          $scope.viewWelcome = false;
           $scope.selectedSubmission = index;
           const feedback = $scope.submissions[index].fields
                            .filter(field => field.prop === 'feedback');

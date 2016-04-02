@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('thinkKidsCertificationProgramApp')
-  .controller('FormRolesCtrl', ($scope, $http, $stateParams, $location, Heading) => {
+  .controller('FormDuplicateCtrl', ($scope, $http, $stateParams, $location, Heading, $mdToast) => {
 
     $scope.today = moment().toDate();
 
@@ -9,6 +9,7 @@ angular.module('thinkKidsCertificationProgramApp')
       .success(roles => {
         $http.get(`/api/forms/${$stateParams.id}`)
           .success(form => {
+            $scope.form = form;
             $scope.isFeedback = form.isFeedback;
             $scope.isPoll = form.isPoll;
 
@@ -76,9 +77,9 @@ angular.module('thinkKidsCertificationProgramApp')
       }
 
       const clas = classes[$scope.selectedClass];
-
-      $http.patch(`/api/forms/${$stateParams.id}`,
-                  { roles, clas, isFeedback, startDate, endDate, isPoll })
+      $http.post('/api/forms/',
+           { name: $scope.form.name,
+             roles, clas, data: $scope.form.data, isFeedback, startDate, endDate, isPoll })
         .success(() => $location.path('/admin'));
     };
   });

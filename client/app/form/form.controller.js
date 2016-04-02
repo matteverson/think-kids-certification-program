@@ -27,11 +27,7 @@ angular.module('thinkKidsCertificationProgramApp')
               permittedRoles = 1;
             }
 
-            const permittedClasses = form.classes.filter(clas =>
-              Auth.getCurrentUser().classes.indexOf(clas) !== -1
-            ).length;
-
-            if (permittedRoles === 0 && permittedClasses === 0) {
+            if (permittedRoles === 0 && Auth.getCurrentUser().classes.indexOf(form.clas) !== -1) {
               $location.path('/');
             } else {
               $scope.form = {};
@@ -107,7 +103,6 @@ angular.module('thinkKidsCertificationProgramApp')
           submittedData: [],
           data: [data],
           roles: [],
-          classes: [],
         }).success(form => $location.path(`/form/${form._id}/roles`));
       };
     }

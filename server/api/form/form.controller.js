@@ -16,7 +16,7 @@ exports.index = function(req, res) {
 exports.show_mine = function(req, res) {
   var userId = req.user._id;
   User.findById(userId, function (err, user) {
-    Form.find({$or: [{roles: {$in: user.roles}}, {classes: {$in: user.classes}}]}, function (err, forms) {
+    Form.find({$or: [{roles: {$in: user.roles}}, {clas: {$in: user.classes}}]}, function (err, forms) {
       if(err) { return handleError(res, err); }
       return res.status(200).json(forms);
     });

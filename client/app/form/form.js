@@ -18,6 +18,11 @@ angular.module('thinkKidsCertificationProgramApp')
         templateUrl: 'app/form/roles.html',
         controller: 'FormRolesCtrl'
       })
+      .state('duplicateForm', {
+        url: '/form/:id/duplicate',
+        templateUrl: 'app/form/duplicate.html',
+        controller: 'FormDuplicateCtrl'
+      })
       .state('formData', {
         url: '/form/:id/data',
         templateUrl: 'app/form/data.html',
