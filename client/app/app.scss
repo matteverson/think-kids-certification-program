@@ -19,6 +19,16 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
     padding: 0.2em 0;
 }
 
+#loading-bar .bar {
+  background: #de2189;
+}
+
+#loading-bar .peg {
+  -moz-box-shadow: #de2189  1px 0 6px 1px;
+  -ms-box-shadow: #de2189  1px 0 6px 1px;
+  -webkit-box-shadow: #de2189  1px 0 6px 1px;
+  box-shadow: #de2189  1px 0 6px 1px;
+}
 // Component styles are injected through grunt
 // injector
 @import 'account/forgot/forgot.scss';

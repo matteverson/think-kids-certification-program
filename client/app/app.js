@@ -16,6 +16,10 @@ angular.module('thinkKidsCertificationProgramApp', [
   'ngMessages',
   'chart.js',
 ])
+  .config(['cfpLoadingBarProvider', cfpLoadingBarProvider => {
+    cfpLoadingBarProvider.includeSpinner = false;
+  }])
+
   .config(($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) => {
     $urlRouterProvider
       .otherwise('/');
