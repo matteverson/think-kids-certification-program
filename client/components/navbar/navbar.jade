@@ -32,5 +32,5 @@ div(ng-controller='NavbarCtrl', layout="row", ng-show="isLoggedIn()")
     div.md-toolbar-tools
       md-button.md-raised(aria-label="Open menu bar", ng-click="toggleMenu()")
         | Menu
-      md-button(aria-label="Go back", ng-show="showGoBack", onClick="history.go(-1)") Go back
+      md-button(aria-label="Go back", ng-show="showGoBack", onClick="window.location.replace('/')") Go back to home
       h2 &nbsp;&nbsp;&nbsp;{{heading()}}

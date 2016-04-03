@@ -20,7 +20,6 @@ angular.module('thinkKidsCertificationProgramApp')
     };
 
     if (!Auth.isAdmin()) {
-      $scope.showToast('Only admins can access the admin panel!');
       $location.path('/');
     }
 

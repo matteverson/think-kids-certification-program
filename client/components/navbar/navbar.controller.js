@@ -1,53 +1,51 @@
 'use strict';
 
 angular.module('thinkKidsCertificationProgramApp')
-  .controller('NavbarCtrl', function ($scope, $location, Auth, $http, $mdSidenav, Heading) {
-    $scope.toggleMenu = function() {
-        $mdSidenav('left').toggle();
+  .controller('NavbarCtrl', ($scope, $location, Auth, $http, $mdSidenav, Heading) => {
+    $scope.toggleMenu = () => {
+      $mdSidenav('left').toggle();
     };
 
-    if(document.referrer.split('/')[2] === window.location.hostname + ':' + window.location.port && window.location.pathname !== '/admin' && window.location.pathname !== '/') {
+    if (window.location.pathname !== '/admin' &&
+        window.location.pathname !== '/login' &&
+        window.location.pathname !== '/') {
       $scope.showGoBack = true;
     }
 
     $scope.heading = Heading.getHeading;
 
-    if(Auth.isLoggedIn()) {
-      $http.get('/api/users/'+Auth.getCurrentUser()._id)
-        .success(function(user) {
-          $scope.newAnnouncement = function() {
-            var announcements = user.announcements.filter(function(announcement) {
-              return !announcement.read;
-            }).filter(function(announcement) {
-              return announcement.recieveDate <= Date.now();
-            });
+    if (Auth.isLoggedIn()) {
+      $http.get(`/api/users/${Auth.getCurrentUser()._id}`)
+        .success(user => {
+          $scope.newAnnouncement = () => {
+            const announcements = user.announcements.filter(announcement =>
+              !announcement.read
+            ).filter(announcement => announcement.recieveDate <= Date.now());
 
-            if(announcements.length > 0) {
+            if (announcements.length > 0) {
               return true;
             }
 
             return false;
           };
 
-          $scope.newMessage = function() {
-            var messages = user.messages.filter(function(message) {
-              return !message.read;
-            });
+          $scope.newMessage = () => {
+            const messages = user.messages.filter(message => !message.read);
 
-            if(messages.length > 0) {
+            if (messages.length > 0) {
               return true;
             }
 
             return false;
           };
-      });
+        });
     }
 
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.isAdmin = Auth.isAdmin;
     $scope.getCurrentUser = Auth.getCurrentUser;
 
-    $scope.logout = function() {
+    $scope.logout = () => {
       Auth.logout();
       $location.path('/login');
     };
