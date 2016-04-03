@@ -45,10 +45,11 @@ angular.module('thinkKidsCertificationProgramApp')
                   $scope.viewWelcome = true;
 
                   let submissions = forms.filter(form =>
-                    form.classes.indexOf(clas.name) > -1
+                    clas.name === form.clas
                   ).map(form => {
                     const submittedData = form.submittedData.map(data => {
                       data.form = form._id;
+                      data.clas = form.clas;
                       data.isPoll = form.isPoll;
                       data.name = `${form.name} - ${moment.unix(data.onTime).fromNow()}`;
                       return data;
