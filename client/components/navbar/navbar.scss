@@ -3,8 +3,7 @@
 // }
 
 md-toolbar > h1 {
-  height: 32px;
-  margin: 15px 0px 0px 0px;
+  margin: 15px 0px 8px 0px;
   font-size: 20px;
   font-weight: 600;
 }
@@ -49,4 +48,24 @@ i.fa.fa-envelope, i.fa.fa-bell {
 
 md-sidenav, md-backdrop {
   position: fixed !important;
+}
+
+@media only screen and (max-width : 320px) {
+  .avatar {
+    width: 50px;
+    height: 50px;
+    margin: 0;
+  }
+
+  md-sidenav > md-toolbar {
+    h1 {
+      margin: 14px 0px 0px 0px;
+      font-size: 20px;
+      font-weight: 300;
+    }
+
+    a {
+      margin-top: 5px;
+    }
+  }
 }
