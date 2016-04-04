@@ -56,14 +56,15 @@ div(ng-include='"components/navbar/navbar.html"')
                   md-button.md-warn.md-raised(ng-click="fail()") Fail
 
         md-tab(label="messages")
-          md-list
-            md-list-item(ng-repeat="message in class.messages")
-              strong {{message.author}}:&nbsp;
-              strong(ng-show="message.fromInstructor") 
-                em{{message.text}}
-              p(ng-hide="message.fromInstructor") {{message.text}}
-              md-divider
-          form.form(name='messageForm', ng-submit='sendMessage()')
-            md-input-container.md-block
-              label Type your message and press enter
-              input(name="messageText", ng-model="message.text")
+          div(id="messages", style="overflow-y:scroll")
+            md-list
+              md-list-item(ng-repeat="message in class.messages")
+                strong {{message.author}}:&nbsp;
+                strong(ng-show="message.fromInstructor") 
+                  em{{message.text}}
+                p(ng-hide="message.fromInstructor") {{message.text}}
+                md-divider
+            form.form(name='messageForm', ng-submit='sendMessage()')
+              md-input-container.md-block
+                label Type your message and press enter
+                input(name="messageText", ng-model="message.text")

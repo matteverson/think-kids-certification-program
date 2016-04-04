@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('thinkKidsCertificationProgramApp')
-  .controller('ClassCtrl', ($scope, $stateParams, $http, Auth, Heading, $location) => {
+  .controller('ClassCtrl', ($scope, $stateParams, $http, Auth, Heading, $location, socket) => {
     $http.get('/api/roles')
       .success(roles => {
         const instructorRoles = roles.filter(role => role.instructor).map(role => role.name);
@@ -15,6 +15,18 @@ angular.module('thinkKidsCertificationProgramApp')
           .success(clas => {
             Heading.setHeading(clas.name);
             $scope.class = clas;
+
+            $('#messages').css('height', `${window.innerHeight - $('#messages').offset().top}px`);
+            $('#messages').scrollTop($('#messages').prop('scrollHeight'));
+
+            $(window).resize(() => {
+              $('#messages').css('height', `${window.innerHeight - $('#messages').offset().top}px`);
+              $('#messages').scrollTop($('#messages').prop('scrollHeight'));
+            });
+
+            socket.syncUpdates('Classes', $scope.class, (ev, oldClass, newClass) => {
+              $scope.class = newClass;
+            });
 
             $http.get('/api/users')
               .success(users => {
@@ -72,7 +84,7 @@ angular.module('thinkKidsCertificationProgramApp')
                                                  val: submission[field] });
                       }
                     });
-                  })
+                  });
 
                   $scope.ungradedSubmissions = submissions.filter(submission => !submission.grade);
                   $scope.gradedSubmissions = submissions.filter(submission => submission.grade);
@@ -179,9 +191,8 @@ angular.module('thinkKidsCertificationProgramApp')
                 forms = forms.filter(form => {
                   if (moment().isAfter(form.endDate)) {
                     return false;
-                  } else {
-                    return true;
                   }
+                  return true;
                 })
                 .map(form => {
                   if (form.endDate === undefined) {
@@ -220,4 +231,8 @@ angular.module('thinkKidsCertificationProgramApp')
             .success(clas => { $scope.class.__v = clas.__v; });
         };
       });
+
+    $scope.$on('$destroy', () => {
+      socket.unsyncUpdates('Classes');
+    });
   });

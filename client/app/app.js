@@ -15,6 +15,7 @@ angular.module('thinkKidsCertificationProgramApp', [
   'angular-loading-bar',
   'ngMessages',
   'chart.js',
+  'btford.socket-io',
 ])
   .config(['cfpLoadingBarProvider', cfpLoadingBarProvider => {
     cfpLoadingBarProvider.includeSpinner = false;
